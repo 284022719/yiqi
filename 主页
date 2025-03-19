@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>游戏战术图示系统</title>
+    
+    <!-- Mermaid流程图库 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    
+    <style>
+        /* 基础战术板样式 */
+        .tactical-board {
+            position: relative;
+            margin: 20px;
+            border: 2px solid #666;
+        }
+
+        /* 时间轴样式 */
+        .timeline {
+            border-left: 3px solid #4CAF50;
+            padding: 20px;
+            margin: 20px;
+        }
+
+        .timeline-event {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        /* 可点击区域效果 */
+        .clickable-area {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .clickable-area:hover {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        /* 动态标记系统 */
+        .marker {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 3px;
+            border: 1px solid red;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <!-- 阶段流程图 -->
+    <div class="mermaid">
+        graph TB
+        A[开场] --> B{血量≤80%}
+        B -->|是| C[进入阶段2]
+        B -->|否| D[继续输出]
+        C --> E[召唤小怪]
+    </div>
+
+    <!-- 战术站位图 -->
+    <div class="tactical-board" style="width: 800px; height: 600px;">
+        <img src="boss-area.jpg" alt="BOSS区域" class="clickable-area" 
+             usemap="#skillmap" style="width: 100%">
+        
+        <map name="skillmap">
+            <area shape="rect" coords="50,120,200,300" 
+                  onclick="showDetail('火焰区域')"
+                  title="火焰新星危险区">
+            <area shape="circle" coords="450,280,40" 
+                  onclick="showDetail('陨石落点')"
+                  title="陨石冲击区域">
+        </map>
+
+        <!-- 动态标记 -->
+        <div class="marker" style="left: 150px; top: 80px;">主坦位置</div>
+        <div class="marker" style="left: 400px; top: 200px;">治疗禁区</div>
+    </div>
+
+    <!-- 时间轴系统 -->
+    <div class="timeline">
+        <div class="timeline-event">
+            <h3>00:00 - 开场站位</h3>
+            <p>主坦位于场地北侧，远程组分散三点钟方向</p>
+        </div>
+        <div class="timeline-event">
+            <h3>00:30 - 第一次AOE</h3>
+            <p>全团集中分摊伤害，治疗开启群体减伤</p>
+        </div>
+    </div>
+
+    <script>
+        // 初始化Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: { 
+                curve: 'basis',
+                nodeSpacing: 50
+            }
+        });
+
+        // 点击区域处理
+        function showDetail(skillName) {
+            alert(`查看技能详情：${skillName}`);
+            // 实际应用中可替换为显示模态框
+        }
+
+        // 动态标记拖拽功能
+        document.querySelectorAll('.marker').forEach(marker => {
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            marker.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.offsetX;
+                offsetY = e.offsetY;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const boardRect = document.querySelector('.tactical-board').getBoundingClientRect();
+                
+                marker.style.left = `${e.clientX - boardRect.left - offsetX}px`;
+                marker.style.top = `${e.clientY - boardRect.top - offsetY}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        });
+    </script>
+</body>
+</html>
