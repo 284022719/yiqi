@@ -2,136 +2,194 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>游戏战术图示系统</title>
-    
-    <!-- Mermaid流程图库 -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
-    
+    <title>暗月赌场：老七的死亡轮盘</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@700&family=Noto+Sans+SC&display=swap" rel="stylesheet">
     <style>
-        /* 基础战术板样式 */
-        .tactical-board {
-            position: relative;
-            margin: 20px;
-            border: 2px solid #666;
+        :root {
+            --wow-gold: #c7a758;
+            --wow-red: #c41f3b;
+            --wow-bg: #1a1a1a;
         }
 
-        /* 时间轴样式 */
-        .timeline {
-            border-left: 3px solid #4CAF50;
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--wow-bg) url('https://wow.zamimg.com/images/bg/bg-repeat.png');
+            color: #e0d3b8;
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
-            margin: 20px;
+            border: 3px solid var(--wow-gold);
+            box-shadow: 0 0 30px rgba(199, 167, 88, 0.3);
         }
 
-        .timeline-event {
-            margin: 15px 0;
-            padding: 10px;
-            background: #f5f5f5;
+        h1 {
+            font-family: 'Alegreya SC', serif;
+            color: var(--wow-gold);
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            border-bottom: 3px solid var(--wow-red);
+            padding-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: var(--wow-red);
+            border-left: 5px solid var(--wow-gold);
+            padding-left: 15px;
+            margin: 2em 0 1em;
+        }
+
+        .phase {
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
+            border: 2px solid #3d2a1f;
             border-radius: 5px;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
 
-        /* 可点击区域效果 */
-        .clickable-area {
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .clickable-area:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
-        }
-
-        /* 动态标记系统 */
-        .marker {
+        .phase::before {
+            content: "⚔";
             position: absolute;
-            background: rgba(255, 0, 0, 0.3);
-            padding: 5px 10px;
-            border-radius: 3px;
-            border: 1px solid red;
-            cursor: move;
+            left: -15px;
+            top: -15px;
+            font-size: 24px;
+            color: var(--wow-red);
+            text-shadow: 0 0 8px rgba(196,31,59,0.8);
+        }
+
+        .warning {
+            color: #ffd700 !important;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255,215,0,0.5);
+        }
+
+        .image-placeholder {
+            background: rgba(50,25,0,0.8);
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px dashed var(--wow-gold);
+            position: relative;
+            text-align: center;
+            color: #b8a27c;
+        }
+
+        .image-placeholder::after {
+            content: "🖼 点击查看战术示意图";
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--wow-red);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* 魔兽风格滚动条 */
+        ::-webkit-scrollbar {
+            width: 12px;
+            background: #2d2720;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--wow-gold);
+            border: 2px solid #3d2a1f;
+            border-radius: 6px;
         }
     </style>
 </head>
 <body>
-    <!-- 阶段流程图 -->
-    <div class="mermaid">
-        graph TB
-        A[开场] --> B{血量≤80%}
-        B -->|是| C[进入阶段2]
-        B -->|否| D[继续输出]
-        C --> E[召唤小怪]
+    <h1>🎪 暗月赌场 · 老七的死亡轮盘 🎰</h1>
+    
+    <h2>⚙️ 核心机制：命运老虎机</h2>
+    <ul>
+        <li>Boss称号：<span class="warning">「硬币吞噬者」老七</span></li>
+        <li>🎰 投币规则：
+            <ul>
+                <li>四种命运币种：⚡雷霆 | ❤️鲜血 | 🌀虚空 | 💀骸骨</li>
+                <li>每次召唤3名携带不同硬币的🎪杂耍恶魔</li>
+                <li>前两枚投入的硬币将决定本轮<em class="warning">灭团技</em></li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="image-placeholder">
+        <div style="font-size: 24px;">🎯 礼券投放示意图</div>
+        <div style="font-size: 14px; margin-top: 10px;">（战术板位置：原PPT右侧示意图）</div>
     </div>
 
-    <!-- 战术站位图 -->
-    <div class="tactical-board" style="width: 800px; height: 600px;">
-        <img src="boss-area.jpg" alt="BOSS区域" class="clickable-area" 
-             usemap="#skillmap" style="width: 100%">
-        
-        <map name="skillmap">
-            <area shape="rect" coords="50,120,200,300" 
-                  onclick="showDetail('火焰区域')"
-                  title="火焰新星危险区">
-            <area shape="circle" coords="450,280,40" 
-                  onclick="showDetail('陨石落点')"
-                  title="陨石冲击区域">
-        </map>
-
-        <!-- 动态标记 -->
-        <div class="marker" style="left: 150px; top: 80px;">主坦位置</div>
-        <div class="marker" style="left: 400px; top: 200px;">治疗禁区</div>
+    <h2>⏳ 阶段一：命运赌局（P1）</h2>
+    <div class="phase">
+        <ul>
+            <li>⚡ 限时挑战：<span class="warning">30秒</span>内必须
+                <ul>
+                    <li>击杀两名杂耍恶魔</li>
+                    <li>拾取🎫礼券并投入Boss的黄金轮盘</li>
+                </ul>
+            </li>
+            <li>💀 失败条件：
+                <ul>
+                    <li>未能在时限内投入<span class="warning">2张礼券</span></li>
+                    <li>礼券拾取规则：首位接触尸体的玩家自动获取</li>
+                </ul>
+            </li>
+            <li>🗺️ 场地策略：
+                <ul>
+                    <li>坦克应将🌑黑水放置在竞技场边缘</li>
+                    <li>治疗注意规避🎪旋转彩灯</li>
+                </ul>
+            </li>
+        </ul>
     </div>
 
-    <!-- 时间轴系统 -->
-    <div class="timeline">
-        <div class="timeline-event">
-            <h3>00:00 - 开场站位</h3>
-            <p>主坦位于场地北侧，远程组分散三点钟方向</p>
-        </div>
-        <div class="timeline-event">
-            <h3>00:30 - 第一次AOE</h3>
-            <p>全团集中分摊伤害，治疗开启群体减伤</p>
-        </div>
+    <h2>🔥 阶段二：狂欢时间（P2）</h2>
+    <div class="phase">
+        <ul>
+            <li>🚪 进入条件：
+                <ul>
+                    <li>Boss能量充满6次</li>
+                    <li>或血量降至<span class="warning">28%</span></li>
+                </ul>
+            </li>
+            <li>⚔️ 生存法则：
+                <ul>
+                    <li>全团获得🎭狂欢嗜血效果</li>
+                    <li>每次能量充满触发<em class="warning">死亡秀</em></li>
+                    <li>三轮表演未击杀则触发<em class="warning">大谢幕</em></li>
+                </ul>
+            </li>
+            <li>🎪 死亡秀节目单：
+                <ol>
+                    <li>第一次能量：
+                        <ul>
+                            <li>召唤⚡雷霆电塔</li>
+                            <li>电塔与Boss产生<em class="warning">死亡连线</em></li>
+                            <li>全员沿🎪旋转舞台内圈移动</li>
+                        </ul>
+                    </li>
+                    <li>第二次能量：
+                        <ul>
+                            <li>随机点名两人发射🎆烟花射线</li>
+                            <li>被点名者需面向观众席（场外）</li>
+                        </ul>
+                    </li>
+                    <li>第三次能量：触发🎇终极烟花秀（团灭）</li>
+                </ol>
+            </li>
+        </ul>
     </div>
-
-    <script>
-        // 初始化Mermaid
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'neutral',
-            flowchart: { 
-                curve: 'basis',
-                nodeSpacing: 50
-            }
-        });
-
-        // 点击区域处理
-        function showDetail(skillName) {
-            alert(`查看技能详情：${skillName}`);
-            // 实际应用中可替换为显示模态框
-        }
-
-        // 动态标记拖拽功能
-        document.querySelectorAll('.marker').forEach(marker => {
-            let isDragging = false;
-            let offsetX, offsetY;
-
-            marker.addEventListener('mousedown', (e) => {
-                isDragging = true;
-                offsetX = e.offsetX;
-                offsetY = e.offsetY;
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                const boardRect = document.querySelector('.tactical-board').getBoundingClientRect();
-                
-                marker.style.left = `${e.clientX - boardRect.left - offsetX}px`;
-                marker.style.top = `${e.clientY - boardRect.top - offsetY}px`;
-            });
-
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-        });
-    </script>
 </body>
 </html>
