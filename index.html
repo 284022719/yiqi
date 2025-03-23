@@ -1,62 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>霜狼氏族公会 - 洛克塔！</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一起 - 魔兽世界公会</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="horde-theme">
-    <!-- 半透明遮罩层 -->
-    <div class="background-overlay"></div>
-
-    <!-- 动态粒子背景容器 -->
-    <div id="particles-background"></div>
-
-    <!-- 主内容容器 -->
-    <div class="main-container">
-        <!-- 公会旗帜背景区 -->
-        <header class="banner-section" style="background-image: url('images/banners/frostwolf-banner.jpg')">
-            <img src="img/logo.png" class="guild-crest" alt="霜狼氏族徽记">
-            <h1 class="guild-name">霜狼氏族</h1>
-            <p class="motto">为了部落的荣耀！</p>
-        </header>
-
-        <!-- 羊皮纸内容区 -->
-        <section class="parchment-section">
-            <div class="parchment-content">
-                <h2>📜 战歌公告</h2>
-                <div class="war-info">
-                    <p>⚔️ 下次集结：奥山战场 - 本周末20:00</p>
-                    <button class="warhorn-button">吹响战争号角</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 职业大厅面板 -->
-        <div class="class-hall">
-            <div class="warrior-panel" style="background-image: url('images/backgrounds/warrior-altar.jpg')">
-                <h3>战士大厅</h3>
-                <p>武器大师：格罗姆·地狱咆哮</p>
-            </div>
-            <div class="shaman-panel" style="background-image: url('images/backgrounds/shaman-ritual.jpg')">
-                <h3>萨满祭坛</h3>
-                <p>元素之灵正在召唤</p>
-            </div>
-        </div>
+<body>
+  <!-- 头部 -->
+  <header class="guild-header">
+    <h1 class="guild-title">一起公会</h1>
+    <p class="guild-motto">打本 休闲 洗脚</p>
+  </header>
+  <div class="background"></div>
+  <!-- 主内容区 -->
+  <main>
+    <!-- 重要公告 -->
+    <div class="content-card important-notice">
+      <h2>⚠️ 紧急战备！</h2>
+      <p>周一占领加乐宫！</p>
     </div>
 
-    <!-- 背景控制脚本 -->
-    <script src="js/particles.min.js"></script>
-    <script>
-        // 粒子背景初始化（需要引入particles.js）
-        particlesJS.load('particles-background', 'config/particles-config.json');
-        
-        // 动态切换战场背景
-        function setBattleground(bgName) {
-            document.querySelector('.banner-section').style.backgroundImage = 
-                `url('images/battlegrounds/${bgName}-bg.jpg')`;
-        }
-    </script>
+    <!-- 活动日历 -->
+    <div class="content-card">
+      <h2>🗓️ 活动时间</h2>
+      <table class="dkp-table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>活动内容</th>
+            <th>集合时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>周一</td>
+            <td>熔火之心Farm</td>
+            <td>20:00</td>
+          </tr>
+          <tr>
+            <td>周三</td>
+            <td>黑翼之巢开荒</td>
+            <td>20:30</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 成员风采 -->
+    <div class="content-card">
+      <h2>🌟 英雄榜</h2>
+      <div class="member-grid">
+        <div class="member-card">
+          <img src="images/members/warrior.png" alt="战士">
+          <h3>狂暴战小明</h3>
+          <p>DPS冠军</p>
+        </div>
+        <div class="member-card">
+          <img src="images/members/shaman.png" alt="萨满">
+          <h3>元素萨小红</h3>
+          <p>治疗之星</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="content-card">
+    <p><img src="img/yy.png" alt="萨满" width="20" height="20"> YY：74814646</p>
+    <p><img src="img/bn.webp" alt="萨满" width="20" height="20"> 战网：284022719@qq.com</p>
+  </footer>
+  <script>
+    document.querySelectorAll('.member-card').forEach(card => {
+      card.addEventListener('mouseover', () => {
+        card.style.transform = 'scale(1.05)';
+      });
+      card.addEventListener('mouseout', () => {
+        card.style.transform = 'scale(1)';
+      });
+    });
+  </script>
 </body>
 </html>

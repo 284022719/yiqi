@@ -1,50 +1,111 @@
-/* === 全局背景系统 === */
-body.horde-theme {
-    background: 
-      
-      url('../img/bg.jpg') center/cover fixed;
+/* ====== 全局基础样式 ====== */
+body {
+  font-family: '微软雅黑', sans-serif;
+  line-height: 1.6;
+  color: #e0e0e0;
+  background: 
+    
+    url('../img/bg.jpg') center/cover fixed;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* ====== 头部区域 ====== */
+.guild-header {
+  background: rgba(15, 15, 15, 0.95);
+  padding: 2rem;
+  border-bottom: 3px solid #785A28;
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+.guild-title {
+  color: #FFD700;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.guild-title {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px #FFD700; }
+  50% { text-shadow: 0 0 20px #FFD700; }
+}
+/* ====== 内容卡片 ====== */
+.content-card {
+  background: rgba(30, 30, 30, 0.9);
+  border: 2px solid #423714;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* ====== 数据表格 ====== */
+.dkp-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(40, 40, 40, 0.9);
+  margin: 1.5rem 0;
+}
+
+.dkp-table th {
+  background: #1a1200;
+  color: #FFD700;
+  padding: 1rem;
+  border-bottom: 3px solid #785A28;
+}
+
+.dkp-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #423714;
+}
+
+/* ====== 按钮控件 ====== */
+.raid-button {
+  background: linear-gradient(to bottom, #785A28, #423714);
+  border: 1px solid #FFD700;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+}
+
+.raid-button:hover {
+  background: linear-gradient(to bottom, #92752F, #785A28);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* ====== 特殊区块 ====== */
+.important-notice {
+  background: rgba(70, 0, 0, 0.8);
+  border-left: 5px solid #FF4500;
+  position: relative;
+}
+
+.notice-flame {
+  position: absolute;
+  right: -20px;
+  top: -15px;
+  width: 40px;
+}
+
+/* ====== 响应式设计 ====== */
+@media (max-width: 768px) {
+  .content-card {
+    margin: 1rem;
+    padding: 1rem;
+    background: rgba(30, 30, 30, 0.95);
   }
-  
-  .background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('../images/textures/grunge-texture.png') repeat;
-    mix-blend-mode: multiply;
-    z-index: -1;
+
+  .dkp-table {
+    display: block;
+    overflow-x: auto;
   }
-  
-  /* === 旗帜区域背景 === */
-  .banner-section {
-    height: 600px;
-    background: 
-      radial-gradient(ellipse at top, rgba(255,215,0,0.2), transparent),
-      linear-gradient(to right, #4a0000, #2a0000);
-    background-blend-mode: screen;
-    position: relative;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-  
-  /* === 羊皮纸效果 === */
-  .parchment-section {
-    background: 
-      url('../images/textures/parchment-texture.jpg') center/cover,
-      linear-gradient(to bottom, #f4e8c1 0%, #e3d2a2 100%);
-    border: 12px solid transparent;
-    border-image: url('../images/borders/scroll-border.png') 30 round;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  }
-  
-  /* === 职业大厅动态背景 === */
-  .class-hall > div {
-    background-size: cover;
-    background-position: center;
-    transition: all 0.5s ease;
-  }
-  
-  .class-hall > div:hover {
-    background-size: 110%;
-    filter: brightness(1.1);
-  }
+}
