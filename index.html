@@ -3,208 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一起 - 魔兽世界精英公会</title>
-    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --wow-gold: #ffd100;
-            --horde-red: #c41f3b;
-            --alliance-blue: #0078ff;
-        }
-
-        .wow-jumbotron {
-            background: linear-gradient(to right, rgba(26, 26, 26, 0.9) 30%, transparent),
-                        url('blackrock-mountain.jpg') center/cover;
-            height: 70vh;
-            color: var(--wow-gold);
-        }
-
-        .dkp-table th {
-            background: var(--horde-red);
-            color: white;
-        }
-
-        .raid-progress {
-            border-left: 3px solid var(--wow-gold);
-        }
-
-        .wow-card {
-            background: #2c2c2c;
-            border: 1px solid var(--wow-gold);
-            transition: transform 0.3s;
-        }
-        .wow-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+    <title>霜狼氏族公会 - 洛克塔！</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-dark text-light">
-    <!-- 导航栏 -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="guild-logo.png" width="40" class="me-2">一起
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="fas fa-dragon"></i> 艾泽拉斯专区
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="#raid">团队战绩</a></li>
-                            <li><a class="dropdown-item" href="#dkp">DKP系统</a></li>
-                            <li><a class="dropdown-item" href="#event">活动日历</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="#about">公会介绍</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#guides">副本攻略</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tools">实用工具</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body class="horde-theme">
+    <!-- 半透明遮罩层 -->
+    <div class="background-overlay"></div>
 
-    <!-- 首页大图 -->
-    <header class="wow-jumbotron">
-        <div class="container h-100 d-flex align-items-center">
-            <div class="text-start">
-                <h1 class="display-3">为了部落的荣耀！</h1>
-                <p class="lead fs-4">养老 | 休闲 | 洗脚</p>
-            </div>
-        </div>
-    </header>
+    <!-- 动态粒子背景容器 -->
+    <div id="particles-background"></div>
 
-    <!-- 团队战绩 -->
-    <section id="raid" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5"><i class="fas fa-trophy"></i> 团队战绩</h2>
-            <div class="row">
-                <div class="col-md-4 raid-progress">
-                    <h4>纳斯利亚堡</h4>
-                    <ul class="list-unstyled">
-                        <li>伊涅瓦·暗脉女勋爵 <span class="text-success">(服务器第一)</span></li>
-                    </ul>
-                    <h4>统御圣所</h4>
-                    <ul class="list-unstyled">
-                        <li>裂魂者多尔玛赞 <span class="text-success">(服务器第一)</span></li>
-                </div>
-                <div class="col-md-8">
-                    <div id="biliLiveContainer">
-  <iframe ...></iframe>
-  <p class="fallback-text">
-    直播加载失败？<a href="https://live.bilibili.com/30654671" target="_blank">点击直接访问</a>
-  </p>
-</div>
+    <!-- 主内容容器 -->
+    <div class="main-container">
+        <!-- 公会旗帜背景区 -->
+        <header class="banner-section" style="background-image: url('images/banners/frostwolf-banner.jpg')">
+            <img src="img/logo.png" class="guild-crest" alt="霜狼氏族徽记">
+            <h1 class="guild-name">霜狼氏族</h1>
+            <p class="motto">为了部落的荣耀！</p>
+        </header>
+
+        <!-- 羊皮纸内容区 -->
+        <section class="parchment-section">
+            <div class="parchment-content">
+                <h2>📜 战歌公告</h2>
+                <div class="war-info">
+                    <p>⚔️ 下次集结：奥山战场 - 本周末20:00</p>
+                    <button class="warhorn-button">吹响战争号角</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- DKP管理系统 -->
-    <section id="dkp" class="bg-black py-5">
-        <div class="container">
-            <h2 class="text-center mb-5"><i class="fas fa-coins"></i> DKP实时排名</h2>
-            <table class="table table-dark dkp-table">
-                <thead>
-                    <tr>
-                        <th>玩家</th>
-                        <th>职业</th>
-                        <th>当前DKP</th>
-                        <th>最近消费</th>
-                    </tr>
-                </thead>
-                <tbody id="dkpTable">
-                    <!-- 通过JavaScript动态加载 -->
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- 副本攻略 -->
-    <section id="guides" class="py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="wow-card p-4">
-                        <h4><i class="fas fa-fire"></i> BWL陷阱房速通</h4>
-                        <div class="markdown-content">
-                            <p>参考<strong>B R I C K E D</strong>公会战术：</p>
-                            <img src="trap-jump.jpg" class="img-fluid mb-3">
-                            <ul>
-                                <li>准备5组隐身药水</li>
-                                <li>工程学250+必备</li>
-                                <li>右侧贴墙行进路线</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- 更多攻略卡片 -->
+        <!-- 职业大厅面板 -->
+        <div class="class-hall">
+            <div class="warrior-panel" style="background-image: url('images/backgrounds/warrior-altar.jpg')">
+                <h3>战士大厅</h3>
+                <p>武器大师：格罗姆·地狱咆哮</p>
+            </div>
+            <div class="shaman-panel" style="background-image: url('images/backgrounds/shaman-ritual.jpg')">
+                <h3>萨满祭坛</h3>
+                <p>元素之灵正在召唤</p>
             </div>
         </div>
-    </section>
-
-    <!-- 游戏工具 -->
-    <section id="tools" class="py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="wow-card text-center p-4">
-                        <i class="fas fa-calculator fa-3x mb-3"></i>
-                        <h5>DPS模拟器</h5>
-                        <input type="text" class="form-control mb-2" placeholder="输入角色名">
-                        <button class="btn btn-warning" onclick="fetchDPS()">查询</button>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="wow-card p-4">
-                        <div id="dpsResult"><!-- 动态显示结果 --></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 安全警告 -->
-    <div class="alert alert-danger rounded-0 text-center">
-        ⚠️ 警惕钓鱼网站！官方地址：www.wowchina.com
     </div>
 
-    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- 背景控制脚本 -->
+    <script src="js/particles.min.js"></script>
     <script>
-        // DKP模拟数据
-        const dkpData = [
-            { player: "战歌女王", class: "战士", dkp: 285, last: "毁灭之刃" },
-            { player: "暗影之舞", class: "盗贼", dkp: 265, last: "龙牙饰物" }
-        ];
-
-        function renderDKPTable() {
-            const tbody = document.getElementById('dkpTable');
-            tbody.innerHTML = dkpData.map(item => `
-                <tr>
-                    <td>${item.player}</td>
-                    <td>${item.class}</td>
-                    <td>${item.dkp}</td>
-                    <td>${item.last}</td>
-                </tr>
-            `).join('');
+        // 粒子背景初始化（需要引入particles.js）
+        particlesJS.load('particles-background', 'config/particles-config.json');
+        
+        // 动态切换战场背景
+        function setBattleground(bgName) {
+            document.querySelector('.banner-section').style.backgroundImage = 
+                `url('images/battlegrounds/${bgName}-bg.jpg')`;
         }
-
-        // WCL接口调用
-        async function fetchDPS(character) {
-            const res = await fetch(`https://wowlogs.com/api/${character}`);
-            const data = await res.json();
-            // 处理显示数据...
-        }
-
-        // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            renderDKPTable();
-        });
     </script>
 </body>
 </html>
