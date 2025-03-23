@@ -1,0 +1,50 @@
+/* === 全局背景系统 === */
+body.horde-theme {
+    background: 
+      
+      url('../img/bg.jpg') center/cover fixed;
+  }
+  
+  .background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('../images/textures/grunge-texture.png') repeat;
+    mix-blend-mode: multiply;
+    z-index: -1;
+  }
+  
+  /* === 旗帜区域背景 === */
+  .banner-section {
+    height: 600px;
+    background: 
+      radial-gradient(ellipse at top, rgba(255,215,0,0.2), transparent),
+      linear-gradient(to right, #4a0000, #2a0000);
+    background-blend-mode: screen;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  
+  /* === 羊皮纸效果 === */
+  .parchment-section {
+    background: 
+      url('../images/textures/parchment-texture.jpg') center/cover,
+      linear-gradient(to bottom, #f4e8c1 0%, #e3d2a2 100%);
+    border: 12px solid transparent;
+    border-image: url('../images/borders/scroll-border.png') 30 round;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+  
+  /* === 职业大厅动态背景 === */
+  .class-hall > div {
+    background-size: cover;
+    background-position: center;
+    transition: all 0.5s ease;
+  }
+  
+  .class-hall > div:hover {
+    background-size: 110%;
+    filter: brightness(1.1);
+  }
