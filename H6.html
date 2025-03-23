@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H6 独臂盗匪</title>
+  <!-- 继承主站样式 -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 子页面特有微调 -->
+  <style>
+    /* 仅添加主站没有的样式 */
+    .strategy-container { max-width: 1000px; }
+    .wipe-list { column-count: 2; }
+    .mechanism-img { 
+      width: 60%;
+      border: 2px solid #785A28;
+      margin: 1rem auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- 返回按钮使用主站按钮样式 -->
+  <a href="index.html" class="raid-button" style="margin:20px">← 返回主页</a>
+
+  <main class="content-card strategy-container">
+    <!-- 标题使用主站样式 -->
+    <h1 class="guild-title" style="font-size:2rem">赌场刺激战术手册</h1>
+    
+    <!-- P1阶段 -->
+    <section class="content-card">
+      <h2 class="guild-motto">🏮 P1阶段 - 投币机制</h2>
+      <div class="important-notice">
+        <h3>核心机制：</h3>
+        <ul class="dkp-table">
+          <li>每次刷新3个携带<em>不同币种</em>的小怪</li>
+
+          <img src="img/h6/图片1.png" alt="Pulpit rock">
+
+          <li>前两个投币决定BOSS本轮技能（重复则团灭）</li>
+
+          <img src="img/h6/图片2.png" alt="Pulpit rock"  width="90%">
+
+          <li>必须30秒内：<span>①击杀2小怪 ②捡礼券投入BOSS</span></li>
+
+          <img src="img/h6/图片3.png" alt="Pulpit rock">
+        </ul>
+      </div>
+    </section>
+
+    <!-- P2阶段 -->
+    <section class="content-card">
+      <h2 class="guild-motto">⚡ P2阶段 - 能量爆发</h2>
+      <p class="highlight">进入条件：6次满能量 或 BOSS血量28%</p>
+
+      <!-- 使用主站表格样式 -->
+      <table class="dkp-table">
+        <tr><th>第一次满能量</th><td>电塔连线机制</td><td>
+          BOSS不断召唤电塔，boss与电塔之间有连线，全团和T重合站，出现电塔就后退一步，慢慢绕圈</td><td><img src="img/h6/P2-1.gif" alt="Pulpit rock"></td></tr>
+        <tr><th>第二次满能量</th><td>射线引导机制</td><td>P2第二次满能量点两个人喷射线，中点名的人对着人群外</td><td><img src="img/h6/P2-2.gif" alt="Pulpit rock"></tr>
+        <tr class="important-notice"><th>第三次满能量</th><td>BOSS开始读灭团技</td><td>全团AOE</td><td>RUSH不掉就团灭</td></tr>
+      </table>
+    </section>
+
+    <!-- 灭团点 -->
+    <section class="content-card important-notice">
+      <h2 class="guild-motto">💀 灭团警报</h2>
+      <ol class="wipe-list">
+        <li>P1投币重复</li>
+        <li>30秒未投2券</li>
+        <li>P3能量超限</li>
+        <li>触碰电塔连线</li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>
