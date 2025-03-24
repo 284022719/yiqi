@@ -34,6 +34,80 @@ body {
   0%, 100% { text-shadow: 0 0 10px #FFD700; }
   50% { text-shadow: 0 0 20px #FFD700; }
 }
+/* ====== 导航栏样式 ====== */
+.guild-nav {
+  background: rgba(15, 15, 15, 0.95);
+  border-bottom: 2px solid #423714;
+  padding: 1rem 2rem;
+  backdrop-filter: blur(8px);
+}
+
+.guild-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 2rem;
+}
+
+.guild-nav a {
+  color: #FFD700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+.guild-nav a:hover {
+  color: #fff;
+}
+
+/* 下拉菜单样式 */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: rgba(30, 30, 30, 0.95);
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  z-index: 1;
+  border: 1px solid #785A28;
+  border-radius: 4px;
+}
+
+.dropdown-content a {
+  color: #e0e0e0;
+  padding: 12px 16px;
+  display: block;
+  font-size: 1rem;
+}
+
+.dropdown-content a:hover {
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .guild-nav {
+    padding: 0.5rem 1rem;
+  }
+  
+  .guild-nav ul {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .dropdown-content {
+    position: static;
+    min-width: 100%;
+  }
+}
 /* ====== 内容卡片 ====== */
 .content-card {
   background: rgba(30, 30, 30, 0.9);
