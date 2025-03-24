@@ -20,6 +20,10 @@
     <div class="content-card wcl-reports">
       <h2>📊 最新战斗报告</h2>
       <div class="loading">数据加载中...</div>
+      <!-- 添加错误提示 -->
+      <div class="error-alert" style="display: none;">
+        数据加载失败: <span id="error-detail"></span>
+      </div>
       <table class="dkp-table" id="wcl-table">
         <thead>
           <tr>
@@ -32,36 +36,42 @@
         <tbody></tbody>
       </table>
     </div>
-
-    <!-- 原有其他内容保持不变... -->
   </main>
+
   <script>
-    async function fetchWCLReports() 
-    {
-      try
-      {
-        const loading = document.querySelector('.loading');
-        const errorAlert = document.querySelector('.error-alert');
-        loading.style.display = 'block';
-        errorAlert.style.display = 'none';
-  
-        // 调用Netlify函数
-        const response = await fetch('/.netlify/functions/wcl');
-        if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
-        const reports = await response.json();
-        renderReports(reports);
-      } 
-      catch (error) 
-      {
-        console.error('WCL数据获取失败:', error);
-        document.querySelector('#error-detail').textContent = error.message;
-        document.querySelector('.error-alert').style.display = 'block';
-      } 
-      finally 
-      {
-        document.querySelector('.loading').style.display = 'none';
+    // 确保DOM加载完成后执行脚本
+    document.addEventListener('DOMContentLoaded', function() {
+      async function fetchWCLReports() {
+        try {
+          const loading = document.querySelector('.loading');
+          const errorAlert = document.querySelector('.error-alert');
+          // 空值检查
+          if (!loading || !errorAlert) throw new Error("DOM元素未找到");
+          loading.style.display = 'block';
+          errorAlert.style.display = 'none';
+
+          // 调用Netlify函数
+          const response = await fetch('/.netlify/functions/wcl');
+          if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+          const reports = await response.json();
+          renderReports(reports);
+        } 
+        catch (error) {
+          console.error('WCL数据获取失败:', error);
+          const errorDetail = document.querySelector('#error-detail');
+          if (errorDetail) errorDetail.textContent = error.message;
+          const errorAlert = document.querySelector('.error-alert');
+          if (errorAlert) errorAlert.style.display = 'block';
+        } 
+        finally {
+          const loading = document.querySelector('.loading');
+          if (loading) loading.style.display = 'none';
+        }
       }
-    }
+
+      // 调用函数
+      fetchWCLReports();
+    });
   </script>
 </body>
 </html>
