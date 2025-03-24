@@ -134,3 +134,21 @@ body {
     height: 300px;
   }
 }
+/* WCL数据样式 */
+.wcl-reports {
+  position: relative;
+}
+
+.loading {
+  padding: 1rem;
+  text-align: center;
+  color: #FFD700;
+}
+
+#wcl-table td {
+  padding: 0.8rem 1rem;
+}
+
+#wcl-table td:nth-child(3) {
+  color: #00ff00; /* 进度数字绿色显示 */
+}
