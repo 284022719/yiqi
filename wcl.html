@@ -46,22 +46,23 @@
         const errorAlert = document.querySelector('.error-alert');
         
         try {
+          // 显示加载状态
           loading.style.display = 'block';
           errorAlert.style.display = 'none';
-
+  
           // 调用Netlify函数
           const response = await fetch('/.netlify/functions/wcl');
           
-          // 增强错误处理
+          // 捕获非JSON响应
+          const responseText = await response.text();
           if (!response.ok) {
-            const errorData = await response.text();
-            throw new Error(`接口异常 (${response.status}): ${errorData.slice(0, 80)}`);
+            throw new Error(`HTTP错误 ${response.status}: ${responseText.slice(0, 100)}`);
           }
-
+  
           // 尝试解析JSON
-          const reports = await response.json();
+          const reports = JSON.parse(responseText);
           renderReports(reports);
-
+  
         } catch (error) {
           console.error('WCL数据获取失败:', error);
           document.querySelector('#error-detail').textContent = error.message;
@@ -70,24 +71,23 @@
           loading.style.display = 'none';
         }
       }
-
-      // 渲染数据到表格
+  
+      // 渲染数据到表格（保持不变）
       function renderReports(reports) {
         const tbody = document.querySelector('#wcl-table tbody');
-        tbody.innerHTML = ''; // 清空旧数据
-
+        tbody.innerHTML = '';
         reports.forEach(report => {
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td>${new Date(report.startTime).toLocaleDateString()}</td>
             <td>${report.zone?.name || '未知副本'}</td>
             <td>${report.progress}%</td>
-            <td>${(report.duration / 60).toFixed(1)} 分钟</td>
+            <td>${(report.duration / 60).toFixed(1)}分钟</td>
           `;
           tbody.appendChild(tr);
         });
       }
-
+  
       // 初始化加载
       fetchWCLReports();
     });
