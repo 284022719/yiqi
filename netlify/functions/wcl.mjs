@@ -1,3 +1,6 @@
+import fetch from 'node-fetch';
+import { Buffer } from 'buffer';
+
 export default async () => {
   const GUILD_ID = '586445'; // 替换为真实公会ID
   const AUTH_URL = 'https://cn.warcraftlogs.com/oauth/token';
