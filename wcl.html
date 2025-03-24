@@ -20,9 +20,10 @@
     <div class="content-card wcl-reports">
       <h2>📊 最新战斗报告</h2>
       <div class="loading">数据加载中...</div>
-      <!-- 添加错误提示 -->
-      <div class="error-alert" style="display: none;">
+      <!-- 错误提示 -->
+      <div class="error-alert" style="display: none; background: #4a0000; padding: 1rem; margin: 1rem 0;">
         数据加载失败: <span id="error-detail"></span>
+        <button onclick="location.reload()" style="margin-left:1rem; padding:0.3rem 0.8rem; background: #785A28; border: none; color: white">重试</button>
       </div>
       <table class="dkp-table" id="wcl-table">
         <thead>
@@ -39,37 +40,55 @@
   </main>
 
   <script>
-    // 确保DOM加载完成后执行脚本
     document.addEventListener('DOMContentLoaded', function() {
       async function fetchWCLReports() {
+        const loading = document.querySelector('.loading');
+        const errorAlert = document.querySelector('.error-alert');
+        
         try {
-          const loading = document.querySelector('.loading');
-          const errorAlert = document.querySelector('.error-alert');
-          // 空值检查
-          if (!loading || !errorAlert) throw new Error("DOM元素未找到");
           loading.style.display = 'block';
           errorAlert.style.display = 'none';
 
           // 调用Netlify函数
           const response = await fetch('/.netlify/functions/wcl');
-          if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+          
+          // 增强错误处理
+          if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(`接口异常 (${response.status}): ${errorData.slice(0, 80)}`);
+          }
+
+          // 尝试解析JSON
           const reports = await response.json();
           renderReports(reports);
-        } 
-        catch (error) {
+
+        } catch (error) {
           console.error('WCL数据获取失败:', error);
-          const errorDetail = document.querySelector('#error-detail');
-          if (errorDetail) errorDetail.textContent = error.message;
-          const errorAlert = document.querySelector('.error-alert');
-          if (errorAlert) errorAlert.style.display = 'block';
-        } 
-        finally {
-          const loading = document.querySelector('.loading');
-          if (loading) loading.style.display = 'none';
+          document.querySelector('#error-detail').textContent = error.message;
+          errorAlert.style.display = 'block';
+        } finally {
+          loading.style.display = 'none';
         }
       }
 
-      // 调用函数
+      // 渲染数据到表格
+      function renderReports(reports) {
+        const tbody = document.querySelector('#wcl-table tbody');
+        tbody.innerHTML = ''; // 清空旧数据
+
+        reports.forEach(report => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(report.startTime).toLocaleDateString()}</td>
+            <td>${report.zone?.name || '未知副本'}</td>
+            <td>${report.progress}%</td>
+            <td>${(report.duration / 60).toFixed(1)} 分钟</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // 初始化加载
       fetchWCLReports();
     });
   </script>
