@@ -35,29 +35,33 @@
 
     <!-- 原有其他内容保持不变... -->
   </main>
-
-  async function fetchWCLReports() {
-    try {
-      const loading = document.querySelector('.loading');
-      const errorAlert = document.querySelector('.error-alert');
-      
-      loading.style.display = 'block';
-      errorAlert.style.display = 'none';
+  <script>
+    async function fetchWCLReports() 
+    {
+      try
+      {
+        const loading = document.querySelector('.loading');
+        const errorAlert = document.querySelector('.error-alert');
+        loading.style.display = 'block';
+        errorAlert.style.display = 'none';
   
-      // 调用Netlify函数
-      const response = await fetch('/.netlify/functions/wcl');
-      if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
-      
-      const reports = await response.json();
-      renderReports(reports);
-  
-    } catch (error) {
-      console.error('WCL数据获取失败:', error);
-      document.querySelector('#error-detail').textContent = error.message;
-      document.querySelector('.error-alert').style.display = 'block';
-    } finally {
-      document.querySelector('.loading').style.display = 'none';
+        // 调用Netlify函数
+        const response = await fetch('/.netlify/functions/wcl');
+        if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+        const reports = await response.json();
+        renderReports(reports);
+      } 
+      catch (error) 
+      {
+        console.error('WCL数据获取失败:', error);
+        document.querySelector('#error-detail').textContent = error.message;
+        document.querySelector('.error-alert').style.display = 'block';
+      } 
+      finally 
+      {
+        document.querySelector('.loading').style.display = 'none';
+      }
     }
-  }
+  </script>
 </body>
 </html>
