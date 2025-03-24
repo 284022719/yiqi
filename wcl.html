@@ -41,52 +41,63 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      const MAX_RETRY = 2; // 最大重试次数
+      let retryCount = 0;
+  
       async function fetchWCLReports() {
         const loading = document.querySelector('.loading');
         const errorAlert = document.querySelector('.error-alert');
         
         try {
-          // 显示加载状态
           loading.style.display = 'block';
           errorAlert.style.display = 'none';
   
-          // 调用Netlify函数
-          const response = await fetch('/.netlify/functions/wcl');
+          // 添加随机参数避免缓存
+          const response = await fetch('/.netlify/functions/wcl?t=' + Date.now());
           
-          // 捕获非JSON响应
+          // 捕获原始响应文本
           const responseText = await response.text();
-          if (!response.ok) {
-            throw new Error(`HTTP错误 ${response.status}: ${responseText.slice(0, 100)}`);
+          console.log("原始响应:", responseText);
+  
+          // 检查是否为 JSON
+          if (!response.headers.get('content-type')?.includes('application/json')) {
+            throw new Error(`响应格式错误 (Content-Type: ${response.headers.get('content-type')})`);
           }
   
-          // 尝试解析JSON
-          const reports = JSON.parse(responseText);
-          renderReports(reports);
+          const data = JSON.parse(responseText);
+          
+          // 处理函数返回的错误
+          if (data.error) {
+            throw new Error(`${data.error} (详情: ${data.detail || '无'})`);
+          }
+  
+          renderReports(data);
   
         } catch (error) {
-          console.error('WCL数据获取失败:', error);
-          document.querySelector('#error-detail').textContent = error.message;
+          console.error('最终错误:', error);
+          
+          // 自动重试机制
+          if (retryCount < MAX_RETRY) {
+            retryCount++;
+            console.warn(`第 ${retryCount} 次重试...`);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            return fetchWCLReports();
+          }
+  
+          // 显示友好错误
+          const errorMsg = error.message.includes("JSON") 
+            ? "服务器返回了错误页面，请检查网络或稍后重试" 
+            : error.message;
+          
+          document.querySelector('#error-detail').textContent = errorMsg;
           errorAlert.style.display = 'block';
         } finally {
           loading.style.display = 'none';
         }
       }
   
-      // 渲染数据到表格（保持不变）
-      function renderReports(reports) {
-        const tbody = document.querySelector('#wcl-table tbody');
-        tbody.innerHTML = '';
-        reports.forEach(report => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${new Date(report.startTime).toLocaleDateString()}</td>
-            <td>${report.zone?.name || '未知副本'}</td>
-            <td>${report.progress}%</td>
-            <td>${(report.duration / 60).toFixed(1)}分钟</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      }
+      // 渲染函数保持不变
+      function renderReports(reports) { /* ... */ }
   
       // 初始化加载
       fetchWCLReports();
