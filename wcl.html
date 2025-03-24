@@ -36,73 +36,28 @@
     <!-- 原有其他内容保持不变... -->
   </main>
 
-  <script>
-    // WCL配置
-    const WCL_CLIENT_ID = '9e814e47-00ba-4e13-a7b7-c5153ec3bdc0';
-    const WCL_CLIENT_SECRET = '-'; // 注意：前端暴露secret存在风险
-    const GUILD_ID = '586445'; 
-
-    // 获取访问令牌
-    async function getWCLLogin() {
-      const authUrl = `https://www.warcraftlogs.com/oauth/authorize?
-        response_type=code&
-        client_id=${WCL_CLIENT_ID}&
-        redirect_uri=${encodeURIComponent(window.location.href)}`;
+  async function fetchWCLReports() {
+    try {
+      const loading = document.querySelector('.loading');
+      const errorAlert = document.querySelector('.error-alert');
       
-      window.location.href = authUrl;
-    }
-
-    // 获取战斗报告
-    async function fetchWCLReports() {
-      try {
-        // 1. 获取访问令牌
-        const tokenResponse = await fetch('https://www.warcraftlogs.com/oauth/token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${btoa(WCL_CLIENT_ID + ':' + WCL_CLIENT_SECRET)}`
-          },
-          body: 'grant_type=client_credentials'
-        });
-
-        const { access_token } = await tokenResponse.json();
-
-        // 2. 获取公会报告
-        const reportsResponse = await fetch(
-          `https://cn.warcraftlogs.com/v1/reports/guild/${GUILD_ID}?api_key=${access_token}`
-        );
-        
-        const reports = await reportsResponse.json();
-        renderReports(reports);
-
-      } catch (error) {
-        console.error('WCL数据获取失败:', error);
-        document.querySelector('.loading').textContent = '数据加载失败，请刷新重试';
-      }
-    }
-
-    // 渲染表格
-    function renderReports(reports) {
-      const tbody = document.querySelector('#wcl-table tbody');
-      tbody.innerHTML = '';
-
-      reports.forEach(report => {
-        const row = `
-          <tr>
-            <td>${new Date(report.start).toLocaleDateString()}</td>
-            <td>${report.zone.name}</td>
-            <td>${report.fights.filter(f => f.kill).length}/${report.fights.length}</td>
-            <td>${Math.floor(report.end - report.start)/60}分钟</td>
-          </tr>
-        `;
-        tbody.insertAdjacentHTML('beforeend', row);
-      });
-
+      loading.style.display = 'block';
+      errorAlert.style.display = 'none';
+  
+      // 调用Netlify函数
+      const response = await fetch('/.netlify/functions/wcl');
+      if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+      
+      const reports = await response.json();
+      renderReports(reports);
+  
+    } catch (error) {
+      console.error('WCL数据获取失败:', error);
+      document.querySelector('#error-detail').textContent = error.message;
+      document.querySelector('.error-alert').style.display = 'block';
+    } finally {
       document.querySelector('.loading').style.display = 'none';
     }
-
-    // 页面加载时获取数据
-    window.addEventListener('DOMContentLoaded', fetchWCLReports);
-  </script>
+  }
 </body>
 </html>

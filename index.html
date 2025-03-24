@@ -6,6 +6,7 @@
   <title>一起 - 魔兽世界公会</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <!-- 头部 -->
   <header class="guild-header">
@@ -14,50 +15,51 @@
   </header>
   <div class="background"></div>
   <!-- 主内容区 -->
+
   <main>
     <!-- 重要公告 -->
     <div class="content-card important-notice">
       <h2>⚠️ 紧急战备！</h2>
       <p>周一占领加乐宫！</p>
     </div>
-<!-- 攻略 -->
+
+    <!-- 攻略 -->
     <div class="content-card">
       <h2>📜 战术攻略</h2>
       <a href="H6.html" class="raid-button">H6 独臂盗匪 →</a>
     </div>
+
     <!-- wcl -->
     <div class="content-card">
       <h2>📜 wcl</h2>
       <a href="wcl.html" class="raid-button">wcl →</a>
     </div>
-<!-- 公会主播 -->
-<div class="content-card">
-  <h2>公会主播</h2>
 
-  <div class="iframe-container"> <!-- 添加正确容器 -->
-    <iframe 
-      src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30654671&quality=0"
-    ></iframe>
-  </div>
+    <!-- 公会主播 -->
+    <div class="content-card">
+      <h2>公会主播</h2>
+      <div class="iframe-container"> <!-- 添加正确容器 -->
+        <iframe src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30654671&quality=0">
+        </iframe>
+      </div>
+    </div>
 
-</div>
-
-<!-- 公会视频 -->
-<div class="content-card">
-  <h2>公会视频</h2>
-  <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
-  <div class="iframe-container"> <!-- 添加相同容器 -->
-    <iframe 
-      src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
-      name="凋零密院"
-      scrolling="no"  
-      frameborder="no" 
-      framespacing="0" 
-      allowfullscreen="true">
-    </iframe>
-  </div>
-  <p>2022年夏天一把平平无奇的大米</p>
-</div>
+    <!-- 公会视频 -->
+    <div class="content-card">
+      <h2>公会视频</h2>
+      <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
+      <div class="iframe-container"> <!-- 添加相同容器 -->
+        <iframe 
+        src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
+        name="凋零密院"
+        scrolling="no"  
+        frameborder="no" 
+        framespacing="0" 
+        allowfullscreen="true">
+        </iframe>
+      </div>
+      <p>2022年夏天一把平平无奇的大米</p>
+    </div>
 
     <!-- 活动日历 -->
     <div class="content-card">
@@ -79,26 +81,14 @@
         </tbody>
       </table>
     </div>
-
- 
-    
-    </div>
   </main>
 
   <!-- 页脚 -->
   <footer class="content-card">
-    <p><img src="img/yy.png" alt="萨满" width="20" height="20"> YY：74814646</p>
-    <p><img src="img/bn.webp" alt="萨满" width="20" height="20"> 战网：284022719@qq.com</p>
+    <p><img src="img/yy.png" alt="YY图标" width="20" height="20"> YY：74814646</p>
+    <p><img src="img/bn.webp" alt="战网图标" width="20" height="20"> 战网：284022719@qq.com</p>
   </footer>
-  <script>
-    document.querySelectorAll('.member-card').forEach(card => {
-      card.addEventListener('mouseover', () => {
-        card.style.transform = 'scale(1.05)';
-      });
-      card.addEventListener('mouseout', () => {
-        card.style.transform = 'scale(1)';
-      });
-    });
-  </script>
+
 </body>
+
 </html>
