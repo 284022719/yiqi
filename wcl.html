@@ -93,28 +93,32 @@
   </main>
 
   <script>
-    async function fetchGuildReports() {
-      try {
-        const response = await fetch('/.netlify/functions/wcl-proxy');
-        const data = await response.json();
-        
-        if (!response.ok || !data.success) {
-          throw new Error(data.message || '服务器返回错误');
-        }
-        
-        // 检查报告数据是否存在
-        if (!data.data?.reportData?.reports?.data) {
-          throw new Error('没有找到活动报告数据');
-        }
-        
-        return data.data.reportData.reports.data;
-      } catch (error) {
-        console.error('获取数据失败:', error);
-        throw new Error(`无法加载数据: ${error.message}`);
-      }
+   async function fetchGuildReports() {
+  try {
+    const response = await fetch('/.netlify/functions/wcl-proxy');
+    const data = await response.json();
+    
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || '服务器返回错误');
     }
+    
+    // 检查新的数据结构
+    if (!data.data?.reportData?.reports?.data) {
+      throw new Error('API返回数据格式不正确');
+    }
+    
+    return data.data.reportData.reports.data;
+  } catch (error) {
+    console.error('获取数据失败:', error);
+    throw new Error(`无法加载数据: ${error.message}`);
+  }
+}
 
     function displayWclData(reports) {
+        // ...使用 reports 数组渲染表格
+  reports.forEach(report => {
+    // 注意: report.owner 现在是对象 { name: 'xxx' }
+    const ownerName = report.owner?.name || '未知';
       const loadingElement = document.getElementById('loading');
       const errorElement = document.getElementById('error');
       const tableElement = document.getElementById('wcl-table');
