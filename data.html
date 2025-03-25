@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一起公会 - 高级数据面板</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- 网站头部 -->
+  <header class="guild-header" role="banner">
+    <h1 class="guild-title">一起公会数据面板</h1>
+    <p class="guild-motto">数据驱动进步</p>
+  </header>
+
+  <!-- 主导航 -->
+  <nav class="guild-nav" aria-label="主菜单">
+    <ul role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
+      <li role="none"><a href="#" class="active" role="menuitem">数据面板</a></li>
+      <li role="none"><a href="wcl.html" role="menuitem">战斗记录</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <!-- 数据筛选栏 -->
+    <section class="content-card filter-section">
+      <div class="filter-grid">
+        <div>
+          <label for="zone-select">副本选择：</label>
+          <select id="zone-select" class="raid-input">
+            <option value="all">全部副本</option>
+            <!-- 动态加载 -->
+          </select>
+        </div>
+        <div>
+          <label for="difficulty-select">难度：</label>
+          <select id="difficulty-select" class="raid-input">
+            <option value="all">全部难度</option>
+            <option value="4">英雄</option>
+            <option value="5">史诗</option>
+          </select>
+        </div>
+        <div>
+          <label for="time-range">时间范围：</label>
+          <select id="time-range" class="raid-input">
+            <option value="7">最近7天</option>
+            <option value="30" selected>最近30天</option>
+            <option value="90">最近90天</option>
+          </select>
+        </div>
+        <button id="apply-filters" class="raid-button">应用筛选</button>
+      </div>
+    </section>
+
+    <!-- 职业分布图表 -->
+    <section class="content-card">
+      <header>
+        <h2><i class="fas fa-users"></i> 职业分布</h2>
+      </header>
+      <div class="chart-container">
+        <canvas id="classDistributionChart"></canvas>
+      </div>
+      <div class="chart-footer">
+        <p>总计: <span id="total-members">0</span>名成员 | 最后更新: <span id="last-updated">-</span></p>
+      </div>
+    </section>
+
+    <!-- 副本进度追踪 -->
+    <section class="content-card">
+      <header>
+        <h2><i class="fas fa-tasks"></i> 副本进度</h2>
+        <div class="progress-header">
+          <span id="current-zone">当前副本: -</span>
+          <span id="progress-summary">进度: -/-</span>
+        </div>
+      </header>
+      <div class="boss-progress-grid" id="boss-progress">
+        <!-- 动态加载BOSS进度 -->
+        <div class="loading">加载中...</div>
+      </div>
+    </section>
+
+    <!-- 团队成员数据 -->
+    <section class="content-card">
+      <header>
+        <h2><i class="fas fa-chart-line"></i> 成员表现</h2>
+        <div class="member-filter">
+          <input type="text" id="member-search" placeholder="搜索成员..." class="raid-input">
+          <select id="metric-select" class="raid-input">
+            <option value="dps">DPS</option>
+            <option value="hps">HPS</option>
+            <option value="bossdps">BOSS DPS</option>
+          </select>
+        </div>
+      </header>
+      <div class="table-container">
+        <table class="dkp-table" id="member-performance">
+          <thead>
+            <tr>
+              <th>成员</th>
+              <th>职业</th>
+              <th>装等</th>
+              <th>平均DPS</th>
+              <th>最高DPS</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 动态加载 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 团队战斗力分析 -->
+    <section class="content-card">
+      <header>
+        <h2><i class="fas fa-shield-alt"></i> 团队战斗力</h2>
+      </header>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="avg-dps">-</div>
+          <div class="stat-label">平均DPS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="avg-hps">-</div>
+          <div class="stat-label">平均HPS</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="kill-time">-</div>
+          <div class="stat-label">平均击杀时间</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="wipe-rate">-</div>
+          <div class="stat-label">灭团率</div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas id="performanceTrendChart"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="content-card" role="contentinfo">
+    <div class="footer-grid">
+      <address>
+        <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
+        <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
+      </address>
+      <div class="data-info">
+        <p>数据来源: Warcraft Logs API</p>
+        <p>最后同步: <span id="sync-time">-</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 全局数据存储
+    const guildData = {
+      members: [],
+      reports: [],
+      zones: [],
+      currentZone: null
+    };
+
+    // DOM加载完成后初始化
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        await loadInitialData();
+        initEventListeners();
+        updateDashboard();
+      } catch (error) {
+        console.error('初始化失败:', error);
+        showError(error.message);
+      }
+    });
+
+    // 加载初始数据
+    async function loadInitialData() {
+      const [members, reports] = await Promise.all([
+        fetchGuildMembers(),
+        fetchGuildReports()
+      ]);
+      
+      guildData.members = processMemberData(members);
+      guildData.reports = processReportData(reports);
+      guildData.zones = extractUniqueZones(reports);
+      
+      populateZoneSelect();
+      updateLastSyncTime();
+    }
+
+    // 从API获取公会成员数据
+    async function fetchGuildMembers() {
+      const response = await fetch('/.netlify/functions/wcl-proxy', {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query {
+              guildData {
+                guild(id: 586445) {
+                  members {
+                    data {
+                      name
+                      classID
+                      specName
+                      itemLevel
+                    }
+                  }
+                }
+              }
+            }
+          `
+        })
+      });
+      
+      if (!response.ok) throw new Error('获取成员数据失败');
+      const data = await response.json();
+      return data.data.guildData.guild.members.data;
+    }
+
+    // 处理成员数据
+    function processMemberData(members) {
+      return members.map(member => ({
+        ...member,
+        className: getClassName(member.classID),
+        performance: calculatePerformance(member)
+      }));
+    }
+
+    // 获取职业名称
+    function getClassName(classID) {
+      const classes = {
+        1: '战士', 2: '圣骑士', 3: '猎人', 4: '盗贼',
+        5: '牧师', 6: '死亡骑士', 7: '萨满', 8: '法师',
+        9: '术士', 10: '武僧', 11: '德鲁伊', 12: '恶魔猎手'
+      };
+      return classes[classID] || '未知';
+    }
+
+    // 更新仪表盘
+    function updateDashboard() {
+      updateClassDistributionChart();
+      updateZoneProgress();
+      updateMemberPerformance();
+      updateTeamMetrics();
+    }
+
+    // 更新职业分布图表
+    function updateClassDistributionChart() {
+      const classCounts = {};
+      guildData.members.forEach(member => {
+        classCounts[member.className] = (classCounts[member.className] || 0) + 1;
+      });
+
+      const ctx = document.getElementById('classDistributionChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(classCounts),
+          datasets: [{
+            data: Object.values(classCounts),
+            backgroundColor: [
+              '#C79C6E', '#F58CBA', '#ABD473', '#FFF569',
+              '#FFFFFF', '#C41F3B', '#0070DE', '#69CCF0',
+              '#9482C9', '#00FF96', '#FF7D0A', '#A330C9'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'right' }
+          }
+        }
+      });
+
+      document.getElementById('total-members').textContent = guildData.members.length;
+    }
+
+    // 更新副本进度
+    function updateZoneProgress() {
+      const zoneSelect = document.getElementById('zone-select');
+      const selectedZone = zoneSelect.value === 'all' ? null : zoneSelect.value;
+      
+      // 过滤报告数据
+      const zoneReports = selectedZone 
+        ? guildData.reports.filter(r => r.zone.id === selectedZone)
+        : guildData.reports;
+      
+      if (zoneReports.length === 0) {
+        document.getElementById('boss-progress').innerHTML = '<div class="error">没有找到相关数据</div>';
+        return;
+      }
+
+      // 获取副本信息
+      const zone = selectedZone 
+        ? guildData.zones.find(z => z.id === selectedZone)
+        : { name: '所有副本', encounters: [] };
+      
+      document.getElementById('current-zone').textContent = `当前副本: ${zone.name}`;
+      
+      // 计算BOSS进度
+      const bossProgress = calculateBossProgress(zoneReports);
+      renderBossProgress(zone.encounters, bossProgress);
+    }
+
+    // 渲染BOSS进度
+    function renderBossProgress(encounters, progress) {
+      const container = document.getElementById('boss-progress');
+      container.innerHTML = '';
+      
+      encounters.forEach(encounter => {
+        const bossProgress = progress[encounter.id] || { kills: 0, attempts: 0 };
+        const progressPercent = bossProgress.attempts > 0 
+          ? Math.round((bossProgress.kills / bossProgress.attempts) * 100)
+          : 0;
+        
+        const bossElement = document.createElement('div');
+        bossElement.className = 'boss-card';
+        bossElement.innerHTML = `
+          <div class="boss-info">
+            <h3>${encounter.name}</h3>
+            <div class="boss-meta">
+              <span>击杀: ${bossProgress.kills}/${bossProgress.attempts}</span>
+              <span>成功率: ${progressPercent}%</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: ${progressPercent}%"></div>
+          </div>
+          <a href="#" class="boss-details-link" data-boss="${encounter.id}">
+            <i class="fas fa-chart-bar"></i> 查看详情
+          </a>
+        `;
+        container.appendChild(bossElement);
+      });
+    }
+
+    // 初始化事件监听
+    function initEventListeners() {
+      document.getElementById('apply-filters').addEventListener('click', updateDashboard);
+      document.getElementById('member-search').addEventListener('input', updateMemberPerformance);
+      document.getElementById('metric-select').addEventListener('change', updateMemberPerformance);
+    }
+
+    // 显示错误
+    function showError(message) {
+      const errorElement = document.createElement('div');
+      errorElement.className = 'error';
+      errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      document.querySelector('main').prepend(errorElement);
+    }
+
+    // 更新最后同步时间
+    function updateLastSyncTime() {
+      document.getElementById('last-updated').textContent = new Date().toLocaleString();
+      document.getElementById('sync-time').textContent = new Date().toLocaleString();
+    }
+  </script>
+
+  <style>
+    /* 新增样式 */
+    .filter-section {
+      margin-bottom: 1rem;
+    }
+    
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+    
+    .raid-input {
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      padding: 0.5rem;
+      border-radius: var(--border-radius);
+      width: 100%;
+    }
+    
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin: 1rem 0;
+    }
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+    
+    .boss-progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    
+    .boss-card {
+      background: rgba(40, 40, 40, 0.7);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      transition: transform 0.2s;
+    }
+    
+    .boss-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .progress-bar {
+      height: 10px;
+      background: var(--color-dark);
+      border-radius: 5px;
+      margin: 0.5rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--color-secondary), var(--color-primary));
+      transition: width 0.5s ease;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .stat-card {
+      background: rgba(40, 40, 40, 0.7);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--color-text-secondary);
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .boss-progress-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</body>
+</html>
