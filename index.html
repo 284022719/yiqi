@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - 魔兽世界休闲公会">
   <title>一起 - 魔兽世界公会</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
@@ -10,24 +11,22 @@
 </head>
 
 <body>
-  <!-- 头部 -->
-  <header class="guild-header">
+  <!-- 网站头部 -->
+  <header class="guild-header" role="banner">
     <h1 class="guild-title">一起公会</h1>
     <p class="guild-motto">打本 休闲 洗脚</p>
   </header>
 
-  <!-- 导航栏 -->
-  <nav class="guild-nav">
-    <ul>
-      <li><a href="index.html">首页</a></li>
+  <!-- 主导航 -->
+  <nav class="guild-nav" aria-label="主菜单">
+    <ul role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
 
-      <li class="dropdown">
+      <li class="dropdown" role="none">
+        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
 
-        <a href="#" class="dropbtn">工具网站 ▼</a>
-
-        <div class="dropdown-content">
-
-          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank">
+        <div class="dropdown-content" role="menu">
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
             <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
             <div class="menu-text">
               <span class="menu-title">Warcraft Logs</span>
@@ -35,67 +34,77 @@
             </div>
           </a>
 
-          <a href="https://raider.io" target="_blank"><img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
+          <a href="https://raider.io" target="_blank" role="menuitem">
+            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
             <div class="menu-text">
               <span class="menu-title">Raider.IO</span>
               <span class="menu-desc">大秘境评分</span>
             </div>
           </a>
-
         </div>
       </li>
-      
     </ul>
   </nav>
+
   <!-- 主内容区 -->
-  <main>
-    <!-- 攻略 -->
-      <div class="content-card">
+  <main class="main-content">
+    <!-- 攻略部分 -->
+    <article class="content-card">
+      <header>
         <h2>战术攻略</h2>
-        <a href="H6.html" class="raid-button">H6 独臂盗匪</a>
-      </div>
+      </header>
+      <a href="H6.html" class="raid-button">H6 独臂盗匪</a>
+    </article>
 
-    <!-- wcl -->
-      <div class="content-card">
-       <h2>wcl</h2>
-        <a href="wcl.html" class="raid-button">wcl</a>
-      </div>
+    <!-- WCL部分 -->
+    <article class="content-card">
+      <header>
+        <h2>wcl</h2>
+      </header>
+      <a href="wcl.html" class="raid-button">wcl</a>
+    </article>
 
-    <!-- 公会主播 -->
-      <div class="content-card">
+    <!-- 公会主播部分 -->
+    <article class="content-card">
+      <header>
         <h2>公会主播</h2>
-        <div class="iframe-container"> <!-- 添加正确容器 -->
-          <iframe src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30654671&quality=0">
-          </iframe>
-        </div>
-      </div>
+      </header>
+      <figure class="iframe-container">
+        <iframe src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30654671&quality=0" title="公会直播"></iframe>
+      </figure>
+    </article>
 
-    <!-- 公会视频 -->
-    <div class="content-card">
-      <h2>公会视频</h2>
+    <!-- 公会视频部分 -->
+    <article class="content-card">
+      <header>
+        <h2>公会视频</h2>
+      </header>
       <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
-      <div class="iframe-container"> <!-- 添加相同容器 -->
+      <figure class="iframe-container">
         <iframe 
-        src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
-        name="凋零密院"
-        scrolling="no"  
-        frameborder="no" 
-        framespacing="0" 
-        allowfullscreen="true">
+          src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
+          title="凋零密院"
+          scrolling="no"  
+          frameborder="no" 
+          framespacing="0" 
+          allowfullscreen="true">
         </iframe>
-      </div>
+      </figure>
       <p>2022年夏天一把平平无奇的大米</p>
-    </div>
+    </article>
 
     <!-- 活动日历 -->
-    <div class="content-card">
-      <h2>🗓️ 活动时间</h2>
+    <article class="content-card">
+      <header>
+        <h2><span aria-hidden="true">🗓️</span> 活动时间</h2>
+      </header>
       <table class="dkp-table">
+        <caption class="visually-hidden">公会活动时间表</caption>
         <thead>
           <tr>
-            <th>日期</th>
-            <th>活动内容</th>
-            <th>开组时间</th>
+            <th scope="col">日期</th>
+            <th scope="col">活动内容</th>
+            <th scope="col">开组时间</th>
           </tr>
         </thead>
         <tbody>
@@ -106,15 +115,15 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </article>
   </main>
 
   <!-- 页脚 -->
-  <footer class="content-card">
-    <p><img src="img/yy.png" alt="YY图标" width="20" height="20"> YY：74814646</p>
-    <p><img src="img/bn.webp" alt="战网图标" width="20" height="20"> 战网：284022719@qq.com</p>
+  <footer class="content-card" role="contentinfo">
+    <address>
+      <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
+      <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
+    </address>
   </footer>
-
 </body>
-
 </html>

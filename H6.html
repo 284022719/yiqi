@@ -3,86 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>H6 独臂盗匪</title>
-  <!-- 继承主站样式 -->
+  <meta name="description" content="一起公会 - H6 独臂盗匪攻略">
+  <title>H6 独臂盗匪 - 一起公会</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- 子页面特有微调 -->
-  <style>
-    /* 仅添加主站没有的样式 */
-    .strategy-container { max-width: 1000px; }
-    .wipe-list { column-count: 2; }
-    .mechanism-img { 
-      width: 60%;
-      border: 2px solid #785A28;
-      margin: 1rem auto;
-    }
-  </style>
+  <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- 返回按钮使用主站按钮样式 -->
-  <a href="index.html" class="raid-button" style="margin:20px">← 返回主页</a>
+  <!-- 网站头部 -->
+  <header class="guild-header" role="banner">
+    <h1 class="guild-title">一起公会</h1>
+    <p class="guild-motto">打本 休闲 洗脚</p>
+  </header>
 
-  <main class="content-card strategy-container">
-    <!-- 标题使用主站样式 -->
-    <h1 class="guild-title" style="font-size:2rem">H6 独臂盗匪</h1>
-    
-    <!-- P1阶段 -->
-    <section class="content-card">
-      <h2 class="guild-motto">🏮 P1阶段 - 投币机制</h2>
-      <div class="important-notice">
-        <h3>核心机制：</h3>
-        <ul class="dkp-table">
-          <li>每次刷新3个携带<em>不同币种</em>的小怪
+  <!-- 主导航 -->
+  <nav class="guild-nav" aria-label="主菜单">
+    <ul role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
 
-          <img src="img/h6/图片1.png" alt="Pulpit rock"></li>
+      <li class="dropdown" role="none">
+        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
 
-          <li>前两个投币决定BOSS本轮技能（重复则团灭）
-            <img src="img/h6/图片2.png" alt="Pulpit rock"  width="90%"></li>
+        <div class="dropdown-content" role="menu">
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
+            <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
+            <div class="menu-text">
+              <span class="menu-title">Warcraft Logs</span>
+              <span class="menu-desc">战斗数据分析与排行</span>
+            </div>
+          </a>
 
-          <li>必须30秒内：<span>①击杀2小怪 ②捡礼券投入BOSS</span>
-            <img src="img/h6/图片3.png" alt="Pulpit rock"></li>
-        </ul>
-      </div>
-    </section>
+          <a href="https://raider.io" target="_blank" role="menuitem">
+            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
+            <div class="menu-text">
+              <span class="menu-title">Raider.IO</span>
+              <span class="menu-desc">大秘境评分</span>
+            </div>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
 
-    <!-- P2阶段 -->
-    <section class="content-card">
-      <h2 class="guild-motto">⚡ P2阶段 - 能量爆发</h2>
-      <p class="highlight">进入条件：6次满能量 或 BOSS血量28%</p>
+  <main class="main-content">
+    <!-- 返回按钮使用主站按钮样式 -->
+    <div class="content-card">
+      <a href="index.html" class="raid-button">← 返回主页</a>
+    </div>
 
-      <!-- 使用主站表格样式 -->
-      <table class="dkp-table">
-        <tr>
-          <th>第一次满能量</th>
-          <td>电塔连线机制</td>
-          <td>BOSS不断召唤电塔，boss与电塔之间有连线，全团和T重合站，出现电塔就后退一步，慢慢绕圈</td>
-          <td><img src="img/h6/P2-1.gif" alt="Pulpit rock"></td>
-        </tr>
-        <tr>
-          <th>第二次满能量</th>
-          <td>射线引导机制</td>
-          <td>P2第二次满能量点两个人喷射线，中点名的人对着人群外</td>
-          <td><img src="img/h6/P2-2.gif" alt="Pulpit rock">
-        </tr>
-        <tr>
-          <th>第三次满能量</th>
-          <td>BOSS开始读灭团技</td>
-          <td>全团AOE</td>
-          <td>RUSH不掉就团灭</td>
-        </tr>
-      </table>
-    </section>
+    <article class="content-card strategy-container">
+      <header>
+        <h1 class="guild-title">H6 独臂盗匪</h1>
+      </header>
+      
+      <!-- P1阶段 -->
+      <section class="content-card">
+        <header>
+          <h2 class="guild-motto">🏮 P1阶段 - 投币机制</h2>
+        </header>
+        <div class="important-notice">
+          <h3>核心机制：</h3>
+          <ul>
+            <li>每次刷新3个携带<em>不同币种</em>的小怪
+              <img src="img/h6/图片1.png" alt="P1阶段小怪" class="mechanism-img">
+            </li>
+            <li>前两个投币决定BOSS本轮技能（重复则团灭）
+              <img src="img/h6/图片2.png" alt="投币机制" class="mechanism-img">
+            </li>
+            <li>必须30秒内：<span>①击杀2小怪 ②捡礼券投入BOSS</span>
+              <img src="img/h6/图片3.png" alt="礼券投入" class="mechanism-img">
+            </li>
+          </ul>
+        </div>
+      </section>
 
-    <!-- 灭团点 -->
-    <section class="content-card important-notice">
-      <h2 class="guild-motto">💀 灭团警报</h2>
-      <ol class="wipe-list">
-        <li>P1投币重复</li>
-        <li>30秒未投2券</li>
-        <li>P3能量超限</li>
-        <li>触碰电塔连线</li>
-      </ol>
-    </section>
+      <!-- P2阶段 -->
+      <section class="content-card">
+        <header>
+          <h2 class="guild-motto">⚡ P2阶段 - 能量爆发</h2>
+        </header>
+        <p class="highlight">进入条件：6次满能量 或 BOSS血量28%</p>
+
+        <table class="dkp-table">
+          <caption class="visually-hidden">P2阶段机制表</caption>
+          <thead>
+            <tr>
+              <th scope="col">阶段</th>
+              <th scope="col">机制名称</th>
+              <th scope="col">处理方式</th>
+              <th scope="col">示意图</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>第一次满能量</td>
+              <td>电塔连线机制</td>
+              <td>BOSS不断召唤电塔，boss与电塔之间有连线，全团和T重合站，出现电塔就后退一步，慢慢绕圈</td>
+              <td><img src="img/h6/P2-1.gif" alt="电塔连线" class="mechanism-img"></td>
+            </tr>
+            <tr>
+              <td>第二次满能量</td>
+              <td>射线引导机制</td>
+              <td>P2第二次满能量点两个人喷射线，中点名的人对着人群外</td>
+              <td><img src="img/h6/P2-2.gif" alt="射线引导" class="mechanism-img"></td>
+            </tr>
+            <tr>
+              <td>第三次满能量</td>
+              <td>BOSS开始读灭团技</td>
+              <td>全团AOE</td>
+              <td>RUSH不掉就团灭</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 灭团点 -->
+      <section class="content-card important-notice">
+        <header>
+          <h2 class="guild-motto">💀 灭团警报</h2>
+        </header>
+        <ol class="wipe-list">
+          <li>P1投币重复</li>
+          <li>30秒未投2券</li>
+          <li>P3能量超限</li>
+          <li>触碰电塔连线</li>
+        </ol>
+      </section>
+    </article>
   </main>
+
+  <!-- 页脚 -->
+  <footer class="content-card" role="contentinfo">
+    <address>
+      <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
+      <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
+    </address>
+  </footer>
 </body>
 </html>
