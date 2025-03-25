@@ -5,6 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>一起 - 魔兽世界公会</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .wcl-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      background: rgba(40, 40, 40, 0.9);
+    }
+    
+    .wcl-table th {
+      background: #1a1200;
+      color: #FFD700;
+      padding: 1rem;
+      border-bottom: 3px solid #785A28;
+    }
+    
+    .wcl-table td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #423714;
+      text-align: center;
+    }
+    
+    .wcl-table td:nth-child(3) {
+      color: #00ff00;
+    }
+    
+    .wcl-button {
+      background: linear-gradient(to bottom, #785A28, #423714);
+      border: 1px solid #FFD700;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .loading {
+      padding: 2rem;
+      text-align: center;
+      color: #FFD700;
+      font-size: 1.2rem;
+    }
+    
+    .error {
+      color: #ff5555;
+      text-align: center;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid #ff5555;
+      border-radius: 4px;
+      background: rgba(255, 85, 85, 0.1);
+    }
+  </style>
 </head>
 <body>
   <!-- 头部 -->
@@ -14,129 +70,105 @@
   </header>
   <div class="background"></div>
 
-      <main>
-        <section class="content-card">
-            <h2>近期团队活动报告</h2>
-            <div id="loading" class="loading">
-                <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
-            </div>
-            <div id="error" class="error" style="display: none;"></div>
-            <table id="wcl-table" class="wcl-table" style="display: none;">
-                <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>副本</th>
-                        <th>进度</th>
-                        <th>团长</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </section>
-    </main>
+  <main>
+    <section class="content-card">
+      <h2>近期团队活动报告</h2>
+      <div id="loading" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
+      </div>
+      <div id="error" class="error" style="display: none;"></div>
+      <table id="wcl-table" class="wcl-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>副本</th>
+            <th>进度</th>
+            <th>团长</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
 
-    <script>
-        // 获取WCL数据
-     async function fetchGuildReports() {
-    try {
-        const apiUrl = `/.netlify/functions/wcl-proxy`;
-        console.log('Fetching guild data from:', apiUrl);
+  <script>
+    async function fetchGuildReports() {
+      try {
+        const response = await fetch('/.netlify/functions/wcl-proxy');
+        const data = await response.json();
         
-        const response = await fetch(apiUrl);
-        const rawData = await response.text();
-        console.log('原始响应:', rawData);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP错误: ${response.status}`);
-        }
-
-        const data = JSON.parse(rawData);
-        console.log('解析后的数据:', data);
-        
-        // 宽松的数据验证
-        if (!data || typeof data !== 'object') {
-            throw new Error('无效的JSON响应');
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || '服务器返回错误');
         }
         
-        return data;
-    } catch (error) {
-        console.error('API请求失败:', {
-            error: error.message,
-            stack: error.stack
-        });
-        throw new Error(`数据获取失败: ${error.message}`);
+        // 检查报告数据是否存在
+        if (!data.data?.reportData?.reports?.data) {
+          throw new Error('没有找到活动报告数据');
+        }
+        
+        return data.data.reportData.reports.data;
+      } catch (error) {
+        console.error('获取数据失败:', error);
+        throw new Error(`无法加载数据: ${error.message}`);
+      }
     }
-}
 
-function displayWclData(response) {
-    const loadingElement = document.getElementById('loading');
-    const errorElement = document.getElementById('error');
-    const tableElement = document.getElementById('wcl-table');
-    const tbody = tableElement.querySelector('tbody');
-    
-    loadingElement.style.display = 'none';
-    errorElement.style.display = 'none';
-    tbody.innerHTML = '';
+    function displayWclData(reports) {
+      const loadingElement = document.getElementById('loading');
+      const errorElement = document.getElementById('error');
+      const tableElement = document.getElementById('wcl-table');
+      const tbody = tableElement.querySelector('tbody');
+      
+      loadingElement.style.display = 'none';
+      errorElement.style.display = 'none';
+      tbody.innerHTML = '';
 
-    try {
-        // 深度检查响应结构
-        if (!response || response.success === false) {
-            throw new Error(response?.error || '服务器返回错误');
-        }
-
-        const guildData = response.data?.guild || response.data;
-        if (!guildData) {
-            throw new Error('响应中缺少公会数据');
-        }
-
-        const logs = guildData.attendance?.logs || guildData.reports?.data || [];
-        if (!logs.length) {
-            throw new Error('没有可显示的活动记录');
+      try {
+        if (!reports || reports.length === 0) {
+          throw new Error('没有可显示的活动记录');
         }
 
         tableElement.style.display = 'table';
         
-        logs.forEach(log => {
-            const row = document.createElement('tr');
-            const date = new Date(log.startTime);
-            const kills = log.fights?.filter(f => f.kill).length || 0;
-            const total = new Set(log.fights?.map(f => f.encounterID)).size || 0;
-            
-            row.innerHTML = `
-                <td>${date.toLocaleDateString()}</td>
-                <td>${log.zone?.name || '未知副本'}</td>
-                <td>${total ? `${kills}/${total}` : '无数据'}</td>
-                <td>${log.owner || '未知'}</td>
-                <td>
-                    <a href="https://www.warcraftlogs.com/reports/${log.code}" 
-                       target="_blank" 
-                       class="wcl-button">
-                       查看
-                    </a>
-                </td>
-            `;
-            tbody.appendChild(row);
+        reports.forEach(report => {
+          const row = document.createElement('tr');
+          const date = new Date(report.startTime);
+          const kills = report.fights?.filter(f => f.kill).length || 0;
+          const total = new Set(report.fights?.map(f => f.encounterID)).size || 0;
+          
+          row.innerHTML = `
+            <td>${date.toLocaleDateString()}</td>
+            <td>${report.zone?.name || '未知副本'}</td>
+            <td>${total ? `${kills}/${total}` : '无数据'}</td>
+            <td>${report.owner?.name || '未知'}</td>
+            <td>
+              <a href="https://www.warcraftlogs.com/reports/${report.code}" 
+                 target="_blank" 
+                 class="wcl-button">
+                查看
+              </a>
+            </td>
+          `;
+          tbody.appendChild(row);
         });
-    } catch (error) {
+      } catch (error) {
         console.error('数据显示错误:', error);
-        errorElement.textContent = `数据显示错误: ${error.message}`;
+        errorElement.textContent = error.message;
         errorElement.style.display = 'block';
+      }
     }
-}
 
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        const data = await fetchGuildReports();
-        displayWclData(data);
-    } catch (error) {
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const reports = await fetchGuildReports();
+        displayWclData(reports);
+      } catch (error) {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('error').textContent = error.message;
         document.getElementById('error').style.display = 'block';
-    }
-});
-    </script>
-
-  
+      }
+    });
+  </script>
 </body>
 </html>
