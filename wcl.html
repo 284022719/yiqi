@@ -77,13 +77,44 @@ async function fetchGuildReports() {
 
     // 显示WCL数据
 function displayWclData(data) {
-    const guild = data.data.guild;
-    console.log('处理公会数据:', guild);
+    const guildData = data.data.guild; // 修改变量名避免冲突
+    console.log('处理公会数据:', guildData);
     
-    if (!guild.attendance || !guild.attendance.logs || guild.attendance.logs.length === 0) {
+    if (!guildData.attendance || !guildData.attendance.logs || guildData.attendance.logs.length === 0) {
         showError(`没有找到近期活动记录 (最后查询: ${new Date().toLocaleString()})`);
         return;
     }
+    
+    const loadingElement = document.getElementById('loading');
+    const tableElement = document.getElementById('wcl-table');
+    const tbody = tableElement.querySelector('tbody');
+    
+    loadingElement.style.display = 'none';
+    tableElement.style.display = 'table';
+    tbody.innerHTML = '';
+    
+    guildData.attendance.logs.forEach(log => {
+        const row = document.createElement('tr');
+        
+        // 计算进度
+        const kills = log.fights.filter(fight => fight.kill).length;
+        const totalEncounters = new Set(log.fights.map(fight => fight.encounterID)).size;
+        const progress = `${kills}/${totalEncounters}`;
+        
+        // 格式化日期
+        const date = new Date(log.startTime);
+        const formattedDate = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+        
+        row.innerHTML = `
+            <td>${formattedDate}</td>
+            <td>${log.zone?.name || '未知副本'}</td>
+            <td>${progress}</td>
+            <td>${log.owner || '未知团长'}</td>
+            <td><a href="https://www.warcraftlogs.com/reports/${log.code}" target="_blank" class="wcl-button">查看报告</a></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
         
         // 检查数据是否有效
         if (!data || !data.data || !data.data.guildData || !data.data.guildData.guild) {
