@@ -1,3 +1,4 @@
+// 修改后的 wcl-proxy.js
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
@@ -16,17 +17,12 @@ exports.handler = async (event, context) => {
     });
     
     if (!tokenResponse.ok) {
-      const errorText = await tokenResponse.text();
-      throw new Error(`获取令牌失败: ${tokenResponse.status} - ${errorText}`);
+      throw new Error(`获取令牌失败: ${tokenResponse.status}`);
     }
     
     const tokenData = await tokenResponse.json();
     
-    if (!tokenData.access_token) {
-      throw new Error('令牌数据无效: 缺少access_token');
-    }
-
-    // 2. 使用优化的GraphQL查询
+    // 2. 获取公会报告数据
     const query = `
       query {
         reportData {
@@ -34,11 +30,9 @@ exports.handler = async (event, context) => {
             data {
               code
               startTime
+              title
               owner {
                 name
-                user {
-                  name
-                }
               }
               zone {
                 name
@@ -64,22 +58,30 @@ exports.handler = async (event, context) => {
     });
     
     if (!apiResponse.ok) {
-      const errorText = await apiResponse.text();
-      throw new Error(`API请求失败: ${apiResponse.status} - ${errorText}`);
+      throw new Error(`API请求失败: ${apiResponse.status}`);
     }
     
     const apiData = await apiResponse.json();
     
-    // 3. 返回格式化数据
+    // 3. 验证并格式化数据
+    if (!apiData.data?.reportData?.reports?.data) {
+      throw new Error('API返回数据格式不正确');
+    }
+
+    const reports = apiData.data.reportData.reports.data.map(report => ({
+      code: report.code,
+      title: report.title || '无标题',
+      startTime: report.startTime,
+      owner: report.owner ? { name: report.owner.name } : { name: '未知' },
+      zone: report.zone ? { name: report.zone.name } : { name: '未知区域' },
+      fights: report.fights || []
+    }));
+
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=3600'
-      },
       body: JSON.stringify({
         success: true,
-        data: apiData.data,
+        data: { reports },
         timestamp: new Date().toISOString()
       })
     };
@@ -87,13 +89,9 @@ exports.handler = async (event, context) => {
     console.error('Function执行错误:', error);
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify({
         success: false,
-        error: '获取WCL数据失败',
-        message: error.message,
+        error: error.message,
         timestamp: new Date().toISOString()
       })
     };
