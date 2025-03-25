@@ -1,20 +1,9 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
-  // 从环境变量获取凭证
   const clientId = process.env.WCL_CLIENT_ID;
   const clientSecret = process.env.WCL_CLIENT_SECRET;
   
-  // 从查询参数获取公会信息
-  const { guildName, serverName, serverRegion } = event.queryStringParameters;
-  
-  if (!clientId || !clientSecret) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Missing WCL client credentials' })
-    };
-  }
-
   try {
     // 1. 获取访问令牌
     const tokenResponse = await fetch('https://www.warcraftlogs.com/oauth/token', {
@@ -29,47 +18,42 @@ exports.handler = async (event, context) => {
     const tokenData = await tokenResponse.json();
     
     if (!tokenData.access_token) {
-      throw new Error('Failed to obtain access token');
+      throw new Error('获取访问令牌失败');
     }
-    
-    // 2. 获取公会数据
+
+    // 2. 使用公会ID和服务器ID查询数据
     const query = `
       query {
-        guildData {
-          guild(name: "${guildName}", 
-                serverSlug: "${serverName}", 
-                serverRegion: "${serverRegion}") {
+        guild(id: 586445) {
+          name
+          server {
             name
-            server {
+            region {
+              id
               name
-              region {
-                slug
-              }
             }
-            attendance {
+          }
+          attendance(startTime: ${Date.now() - 90 * 24 * 60 * 60 * 1000}) { // 最近90天数据
+            startTime
+            zone {
+              name
+            }
+            logs {
               startTime
-              zone {
+              endTime
+              code
+              owner
+              fights(killType: Encounters) {
+                encounterID
                 name
-              }
-              total
-              logs {
-                startTime
-                endTime
-                code
-                owner
-                fights {
-                  encounterID
-                  name
-                  kill
-                  size
-                }
+                kill
               }
             }
           }
         }
       }
     `;
-    
+
     const apiResponse = await fetch('https://www.warcraftlogs.com/api/v2/client', {
       method: 'POST',
       headers: {
@@ -89,7 +73,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 500,
       body: JSON.stringify({ 
-        error: 'Failed to fetch WCL data',
+        error: '获取WCL数据失败',
         details: error.message 
       })
     };
