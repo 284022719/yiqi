@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
       throw new Error('获取访问令牌失败');
     }
 
-    // 2. 使用公会ID和服务器ID查询数据
+    // 2. 使用公会ID查询数据
     const query = `
       query {
         guild(id: 586445) {
@@ -33,16 +33,15 @@ exports.handler = async (event, context) => {
               name
             }
           }
-          attendance(startTime: ${Date.now() - 90 * 24 * 60 * 60 * 1000}) { // 最近90天数据
-            startTime
-            zone {
-              name
-            }
+          attendance(startTime: ${Date.now() - 90 * 24 * 60 * 60 * 1000}) {
             logs {
               startTime
               endTime
               code
               owner
+              zone {
+                name
+              }
               fights(killType: Encounters) {
                 encounterID
                 name
@@ -67,9 +66,13 @@ exports.handler = async (event, context) => {
     
     return {
       statusCode: 200,
+      headers: {
+        'Cache-Control': 'public, max-age=3600'
+      },
       body: JSON.stringify(data)
     };
   } catch (error) {
+    console.error('Function error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ 
