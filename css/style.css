@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* ====== 头部区域 ====== */
 .guild-header {
   background: rgba(15, 15, 15, 0.95);
