@@ -16,16 +16,17 @@ exports.handler = async (event, context) => {
     });
     
     if (!tokenResponse.ok) {
-      throw new Error(`获取令牌失败: ${tokenResponse.status}`);
+      const errorText = await tokenResponse.text();
+      throw new Error(`获取令牌失败: ${tokenResponse.status} - ${errorText}`);
     }
     
     const tokenData = await tokenResponse.json();
     
     if (!tokenData.access_token) {
-      throw new Error('令牌数据无效');
+      throw new Error('令牌数据无效: 缺少access_token');
     }
 
-    // 2. 使用正确的GraphQL查询
+    // 2. 使用优化的GraphQL查询
     const query = `
       query {
         reportData {
@@ -33,9 +34,11 @@ exports.handler = async (event, context) => {
             data {
               code
               startTime
-              endTime
               owner {
                 name
+                user {
+                  name
+                }
               }
               zone {
                 name
@@ -61,7 +64,8 @@ exports.handler = async (event, context) => {
     });
     
     if (!apiResponse.ok) {
-      throw new Error(`API请求失败: ${apiResponse.status}`);
+      const errorText = await apiResponse.text();
+      throw new Error(`API请求失败: ${apiResponse.status} - ${errorText}`);
     }
     
     const apiData = await apiResponse.json();
@@ -80,6 +84,7 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
+    console.error('Function执行错误:', error);
     return {
       statusCode: 500,
       headers: {
