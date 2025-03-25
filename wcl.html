@@ -38,31 +38,37 @@
 
     <script>
         // 获取WCL数据
-        async function fetchGuildReports() {
-            try {
-                const apiUrl = `/.netlify/functions/wcl-proxy`;
-                console.log('Fetching guild data from:', apiUrl);
-                
-                const response = await fetch(apiUrl);
-                
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({}));
-                    throw new Error(errorData.error || `请求失败 (${response.status})`);
-                }
-                
-                const data = await response.json();
-                console.log('API响应数据:', data);
-                
-                if (!data?.data?.guild) {
-                    throw new Error('API返回数据格式不正确');
-                }
-                
-                return data;
-            } catch (error) {
-                console.error('获取数据失败:', error);
-                throw new Error(`获取公会数据失败: ${error.message}`);
-            }
+       async function fetchGuildReports() {
+    try {
+        const apiUrl = `/.netlify/functions/wcl-proxy`;
+        console.log('Fetching guild data from:', apiUrl);
+        
+        const response = await fetch(apiUrl);
+        const rawData = await response.text(); // 先获取原始文本
+        console.log('原始响应数据:', rawData);
+        
+        if (!response.ok) {
+            throw new Error(`请求失败 (${response.status})`);
         }
+
+        const data = JSON.parse(rawData);
+        console.log('解析后的数据:', data);
+        
+        // 更宽松的数据结构检查
+        if (!data || typeof data !== 'object') {
+            throw new Error('API返回无效数据');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('获取数据失败:', {
+            error: error.message,
+            stack: error.stack,
+            response: error.response
+        });
+        throw new Error(`获取公会数据失败: ${error.message}`);
+    }
+}
 
         // 显示WCL数据
         function displayWclData(data) {
