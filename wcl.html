@@ -3,94 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>一起 - 魔兽世界公会</title>
+  <meta name="description" content="一起公会 - WCL战斗记录">
+  <title>一起公会 - WCL数据</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    .wcl-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      background: rgba(40, 40, 40, 0.9);
-    }
-    
-    .wcl-table th {
-      background: #1a1200;
-      color: #FFD700;
-      padding: 1rem;
-      border-bottom: 3px solid #785A28;
-    }
-    
-    .wcl-table td {
-      padding: 0.8rem;
-      border-bottom: 1px solid #423714;
-      text-align: center;
-    }
-    
-    .wcl-table td:nth-child(3) {
-      color: #00ff00;
-    }
-    
-    .wcl-button {
-      background: linear-gradient(to bottom, #785A28, #423714);
-      border: 1px solid #FFD700;
-      color: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-    }
-    
-    .loading {
-      padding: 2rem;
-      text-align: center;
-      color: #FFD700;
-      font-size: 1.2rem;
-    }
-    
-    .error {
-      color: #ff5555;
-      text-align: center;
-      padding: 1rem;
-      margin: 1rem 0;
-      border: 1px solid #ff5555;
-      border-radius: 4px;
-      background: rgba(255, 85, 85, 0.1);
-    }
-  </style>
 </head>
 <body>
-  <!-- 头部 -->
-  <header class="guild-header">
+  <!-- 网站头部 -->
+  <header class="guild-header" role="banner">
     <h1 class="guild-title">一起公会</h1>
     <p class="guild-motto">打本 休闲 洗脚</p>
   </header>
-  <div class="background"></div>
 
-  <main>
+  <!-- 主导航 -->
+  <nav class="guild-nav" aria-label="主菜单">
+    <ul role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
+
+      <li class="dropdown" role="none">
+        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
+
+        <div class="dropdown-content" role="menu">
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
+            <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
+            <div class="menu-text">
+              <span class="menu-title">Warcraft Logs</span>
+              <span class="menu-desc">战斗数据分析与排行</span>
+            </div>
+          </a>
+
+          <a href="https://raider.io" target="_blank" role="menuitem">
+            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
+            <div class="menu-text">
+              <span class="menu-title">Raider.IO</span>
+              <span class="menu-desc">大秘境评分</span>
+            </div>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
     <section class="content-card">
-      <h2>近期团队活动报告</h2>
+      <header>
+        <h2>近期团队活动报告</h2>
+      </header>
       <div id="loading" class="loading">
         <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
       </div>
       <div id="error" class="error" style="display: none;"></div>
-      <table id="wcl-table" class="wcl-table" style="display: none;">
+      <table id="wcl-table" class="dkp-table">
+        <caption class="visually-hidden">WCL战斗记录</caption>
         <thead>
           <tr>
-            <th>日期</th>
-            <th>副本</th>
-            <th>进度</th>
-            <th>团长</th>
-            <th>操作</th>
+            <th scope="col">日期</th>
+            <th scope="col">副本</th>
+            <th scope="col">进度</th>
+            <th scope="col">团长</th>
+            <th scope="col">操作</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
     </section>
   </main>
+
+  <!-- 页脚 -->
+  <footer class="content-card" role="contentinfo">
+    <address>
+      <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
+      <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
+    </address>
+  </footer>
 
   <script>
     async function fetchGuildReports() {
@@ -155,7 +141,7 @@
             <td>
               <a href="https://www.warcraftlogs.com/reports/${report.code}" 
                  target="_blank" 
-                 class="wcl-button">
+                 class="raid-button wcl-button">
                 查看
               </a>
             </td>
