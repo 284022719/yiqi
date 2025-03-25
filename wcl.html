@@ -14,124 +14,85 @@
   </header>
   <div class="background"></div>
 
-  <main>
-    <section class="content-card">
-        <h2>近期团队活动报告</h2>
-        <div id="loading" class="loading">
-            <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
-        </div>
-        <div id="error" class="error" style="display: none;"></div>
-        <table id="wcl-table" class="wcl-table" style="display: none;">
-            <thead>
-                <tr>
-                    <th>日期</th>
-                    <th>副本</th>
-                    <th>进度</th>
-                    <th>团长</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 这里将通过JavaScript动态填充WCL数据 -->
-            </tbody>
-        </table>
-    </section>
-</main>
+      <main>
+        <section class="content-card">
+            <h2>近期团队活动报告</h2>
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
+            </div>
+            <div id="error" class="error" style="display: none;"></div>
+            <table id="wcl-table" class="wcl-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>副本</th>
+                        <th>进度</th>
+                        <th>团长</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
 
-<script>
-    // 公会配置信息
-    const GUILD_INFO = {
-        name: '一起公会', // 替换为你的公会名称
-        server: '阿尔萨斯', // 如"暗影之月"
-        region: 'CN' // 如"CN"
-    };
+    <script>
+        // 获取WCL数据
+        async function fetchGuildReports() {
+            try {
+                const apiUrl = `/.netlify/functions/wcl-proxy`;
+                console.log('Fetching guild data from:', apiUrl);
+                
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `请求失败 (${response.status})`);
+                }
+                
+                const data = await response.json();
+                console.log('API响应数据:', data);
+                
+                if (!data?.data?.guild) {
+                    throw new Error('API返回数据格式不正确');
+                }
+                
+                return data;
+            } catch (error) {
+                console.error('获取数据失败:', error);
+                throw new Error(`获取公会数据失败: ${error.message}`);
+            }
+        }
 
-    // 获取WCL数据
-async function fetchGuildReports() {
-    try {
-        const apiUrl = `/.netlify/functions/wcl-proxy`;
-        console.log('Fetching guild data...');
-        
-        const response = await fetch(apiUrl);
-        
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || '请求失败');
-        }
-        
-        const data = await response.json();
-        
-        // 调试输出
-        console.log('API响应数据:', JSON.stringify(data, null, 2));
-        
-        if (!data.data || !data.data.guild) {
-            throw new Error('API返回数据格式不正确');
-        }
-        
-        return data;
-    } catch (error) {
-        console.error('获取数据失败:', error);
-        throw new Error(`获取公会数据失败: ${error.message}`);
-    }
-}
-
-    // 显示WCL数据
-function displayWclData(data) {
-    const guildData = data.data.guild; // 修改变量名避免冲突
-    console.log('处理公会数据:', guildData);
-    
-    if (!guildData.attendance || !guildData.attendance.logs || guildData.attendance.logs.length === 0) {
-        showError(`没有找到近期活动记录 (最后查询: ${new Date().toLocaleString()})`);
-        return;
-    }
-    
-    const loadingElement = document.getElementById('loading');
-    const tableElement = document.getElementById('wcl-table');
-    const tbody = tableElement.querySelector('tbody');
-    
-    loadingElement.style.display = 'none';
-    tableElement.style.display = 'table';
-    tbody.innerHTML = '';
-    
-    guildData.attendance.logs.forEach(log => {
-        const row = document.createElement('tr');
-        
-        // 计算进度
-        const kills = log.fights.filter(fight => fight.kill).length;
-        const totalEncounters = new Set(log.fights.map(fight => fight.encounterID)).size;
-        const progress = `${kills}/${totalEncounters}`;
-        
-        // 格式化日期
-        const date = new Date(log.startTime);
-        const formattedDate = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
-        
-        row.innerHTML = `
-            <td>${formattedDate}</td>
-            <td>${log.zone?.name || '未知副本'}</td>
-            <td>${progress}</td>
-            <td>${log.owner || '未知团长'}</td>
-            <td><a href="https://www.warcraftlogs.com/reports/${log.code}" target="_blank" class="wcl-button">查看报告</a></td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-        
-        // 检查数据是否有效
-        if (!data || !data.data || !data.data.guildData || !data.data.guildData.guild) {
-            showError('没有找到团队活动记录');
-            return;
-        }
-        
-        const guild = data.data.guildData.guild;
-        
-        if (guild.attendance && guild.attendance.logs) {
-            guild.attendance.logs.forEach(log => {
+        // 显示WCL数据
+        function displayWclData(data) {
+            const guildData = data.data.guild;
+            console.log('处理公会数据:', guildData);
+            
+            const loadingElement = document.getElementById('loading');
+            const errorElement = document.getElementById('error');
+            const tableElement = document.getElementById('wcl-table');
+            const tbody = tableElement.querySelector('tbody');
+            
+            loadingElement.style.display = 'none';
+            errorElement.style.display = 'none';
+            
+            if (!guildData.attendance?.logs?.length) {
+                errorElement.textContent = `没有找到近期活动记录 (最后查询: ${new Date().toLocaleString()})`;
+                errorElement.style.display = 'block';
+                return;
+            }
+            
+            tableElement.style.display = 'table';
+            tbody.innerHTML = '';
+            
+            guildData.attendance.logs.forEach(log => {
                 const row = document.createElement('tr');
                 
                 // 计算进度
-                const kills = log.fights.filter(fight => fight.kill).length;
-                const totalEncounters = new Set(log.fights.map(fight => fight.encounterID)).size;
-                const progress = `${kills}/${totalEncounters}`;
+                const kills = log.fights?.filter(fight => fight.kill).length || 0;
+                const totalEncounters = new Set(log.fights?.map(fight => fight.encounterID) || []).size;
+                const progress = totalEncounters > 0 ? `${kills}/${totalEncounters}` : '无数据';
                 
                 // 格式化日期
                 const date = new Date(log.startTime);
@@ -139,41 +100,28 @@ function displayWclData(data) {
                 
                 row.innerHTML = `
                     <td>${formattedDate}</td>
-                    <td>${log.zone.name}</td>
+                    <td>${log.zone?.name || '未知副本'}</td>
                     <td>${progress}</td>
-                    <td>${log.owner}</td>
+                    <td>${log.owner || '未知团长'}</td>
                     <td><a href="https://www.warcraftlogs.com/reports/${log.code}" target="_blank" class="wcl-button">查看报告</a></td>
                 `;
                 tbody.appendChild(row);
             });
-        } else {
-            const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="5" style="text-align: center;">没有找到团队活动记录</td>';
-            tbody.appendChild(row);
         }
-    }
 
-    // 显示错误信息
-    function showError(message) {
-        const loadingElement = document.getElementById('loading');
-        const errorElement = document.getElementById('error');
-        
-        loadingElement.style.display = 'none';
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-    }
-
-    // 页面加载时获取并显示数据
-    document.addEventListener('DOMContentLoaded', async function() {
-        try {
-            const data = await fetchGuildReports();
-            displayWclData(data);
-        } catch (error) {
-            showError(`加载数据失败: ${error.message}`);
-            console.error(error);
-        }
-    });
-</script>
+        // 页面加载时获取并显示数据
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const data = await fetchGuildReports();
+                displayWclData(data);
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').textContent = error.message;
+                document.getElementById('error').style.display = 'block';
+                console.error('页面加载错误:', error);
+            }
+        });
+    </script>
 
   
 </body>
