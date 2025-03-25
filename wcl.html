@@ -47,30 +47,43 @@
     };
 
     // 获取WCL数据
-    async function fetchGuildReports() {
-        try {
-            const response = await fetch(`/.netlify/functions/wcl-proxy?guildName=${encodeURIComponent(GUILD_INFO.name)}&serverName=${encodeURIComponent(GUILD_INFO.server)}&serverRegion=${encodeURIComponent(GUILD_INFO.region)}`);
-            
-            if (!response.ok) {
-                throw new Error(`网络响应不正常: ${response.status}`);
-            }
-            
-            return await response.json();
-        } catch (error) {
-            console.error('获取WCL数据失败:', error);
-            throw error;
+async function fetchGuildReports() {
+    try {
+        const apiUrl = `/.netlify/functions/wcl-proxy`;
+        console.log('Fetching guild data...');
+        
+        const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || '请求失败');
         }
+        
+        const data = await response.json();
+        
+        // 调试输出
+        console.log('API响应数据:', JSON.stringify(data, null, 2));
+        
+        if (!data.data || !data.data.guild) {
+            throw new Error('API返回数据格式不正确');
+        }
+        
+        return data;
+    } catch (error) {
+        console.error('获取数据失败:', error);
+        throw new Error(`获取公会数据失败: ${error.message}`);
     }
+}
 
     // 显示WCL数据
-    function displayWclData(data) {
-        const loadingElement = document.getElementById('loading');
-        const tableElement = document.getElementById('wcl-table');
-        const tbody = tableElement.querySelector('tbody');
-        
-        loadingElement.style.display = 'none';
-        tableElement.style.display = 'table';
-        tbody.innerHTML = '';
+function displayWclData(data) {
+    const guild = data.data.guild;
+    console.log('处理公会数据:', guild);
+    
+    if (!guild.attendance || !guild.attendance.logs || guild.attendance.logs.length === 0) {
+        showError(`没有找到近期活动记录 (最后查询: ${new Date().toLocaleString()})`);
+        return;
+    }
         
         // 检查数据是否有效
         if (!data || !data.data || !data.data.guildData || !data.data.guildData.guild) {
