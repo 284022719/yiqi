@@ -4,12 +4,8 @@ exports.handler = async (event, context) => {
   const clientId = process.env.WCL_CLIENT_ID;
   const clientSecret = process.env.WCL_CLIENT_SECRET;
   
-  // 调试日志
-  console.log('开始处理WCL数据请求');
-  
   try {
     // 1. 获取访问令牌
-    console.log('正在获取访问令牌...');
     const tokenResponse = await fetch('https://www.warcraftlogs.com/oauth/token', {
       method: 'POST',
       headers: {
@@ -20,19 +16,16 @@ exports.handler = async (event, context) => {
     });
     
     if (!tokenResponse.ok) {
-      const errorText = await tokenResponse.text();
-      throw new Error(`获取令牌失败: ${tokenResponse.status} - ${errorText}`);
+      throw new Error(`获取令牌失败: ${tokenResponse.status}`);
     }
     
     const tokenData = await tokenResponse.json();
-    console.log('令牌获取成功');
     
     if (!tokenData.access_token) {
-      throw new Error('令牌数据无效: 缺少access_token');
+      throw new Error('令牌数据无效');
     }
 
-    // 2. 查询公会数据
-    console.log('正在查询公会数据...');
+    // 2. 使用正确的GraphQL查询
     const query = `
       query {
         reportData {
@@ -41,7 +34,9 @@ exports.handler = async (event, context) => {
               code
               startTime
               endTime
-              owner
+              owner {
+                name
+              }
               zone {
                 name
               }
@@ -66,12 +61,10 @@ exports.handler = async (event, context) => {
     });
     
     if (!apiResponse.ok) {
-      const errorText = await apiResponse.text();
-      throw new Error(`API请求失败: ${apiResponse.status} - ${errorText}`);
+      throw new Error(`API请求失败: ${apiResponse.status}`);
     }
     
     const apiData = await apiResponse.json();
-    console.log('公会数据查询成功');
     
     // 3. 返回格式化数据
     return {
@@ -87,7 +80,6 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
-    console.error('处理过程中出错:', error);
     return {
       statusCode: 500,
       headers: {
