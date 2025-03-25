@@ -4,8 +4,12 @@ exports.handler = async (event, context) => {
   const clientId = process.env.WCL_CLIENT_ID;
   const clientSecret = process.env.WCL_CLIENT_SECRET;
   
+  // 调试日志
+  console.log('开始处理WCL数据请求');
+  
   try {
     // 1. 获取访问令牌
+    console.log('正在获取访问令牌...');
     const tokenResponse = await fetch('https://www.warcraftlogs.com/oauth/token', {
       method: 'POST',
       headers: {
@@ -15,29 +19,28 @@ exports.handler = async (event, context) => {
       body: 'grant_type=client_credentials'
     });
     
+    if (!tokenResponse.ok) {
+      const errorText = await tokenResponse.text();
+      throw new Error(`获取令牌失败: ${tokenResponse.status} - ${errorText}`);
+    }
+    
     const tokenData = await tokenResponse.json();
+    console.log('令牌获取成功');
     
     if (!tokenData.access_token) {
-      throw new Error('获取访问令牌失败');
+      throw new Error('令牌数据无效: 缺少access_token');
     }
 
-    // 2. 使用公会ID查询数据
+    // 2. 查询公会数据
+    console.log('正在查询公会数据...');
     const query = `
       query {
-        guild(id: 586445) {
-          name
-          server {
-            name
-            region {
-              id
-              name
-            }
-          }
-          attendance(startTime: ${Date.now() - 90 * 24 * 60 * 60 * 1000}) {
-            logs {
+        reportData {
+          reports(guildID: 586445, limit: 10) {
+            data {
+              code
               startTime
               endTime
-              code
               owner
               zone {
                 name
@@ -62,22 +65,39 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ query })
     });
     
-    const data = await apiResponse.json();
+    if (!apiResponse.ok) {
+      const errorText = await apiResponse.text();
+      throw new Error(`API请求失败: ${apiResponse.status} - ${errorText}`);
+    }
     
+    const apiData = await apiResponse.json();
+    console.log('公会数据查询成功');
+    
+    // 3. 返回格式化数据
     return {
       statusCode: 200,
       headers: {
+        'Content-Type': 'application/json',
         'Cache-Control': 'public, max-age=3600'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        success: true,
+        data: apiData.data,
+        timestamp: new Date().toISOString()
+      })
     };
   } catch (error) {
-    console.error('Function error:', error);
+    console.error('处理过程中出错:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        success: false,
         error: '获取WCL数据失败',
-        details: error.message 
+        message: error.message,
+        timestamp: new Date().toISOString()
       })
     };
   }
