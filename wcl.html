@@ -93,32 +93,29 @@
   </main>
 
   <script>
-   async function fetchGuildReports() {
-  try {
-    const response = await fetch('/.netlify/functions/wcl-proxy');
-    const data = await response.json();
-    
-    if (!response.ok || !data.success) {
-      throw new Error(data.message || '服务器返回错误');
+    async function fetchGuildReports() {
+      try {
+        const response = await fetch('/.netlify/functions/wcl-proxy');
+        const data = await response.json();
+        
+        console.log('API响应数据:', data);
+        
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || data.error || '服务器返回错误');
+        }
+        
+        if (!data.data?.reportData?.reports?.data) {
+          throw new Error('API返回数据格式不正确');
+        }
+        
+        return data.data.reportData.reports.data;
+      } catch (error) {
+        console.error('获取数据失败:', error);
+        throw new Error(`无法加载数据: ${error.message}`);
+      }
     }
-    
-    // 检查新的数据结构
-    if (!data.data?.reportData?.reports?.data) {
-      throw new Error('API返回数据格式不正确');
-    }
-    
-    return data.data.reportData.reports.data;
-  } catch (error) {
-    console.error('获取数据失败:', error);
-    throw new Error(`无法加载数据: ${error.message}`);
-  }
-}
 
     function displayWclData(reports) {
-        // ...使用 reports 数组渲染表格
-  reports.forEach(report => {
-    // 注意: report.owner 现在是对象 { name: 'xxx' }
-    const ownerName = report.owner?.name || '未知';
       const loadingElement = document.getElementById('loading');
       const errorElement = document.getElementById('error');
       const tableElement = document.getElementById('wcl-table');
@@ -130,22 +127,31 @@
 
       try {
         if (!reports || reports.length === 0) {
-          throw new Error('没有可显示的活动记录');
+          throw new Error('没有找到近期活动记录');
         }
 
         tableElement.style.display = 'table';
         
         reports.forEach(report => {
           const row = document.createElement('tr');
-          const date = new Date(report.startTime);
+          // 转换为北京时间 (UTC+8)
+          const date = new Date(report.startTime + 8 * 3600 * 1000);
+          const dateStr = date.toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          
           const kills = report.fights?.filter(f => f.kill).length || 0;
           const total = new Set(report.fights?.map(f => f.encounterID)).size || 0;
           
           row.innerHTML = `
-            <td>${date.toLocaleDateString()}</td>
+            <td>${dateStr}</td>
             <td>${report.zone?.name || '未知副本'}</td>
             <td>${total ? `${kills}/${total}` : '无数据'}</td>
-            <td>${report.owner?.name || '未知'}</td>
+            <td>${report.owner?.name || '未知团长'}</td>
             <td>
               <a href="https://www.warcraftlogs.com/reports/${report.code}" 
                  target="_blank" 
@@ -161,7 +167,6 @@
         errorElement.textContent = error.message;
         errorElement.style.display = 'block';
       }
-     });
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
