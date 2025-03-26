@@ -21,10 +21,9 @@
   <!-- 主导航 -->
   <nav class="guild-nav" aria-label="主菜单">
     <ul role="menubar">
+      
       <li role="none"><a href="index.html" role="menuitem">首页</a></li>
-      <li role="none"><a href="wcl.html" role="menuitem">WCL数据</a></li>
-      <li role="none"><a href="gear.html" role="menuitem">装备统计</a></li>
-
+    
       <li class="dropdown" role="none">
         <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
         <div class="dropdown-content" role="menu">
@@ -44,44 +43,13 @@
           </a>
         </div>
       </li>
+      
     </ul>
   </nav>
 
   <!-- 主内容区 -->
   <main class="main-content">
-    <!-- 成员在线状态 -->
-    <article class="content-card">
-      <header>
-        <h2>成员在线状态</h2>
-      </header>
-      <div id="online-members" class="loading">
-        <i class="fas fa-spinner fa-spin"></i> 正在加载成员数据...
-      </div>
-    </article>
-
-    <!-- 活动日历 -->
-    <article class="content-card">
-      <header>
-        <h2><span aria-hidden="true">🗓️</span> 活动日历</h2>
-      </header>
-      <div id="event-calendar"></div>
-      <button id="signup-button" class="raid-button" disabled>报名活动</button>
-    </article>
-
-    <!-- 团队语音 -->
-    <article class="content-card">
-      <header>
-        <h2><img src="img/discord.png" alt="Discord" width="20"> 团队语音</h2>
-      </header>
-      <div id="voice-chat">
-        <div class="loading">
-          <i class="fas fa-spinner fa-spin"></i> 正在加载语音频道...
-        </div>
-      </div>
-      <a href="https://discord.gg/您的邀请链接" class="raid-button" target="_blank">
-        加入语音频道
-      </a>
-    </article>
+    
 
     <!-- 攻略部分 -->
     <article class="content-card">
@@ -119,12 +87,5 @@
     </address>
   </footer>
 
-  <!-- JavaScript 文件 -->
-  <script src="js/modal.js"></script>
-  <script src="js/member-status.js"></script>
-  <script src="js/calendar.js"></script>
-  <script src="js/voice-chat.js"></script>
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
-  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/zh-cn.js'></script>
 </body>
 </html>
