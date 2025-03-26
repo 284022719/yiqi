@@ -68,19 +68,6 @@
         <tbody></tbody>
       </table>
     </section>
-<section class="content-card">
-  <header>
-    <h2>团队排行榜</h2>
-  </header>
-  <div id="rankings-tabs">
-    <button class="tab-button active" data-tier="mythic">史诗</button>
-    <button class="tab-button" data-tier="heroic">英雄</button>
-  </div>
-  <div id="rankings-content" class="loading">
-    <i class="fas fa-spinner fa-spin"></i> 正在加载排行榜...
-  </div>
-</section>
-    
   </main>
 
   <!-- 页脚 -->
@@ -169,55 +156,5 @@ function displayWclData(reports) {
       }
     });
   </script>
-
- 
-
-// JavaScript实现
-async function loadRankings(tier) {
-  try {
-    const response = await fetch(`/.netlify/functions/rankings?tier=${tier}`);
-    const data = await response.json();
-    
-    const container = document.getElementById('rankings-content');
-    container.innerHTML = `
-      <table class="dkp-table">
-        <thead>
-          <tr>
-            <th>副本</th>
-            <th>BOSS</th>
-            <th>成绩</th>
-            <th>日期</th>
-            <th>团队成员</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${data.rankings.map(rank => `
-            <tr>
-              <td>${rank.zone}</td>
-              <td>${rank.encounter}</td>
-              <td>${rank.rankPercent}%</td>
-              <td>${new Date(rank.startTime).toLocaleDateString()}</td>
-              <td>${rank.players.join(', ')}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
-  } catch (error) {
-    document.getElementById('rankings-content').innerHTML = 
-      `<div class="error">无法加载排行榜: ${error.message}</div>`;
-  }
-}
-
-document.querySelectorAll('.tab-button').forEach(button => {
-  button.addEventListener('click', () => {
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
-    loadRankings(button.dataset.tier);
-  });
-});
-
-// 默认加载史诗难度
-loadRankings('mythic');
 </body>
 </html>
