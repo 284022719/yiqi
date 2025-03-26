@@ -13,6 +13,8 @@
   --color-warning: #FFC107;
   --color-danger: #F44336;
   --color-info: #2196F3;
+  --color-difficulty-heroic: #ff8000;
+  --color-difficulty-mythic: #e268a8;
   
   /* 尺寸变量 */
   --border-radius: 4px;
@@ -628,5 +630,92 @@ a:hover {
   
   .gear-summary {
     grid-template-columns: 1fr;
+  }
+}
+/* 新增样式 */
+.difficulty-badge {
+  font-weight: bold;
+  margin-left: 0.3rem;
+}
+
+.progress-bar {
+  background: var(--color-bg-dark);
+  height: 20px;
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.progress-bar .progress {
+  background: linear-gradient(to right, var(--color-secondary), var(--color-primary));
+  height: 100%;
+  border-radius: var(--border-radius);
+  transition: width 0.5s ease;
+}
+
+.progress-bar span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  text-shadow: 0 0 3px black;
+  z-index: 1;
+}
+
+.filters {
+  display: flex;
+  gap: var(--spacing-medium);
+  margin: var(--spacing-medium) 0;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  background: var(--color-bg-dark);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius);
+  min-width: 150px;
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+#refresh-btn {
+  padding: var(--spacing-small) var(--spacing-medium);
+}
+
+#load-more-btn {
+  padding: var(--spacing-small) var(--spacing-large);
+}
+
+/* 排序图标 */
+[data-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+[data-sort] i {
+  margin-left: 0.3rem;
+  color: var(--color-text-secondary);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .progress-bar span {
+    font-size: 0.7rem;
+  }
+  
+  #wcl-table td, #wcl-table th {
+    padding: 0.5rem;
   }
 }
