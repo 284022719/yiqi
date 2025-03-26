@@ -466,3 +466,17 @@ a:hover {
 .loading i {
   margin-right: 0.5rem;
 }
+ // CSS样式
+.tab-button {
+  background: var(--color-bg-card);
+  border: none;
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background: var(--color-secondary);
+  color: white;
+}
