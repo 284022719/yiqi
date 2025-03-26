@@ -84,6 +84,7 @@ exports.handler = async (event, context) => {
     
     // 4. 验证并格式化数据
     if (!apiData.data?.reportData?.reports?.data) {
+      console.error('API返回的数据:', apiData);  // 增加日志记录
       throw new Error('API返回数据格式不正确');
     }
 
