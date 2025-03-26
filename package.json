@@ -1,5 +1,11 @@
 {
+  "name": "guild-website",
+  "version": "1.1.0",
   "dependencies": {
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^2.6.7"
+  },
+  "scripts": {
+    "start": "netlify dev",
+    "build": "echo 'No build needed'"
   }
 }
