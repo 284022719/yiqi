@@ -62,4 +62,44 @@ exports.handler = async (event, context) => {
     });
     
     if (!apiResponse.ok) {
-      throw new Error(`API请求失败:
+      throw new Error(`API请求失败: ${apiResponse.status}`);
+    }
+    
+    const apiData = await apiResponse.json();
+    
+    // 3. 处理并格式化数据
+    const rankings = apiData.data.guildData.guild.attendance.edges
+      .map(edge => edge.node)
+      .filter(node => node.rankPercent > 0)
+      .sort((a, b) => b.rankPercent - a.rankPercent)
+      .slice(0, 20) // 取前20名
+      .map(ranking => ({
+        encounterId: ranking.encounter.id,
+        encounter: ranking.encounter.name,
+        zone: ranking.zone.name,
+        rankPercent: ranking.rankPercent.toFixed(1),
+        startTime: ranking.startTime,
+        players: ranking.players.map(p => p.name),
+        classes: ranking.players.map(p => p.class.toLowerCase())
+      }));
+    
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        success: true,
+        rankings,
+        difficulty: tier,
+        lastUpdated: new Date().toISOString()
+      })
+    };
+  } catch (error) {
+    console.error('Error fetching rankings:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        success: false,
+        error: error.message
+      })
+    };
+  }
+};
