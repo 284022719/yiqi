@@ -20,10 +20,8 @@
   <nav class="guild-nav" aria-label="主菜单">
     <ul role="menubar">
       <li role="none"><a href="index.html" role="menuitem">首页</a></li>
-
       <li class="dropdown" role="none">
         <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
-
         <div class="dropdown-content" role="menu">
           <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
             <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
@@ -32,7 +30,6 @@
               <span class="menu-desc">战斗数据分析与排行</span>
             </div>
           </a>
-
           <a href="https://raider.io" target="_blank" role="menuitem">
             <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
             <div class="menu-text">
@@ -49,28 +46,51 @@
     <section class="content-card">
       <header>
         <h2>近期团队活动报告</h2>
+        <div class="filters">
+          <select id="zone-filter" aria-label="筛选副本">
+            <option value="">所有副本</option>
+            <!-- 动态填充 -->
+          </select>
+          <select id="difficulty-filter" aria-label="筛选难度">
+            <option value="">所有难度</option>
+            <option value="4">英雄</option>
+            <option value="5">史诗</option>
+          </select>
+          <button id="refresh-btn" class="raid-button wcl-button">
+            <i class="fas fa-sync-alt"></i> 刷新
+          </button>
+        </div>
       </header>
+      
+      <div id="live-region" aria-live="polite" class="visually-hidden"></div>
       <div id="loading" class="loading">
         <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
       </div>
       <div id="error" class="error" style="display: none;"></div>
+      
       <table id="wcl-table" class="dkp-table">
         <caption class="visually-hidden">WCL战斗记录</caption>
         <thead>
           <tr>
-            <th scope="col">日期</th>
-            <th scope="col">副本</th>
-            <th scope="col">进度</th>
-            <th scope="col">上传者</th>
+            <th scope="col" data-sort="date">日期 <i class="fas fa-sort"></i></th>
+            <th scope="col" data-sort="zone">副本 <i class="fas fa-sort"></i></th>
+            <th scope="col" data-sort="progress">进度 <i class="fas fa-sort"></i></th>
+            <th scope="col" data-sort="duration">时长 <i class="fas fa-sort"></i></th>
+            <th scope="col" data-sort="owner">上传者 <i class="fas fa-sort"></i></th>
             <th scope="col">操作</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+      
+      <div id="load-more" style="text-align: center; margin-top: 1rem; display: none;">
+        <button id="load-more-btn" class="raid-button wcl-button">
+          <i class="fas fa-plus"></i> 加载更多
+        </button>
+      </div>
     </section>
   </main>
 
-  <!-- 页脚 -->
   <footer class="content-card" role="contentinfo">
     <address>
       <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
@@ -79,81 +99,303 @@
   </footer>
 
   <script>
-   // 修改后的 fetchGuildReports 函数
-async function fetchGuildReports() {
-  try {
-    const response = await fetch('/.netlify/functions/wcl-proxy');
-    const data = await response.json();
+    // 全局变量
+    let allReports = [];
+    let displayedReports = [];
+    let currentLimit = 10;
+    let currentSort = { field: 'date', order: 'desc' };
+    let currentFilters = { zone: '', difficulty: '' };
     
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || '服务器返回错误');
-    }
+    // DOM元素
+    const elements = {
+      loading: document.getElementById('loading'),
+      error: document.getElementById('error'),
+      table: document.getElementById('wcl-table'),
+      tbody: document.querySelector('#wcl-table tbody'),
+      zoneFilter: document.getElementById('zone-filter'),
+      difficultyFilter: document.getElementById('difficulty-filter'),
+      refreshBtn: document.getElementById('refresh-btn'),
+      loadMore: document.getElementById('load-more'),
+      loadMoreBtn: document.getElementById('load-more-btn'),
+      liveRegion: document.getElementById('live-region')
+    };
     
-    // 确保数据格式正确
-    if (!data.data?.reports) {
-      throw new Error('API返回数据格式不正确: 缺少reports字段');
-    }
-    
-    return data.data.reports;
-  } catch (error) {
-    console.error('获取数据失败:', error);
-    throw new Error(`无法加载数据: ${error.message}`);
-  }
-}
-
-// 修改后的 displayWclData 函数
-function displayWclData(reports) {
-  const loadingElement = document.getElementById('loading');
-  const errorElement = document.getElementById('error');
-  const tableElement = document.getElementById('wcl-table');
-  const tbody = tableElement.querySelector('tbody');
-  
-  loadingElement.style.display = 'none';
-  errorElement.style.display = 'none';
-  tbody.innerHTML = '';
-
-  try {
-    if (!reports || reports.length === 0) {
-      throw new Error('没有找到近期活动记录');
-    }
-
-    tableElement.style.display = 'table';
-    
-    reports.forEach(report => {
-      const row = document.createElement('tr');
-      const date = new Date(report.startTime);
+    // 工具函数
+    const utils = {
+      formatDate: (timestamp) => {
+        return new Date(timestamp).toLocaleDateString('zh-CN');
+      },
       
-      row.innerHTML = `
-        <td>${date.toLocaleDateString('zh-CN')}</td>
-        <td>${report.zone.name}</td>
-        <td>${report.fights.filter(f => f.kill).length}/${new Set(report.fights.map(f => f.encounterID)).size}</td>
-        <td>${report.owner.name}</td>
-        <td>
-          <a href="https://www.warcraftlogs.com/reports/${report.code}" 
-             target="_blank" 
-             class="raid-button wcl-button">
-            查看
-          </a>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-  } catch (error) {
-    console.error('数据显示错误:', error);
-    errorElement.textContent = error.message;
-    errorElement.style.display = 'block';
-  }
-}
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const reports = await fetchGuildReports();
-        displayWclData(reports);
-      } catch (error) {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').textContent = error.message;
-        document.getElementById('error').style.display = 'block';
+      formatDuration: (milliseconds) => {
+        if (!milliseconds) return '--';
+        const seconds = Math.floor(milliseconds / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        
+        return `${hours > 0 ? hours + 'h' : ''}${minutes % 60}m`;
+      },
+      
+      getDifficultyBadge: (difficulty) => {
+        const badges = {
+          4: { text: 'H', color: '#ff8000' },
+          5: { text: 'M', color: '#e268a8' }
+        };
+        return badges[difficulty] || { text: '', color: '' };
+      },
+      
+      updateLiveRegion: (message) => {
+        elements.liveRegion.textContent = message;
       }
+    };
+    
+    // 数据获取
+    async function fetchGuildReports(limit = 10, zoneId = '', difficulty = '') {
+      try {
+        // 检查缓存
+        const cacheKey = `wcl-reports-${limit}-${zoneId}-${difficulty}`;
+        const cached = localStorage.getItem(cacheKey);
+        
+        if (cached) {
+          const { data, timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < 30 * 60 * 1000) { // 30分钟缓存
+            utils.updateLiveRegion('已加载缓存数据');
+            return data.reports;
+          }
+        }
+        
+        // 构建请求URL
+        let url = `/.netlify/functions/wcl-proxy?limit=${limit}`;
+        if (zoneId) url += `&zoneId=${zoneId}`;
+        if (difficulty) url += `&difficulty=${difficulty}`;
+        
+        // 尝试获取数据，最多重试2次
+        let response;
+        let attempts = 0;
+        while (attempts < 3) {
+          try {
+            response = await fetch(url);
+            if (response.ok) break;
+          } catch (err) {
+            if (attempts === 2) throw err;
+          }
+          attempts++;
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+        }
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || '服务器返回错误');
+        }
+        
+        if (!data.data?.reports) {
+          throw new Error('API返回数据格式不正确: 缺少reports字段');
+        }
+        
+        // 存储到缓存
+        localStorage.setItem(cacheKey, JSON.stringify({
+          data: { reports: data.data.reports },
+          timestamp: Date.now()
+        }));
+        
+        utils.updateLiveRegion('数据加载成功');
+        return data.data.reports;
+      } catch (error) {
+        console.error('获取数据失败:', error);
+        throw new Error(`无法加载数据: ${error.message}`);
+      }
+    }
+    
+    // 数据处理
+    function processReports(reports) {
+      return reports.map(report => {
+        const uniqueEncounters = new Set(report.fights.map(f => f.encounterID));
+        const kills = report.fights.filter(f => f.kill).length;
+        const badge = utils.getDifficultyBadge(report.difficulty);
+        
+        return {
+          ...report,
+          progress: kills / uniqueEncounters.size,
+          formattedDate: utils.formatDate(report.startTime),
+          formattedDuration: utils.formatDuration(report.endTime - report.startTime),
+          difficultyBadge: badge
+        };
+      });
+    }
+    
+    // 数据展示
+    function displayWclData(reports) {
+      elements.loading.style.display = 'none';
+      elements.error.style.display = 'none';
+      elements.tbody.innerHTML = '';
+      
+      try {
+        if (!reports || reports.length === 0) {
+          throw new Error('没有找到符合筛选条件的活动记录');
+        }
+        
+        reports.forEach(report => {
+          const row = document.createElement('tr');
+          
+          row.innerHTML = `
+            <td data-sort-value="${report.startTime}">${report.formattedDate}</td>
+            <td data-sort-value="${report.zone.name}">
+              ${report.zone.name}
+              ${report.difficultyBadge.text ? 
+                `<span class="difficulty-badge" style="color:${report.difficultyBadge.color}">
+                  [${report.difficultyBadge.text}]
+                </span>` : ''}
+            </td>
+            <td data-sort-value="${report.progress}">
+              <div class="progress-bar">
+                <div class="progress" style="width: ${report.progress * 100}%"></div>
+                <span>${report.fights.filter(f => f.kill).length}/${new Set(report.fights.map(f => f.encounterID)).size}</span>
+              </div>
+            </td>
+            <td data-sort-value="${report.endTime - report.startTime}">${report.formattedDuration}</td>
+            <td data-sort-value="${report.owner.name}">${report.owner.name}</td>
+            <td>
+              <a href="https://www.warcraftlogs.com/reports/${report.code}" 
+                 target="_blank" 
+                 class="raid-button wcl-button"
+                 aria-label="查看报告 ${report.title}">
+                <i class="fas fa-external-link-alt"></i> 查看
+              </a>
+            </td>
+          `;
+          
+          elements.tbody.appendChild(row);
+        });
+        
+        elements.table.style.display = 'table';
+        elements.loadMore.style.display = reports.length >= currentLimit ? 'block' : 'none';
+      } catch (error) {
+        console.error('数据显示错误:', error);
+        elements.error.textContent = error.message;
+        elements.error.style.display = 'block';
+        elements.table.style.display = 'none';
+        elements.loadMore.style.display = 'none';
+      }
+    }
+    
+    // 排序功能
+    function sortReports(field) {
+      if (currentSort.field === field) {
+        currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.field = field;
+        currentSort.order = 'desc';
+      }
+      
+      displayedReports.sort((a, b) => {
+        let valueA, valueB;
+        
+        switch(field) {
+          case 'date':
+            valueA = a.startTime;
+            valueB = b.startTime;
+            break;
+          case 'zone':
+            valueA = a.zone.name.toLowerCase();
+            valueB = b.zone.name.toLowerCase();
+            break;
+          case 'progress':
+            valueA = a.progress;
+            valueB = b.progress;
+            break;
+          case 'duration':
+            valueA = a.endTime - a.startTime;
+            valueB = b.endTime - b.startTime;
+            break;
+          case 'owner':
+            valueA = a.owner.name.toLowerCase();
+            valueB = b.owner.name.toLowerCase();
+            break;
+          default:
+            return 0;
+        }
+        
+        if (valueA < valueB) return currentSort.order === 'asc' ? -1 : 1;
+        if (valueA > valueB) return currentSort.order === 'asc' ? 1 : -1;
+        return 0;
+      });
+      
+      // 更新排序图标
+      document.querySelectorAll('[data-sort] i').forEach(icon => {
+        icon.className = 'fas fa-sort';
+      });
+      
+      const currentHeader = document.querySelector(`[data-sort="${field}"] i`);
+      if (currentHeader) {
+        currentHeader.className = currentSort.order === 'asc' 
+          ? 'fas fa-sort-up' 
+          : 'fas fa-sort-down';
+      }
+      
+      displayWclData(displayedReports);
+    }
+    
+    // 筛选功能
+    async function applyFilters() {
+      currentFilters = {
+        zone: elements.zoneFilter.value,
+        difficulty: elements.difficultyFilter.value
+      };
+      
+      elements.loading.style.display = 'block';
+      elements.error.style.display = 'none';
+      elements.table.style.display = 'none';
+      elements.loadMore.style.display = 'none';
+      
+      try {
+        allReports = await fetchGuildReports(
+          currentLimit,
+          currentFilters.zone,
+          currentFilters.difficulty
+        );
+        
+        displayedReports = processReports(allReports);
+        sortReports(currentSort.field);
+        
+        // 填充副本筛选器
+        if (!elements.zoneFilter.querySelector('option[value]')) {
+          const zones = [...new Set(allReports.map(r => r.zone))];
+          zones.forEach(zone => {
+            const option = document.createElement('option');
+            option.value = zone.id;
+            option.textContent = zone.name;
+            elements.zoneFilter.appendChild(option);
+          });
+        }
+      } catch (error) {
+        elements.loading.style.display = 'none';
+        elements.error.textContent = error.message;
+        elements.error.style.display = 'block';
+      }
+    }
+    
+    // 加载更多
+    async function loadMore() {
+      currentLimit += 10;
+      await applyFilters();
+    }
+    
+    // 初始化
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 事件监听
+      document.querySelectorAll('[data-sort]').forEach(header => {
+        header.addEventListener('click', () => {
+          sortReports(header.dataset.sort);
+        });
+      });
+      
+      elements.zoneFilter.addEventListener('change', applyFilters);
+      elements.difficultyFilter.addEventListener('change', applyFilters);
+      elements.refreshBtn.addEventListener('click', applyFilters);
+      elements.loadMoreBtn.addEventListener('click', loadMore);
+      
+      // 初始加载
+      await applyFilters();
     });
   </script>
 </body>
