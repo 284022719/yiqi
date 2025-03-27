@@ -9,35 +9,37 @@
   <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
   <!-- 网站头部 -->
-  <header class="guild-header" role="banner">
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+  <header class="guild-header" >
     <h1 class="guild-title">一起公会</h1>
     <p class="guild-motto">打本 休闲 洗脚</p>
   </header>
 
   <!-- 主导航 -->
   <nav class="guild-nav" aria-label="主菜单">
-    <ul role="menubar">
-      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
+    <ul >
+      <li ><a href="index.html" >首页</a></li>
 
-      <li class="dropdown" role="none">
-        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
+      <li class="dropdown" >
+        <a href="#" class="dropbtn"  aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
 
-        <div class="dropdown-content" role="menu">
-          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
-            <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
-            <div class="menu-text">
-              <span class="menu-title">Warcraft Logs</span>
-              <span class="menu-desc">战斗数据分析与排行</span>
+        <div class="dropdown-content" >
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" >
+            <img src="img/nav/wcl.png" class="dropdown-icon" alt="WCL图标">
+            <div class="dropdown-text">
+              <span class="dropdown-title">Warcraft Logs</span>
+              <span class="dropdown-desc">战斗数据分析与排行</span>
             </div>
           </a>
 
-          <a href="https://raider.io" target="_blank" role="menuitem">
-            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
-            <div class="menu-text">
-              <span class="menu-title">Raider.IO</span>
-              <span class="menu-desc">大秘境评分</span>
+          <a href="https://raider.io" target="_blank" >
+            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="dropdown-icon" alt="raiderio图标">
+            <div class="dropdown-text">
+              <span class="dropdown-title">Raider.IO</span>
+              <span class="dropdown-desc">大秘境评分</span>
             </div>
           </a>
         </div>
@@ -71,90 +73,12 @@
   </main>
 
   <!-- 页脚 -->
-  <footer class="content-card" role="contentinfo">
+  <footer class="content-card" >
     <address>
       <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
       <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
     </address>
   </footer>
-
-  <script>
-   // 修改后的 fetchGuildReports 函数
-async function fetchGuildReports() {
-  try {
-    const response = await fetch('/.netlify/functions/wcl-proxy');
-    const data = await response.json();
-    
-    if (!response.ok || !data.success) {
-      throw new Error(data.error || '服务器返回错误');
-    }
-    
-    // 确保数据格式正确
-    if (!data.data?.reports) {
-      throw new Error('API返回数据格式不正确: 缺少reports字段');
-    }
-    
-    return data.data.reports;
-  } catch (error) {
-    console.error('获取数据失败:', error);
-    throw new Error(`无法加载数据: ${error.message}`);
-  }
-}
-
-// 修改后的 displayWclData 函数
-function displayWclData(reports) {
-  const loadingElement = document.getElementById('loading');
-  const errorElement = document.getElementById('error');
-  const tableElement = document.getElementById('wcl-table');
-  const tbody = tableElement.querySelector('tbody');
-  
-  loadingElement.style.display = 'none';
-  errorElement.style.display = 'none';
-  tbody.innerHTML = '';
-
-  try {
-    if (!reports || reports.length === 0) {
-      throw new Error('没有找到近期活动记录');
-    }
-
-    tableElement.style.display = 'table';
-    
-    reports.forEach(report => {
-      const row = document.createElement('tr');
-      const date = new Date(report.startTime);
-      
-      row.innerHTML = `
-        <td>${date.toLocaleDateString('zh-CN')}</td>
-        <td>${report.zone.name}</td>
-        <td>${report.fights.filter(f => f.kill).length}/${new Set(report.fights.map(f => f.encounterID)).size}</td>
-        <td>${report.owner.name}</td>
-        <td>
-          <a href="https://www.warcraftlogs.com/reports/${report.code}" 
-             target="_blank" 
-             class="raid-button wcl-button">
-            查看
-          </a>
-        </td>
-      `;
-      tbody.appendChild(row);
-    });
-  } catch (error) {
-    console.error('数据显示错误:', error);
-    errorElement.textContent = error.message;
-    errorElement.style.display = 'block';
-  }
-}
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const reports = await fetchGuildReports();
-        displayWclData(reports);
-      } catch (error) {
-        document.getElementById('loading').style.display = 'none';
-        document.getElementById('error').textContent = error.message;
-        document.getElementById('error').style.display = 'block';
-      }
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

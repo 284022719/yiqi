@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - 魔兽世界休闲公会">
+  <title>一起 - 魔兽世界公会</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <!-- 网站头部 -->
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+  <header class="guild-header">
+    <h1 class="guild-title">一起公会</h1>
+    <p class="guild-motto">打本 休闲 洗脚</p>
+  </header>
+
+  <!-- 主导航 -->
+  <nav class="guild-nav" aria-label="主菜单">
+    <ul>
+      <li><a href="index.html">首页</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">实用网站 ▼</a>
+        <div class="dropdown-content">
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" class="dropdown-item">
+            <span class="dropdown-icon">
+              <img src="img/nav/wcl.png" alt="WCL图标">
+            </span>
+            <div class="dropdown-text">
+              <span class="dropdown-title">Warcraft Logs</span>
+              <span class="dropdown-desc">战斗数据分析与排行</span>
+            </div>
+          </a>
+          <a href="https://raider.io" target="_blank" class="dropdown-item">
+            <span class="dropdown-icon">
+              <img src="https://cdn.raiderio.net/images/mstile-144x144.png" alt="Raider.IO图标">
+            </span>
+            <div class="dropdown-text">
+              <span class="dropdown-title">Raider.IO</span>
+              <span class="dropdown-desc">大秘境评分</span>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">团本工具 ▼</a>
+        <div class="dropdown-content">
+          <a href="https://raidplan.io/plan/create?raid=wow.undermine" target="_blank" class="dropdown-item">        
+            <div class="dropdown-text">
+              <span class="dropdown-title">RaidPlan</span>
+              <span class="dropdown-desc">战术图绘制</span>
+            </div>
+          </a>
+        </div>
+      </li>
+      <li><a href="wcl.html" class=".guild-nav">开荒记录</a></li>
+    </ul>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="main-content">
+    <article class="content-card strategy-container">
+      <header>
+        <h1 class="guild-title">H7 穆格·兹伊,安保头子</h1>
+      </header>
+      <section class="strategy-section">
+      <a href="https://raidplan.io/plan/JvnwiwTtTxdEwaxC/edit" class="raid-button">查看战术图</a>
+    </section>
+      <section class="strategy-section">
+        <h2>右半场流程</h2>
+        <ol>
+          <li><strong>全团AOE</strong> <span class="role-note">N注意</span></li>
+          <li><strong>土圈集合分担</strong></li>
+          <li><strong>BOSS击飞放水</strong> <span class="role-note">T注意</span></li>
+          <li><strong>点冰枪</strong> - 被点躲墙后</li>
+          <li><strong>点喷电</strong> - 躲正面，躲地上圈 <span class="role-note">N注意</span></li>
+          <li><strong>BOSS满能量前转场</strong></li>
+        </ol>
+        <div class="strategy-note">
+          <h3>土圈分担说明：</h3>
+          <ul>
+            <li>近战(一队) - 方块位置</li>
+            <li>远程(二队) - 三角位置</li>
+            <li>两圈之间要有距离，也不能太贴墙，给T放水及躲冰枪留空间</li>
+          </ul>
+          <p><strong>T击飞放水路线：</strong> 按黄色箭头方向</p>
+          <p><strong>注：</strong>转场是看哪边场地站的玩家多，不是看BOSS站哪边</p>
+          
+        </div>
+        <img src="img/H7/plan1.png" alt="P1阶段小怪" class="mechanism-img zoomable">
+              <span class="zoom-hint">点击图片放大查看</span>
+
+      </section>
+
+      <section class="strategy-section">
+        <h2>左半场流程</h2>
+        <ol>
+          <li><strong>全团AOE</strong></li>
+          <li><strong>出无人机</strong> - 80%血时有8s的100%误伤，注意转火集火</li>
+          <li><strong>出地雷</strong> - 轮流撞爆，不要重复撞、一起撞炸一个雷出两个小圈，全团注意接圈</li>
+          <li><strong>大红圈分担</strong></li>
+          <li><strong>点名射线</strong> - 被点人不动，T开减伤帮挡</li>
+          <li><strong>正面AOE</strong> - 躲正面</li>
+          <li><strong>BOSS满能量前转场</strong></li>
+        </ol>
+        <div class="strategy-note">
+          <h2>大红圈分担位置</h2>
+            <ul>
+              <li>靠边节约场地</li>
+              <li>至少五人分担</li>
+              <li>远程优先接地雷圈</li>
+            </ul>
+          </div>
+        </div>
+        <img src="img/H7/plan2.png" alt="P1阶段小怪" class="mechanism-img zoomable">
+      </section>
+
+      <section class="strategy-section">
+        <h2>第二次左半场流程</h2>
+        <ol>
+          <li><strong>全团AOE</strong> <span class="role-note">N注意</span></li>
+          <li><strong>土圈集合分担</strong></li>
+          <li><strong>BOSS击飞放水</strong> <span class="role-note">T注意</span></li>
+          <li><strong>点冰枪</strong> - 被点躲墙后</li>
+          <li><strong>点喷电</strong> - 躲正面，躲地上圈 <span class="role-note">N注意</span></li>
+          <li><strong>BOSS满能量前转场</strong></li>
+        </ol>
+        <div class="strategy-note">
+          <h3>土圈分担说明：</h3>
+          <ul>
+            <li>近战(一队) - 方块位置</li>
+            <li>远程(二队) - 三角位置</li>
+            <li>两圈之间要有距离，也不能太贴墙，给T放水及躲冰枪留空间</li>
+          </ul>
+          <p><strong>T击飞放水路线：</strong> 按黄色箭头方向</p>
+        </div>
+        <img src="img/H7/plan3.png" alt="P1阶段小怪" class="mechanism-img zoomable">
+      </section>
+
+      <section class="strategy-section">
+        <h2>RUSH阶段流程</h2>
+        <ol>
+          <li><strong>BOSS 40%血转阶段</strong> - 选一个方向冲锋，然后原地转圈AOE并按动作地查看上路，重复三次，所有人躲开冲锋，跟着BOSS走，转圈路线跳</li>
+          <li><strong>BOSS嗜血，我们也嗜血</strong> (接下来把两个半场P1的所有技能全放一遍)</li>
+          <li><strong>出四个地雷，撞两个，留两个</strong></li>
+          <li><strong>点冰枪</strong> - 用剩下的两个地雷躲</li>
+          <li><strong>正面配合分担</strong></li>
+          <li><strong>大红圈分担</strong></li>
+          <li><strong>BOSS击下T放水</strong></li>
+          <li><strong>正面AOE</strong> - 地面随机出电圈</li>
+          <li><strong>点名射线</strong> - 被点入不动，T开减伤帮挡</li>
+          <li><strong>正面转圈AOE</strong></li>
+          <li><strong>给每个人召一个点名地雷</strong> - 所有人跑到另一个半场站定输出
+            <ul>
+              <li>地雷出之前地面上会有黄斑，看到地面出现大量黄斑就可以走了</li>
+              <li>走的时候注意不要撞到别人的地雷</li>
+              <li>一直跑到另一个半场，离所有地雷移动再输出</li>
+              <li>期间可以用各种位移技能控制地雷</li>
+            </ul>
+          </li>
+          <li><strong>狂暴</strong></li>
+        </ol>
+        <div class="role-notes">
+          <p><span class="role-note">N注意</span> <span class="role-note">T注意</span> <span class="role-note">N注意</span></p>
+        </div>
+        <img src="img/H7/plan4.png" alt="P1阶段小怪" class="mechanism-img zoomable">
+        <img src="img/H7/plan5.png" alt="P1阶段小怪" class="mechanism-img zoomable">
+      </section>
+    </article>
+  </main>
+
+  <style>
+    .strategy-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(40, 40, 40, 0.6);
+      border-radius: 8px;
+      border-left: 3px solid var(--color-secondary);
+    }
+    
+    .strategy-section h2 {
+      color: var(--color-primary);
+      margin-top: 0;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 0.5rem;
+    }
+    
+    .strategy-note {
+      background: rgba(30, 30, 30, 0.8);
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+      border-left: 2px solid var(--color-warning);
+    }
+    
+    .role-note {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      background: var(--color-secondary);
+      color: white;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-left: 0.5rem;
+    }
+    
+    .role-notes {
+      margin-top: 1rem;
+    }
+    
+    .strategy-section ol {
+      padding-left: 1.5rem;
+    }
+    
+    .strategy-section li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</body>
+</html>
