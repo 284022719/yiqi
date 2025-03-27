@@ -90,7 +90,7 @@ a:hover {
 }
 
 /* ====== 导航栏样式 ====== */
-.guild-nav {
+.nav {
   background: var(--color-bg-dark);
   border-bottom: var(--border-width) solid var(--color-border);
   padding: var(--spacing-medium) var(--spacing-large);
@@ -99,7 +99,7 @@ a:hover {
   z-index: 1000; /* 确保高于内容卡片 */
 }
 
-.guild-nav ul {
+.nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -107,12 +107,12 @@ a:hover {
   gap: var(--spacing-large);
 }
 
-.guild-nav a {
+.nav a {
   color: var(--color-primary);
   font-size: 1.1rem;
   transition: transform 0.2s ease-out;
 }
-.guild-nav a:hover {
+.nav a:hover {
   transform: scale(1.05) translateY(-2px);
 }
 /* 重构后的下拉菜单样式 */
@@ -239,7 +239,7 @@ a:hover {
   overflow: visible;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .dropdown-item {
     padding: 12px 16px;
   }
@@ -267,28 +267,43 @@ a:hover {
 }
 
 /* ====== 数据表格 ====== */
-.dkp-table {
+.table {
   width: 100%;
   border-collapse: collapse;
   background: rgba(40, 40, 40, 0.9);
   margin: 1.5rem 0;
 }
 
-.dkp-table th {
+.table th {
   background: #1a1200;
   color: var(--color-primary);
   padding: var(--spacing-medium);
   border-bottom: 3px solid var(--color-secondary);
 }
 
-.dkp-table td {
+.table td {
   padding: 0.8rem;
   border-bottom: 1px solid var(--color-border);
   text-align: center;
 }
 
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+  border-radius: var(--border-radius);
+}
+
+/* 高亮提示文本 */
+.highlight {
+  background: rgba(255, 215, 0, 0.1);
+  padding: 0.5rem;
+  border-left: 3px solid var(--color-warning);
+  margin-bottom: 1rem;
+}
+
 /* ====== 按钮控件 ====== */
-.raid-button {
+.button {
   background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
   border: 1px solid var(--color-primary);
   color: white;
@@ -298,6 +313,45 @@ a:hover {
   transition: all var(--transition-time);
   font-weight: bold;
   display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 200px; /* 保证按钮最小宽度一致 */
+}
+
+/* 新增按钮组样式 */
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem; /* 控制按钮间距 */
+  align-items: center; /* 水平居中 */
+  margin: 1.5rem 0;
+  justify-content: center;
+}
+
+/* 移动端专属调整 */
+@media (max-width: 480px) {
+  
+  .button {
+    width: 90%; /* 加宽按钮 */
+    padding: 1rem; /* 增加内边距 */
+    text-align: center;
+    margin: 0 auto; /* 确保居中 */
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .button-group .button {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
 @keyframes pulse {
@@ -306,18 +360,18 @@ a:hover {
   100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
 }
 
-.raid-button:hover {
+.button:hover {
   background: linear-gradient(to bottom, #92752F, var(--color-secondary));
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
   animation: pulse 1.5s infinite;
 }
 
-.raid-button:active {
+.button:active {
   transform: scale(0.95);
 }
 
-.raid-button + .raid-button {
-  margin-left: 1rem; /* 或使用变量：var(--spacing-medium) */
+.button + .button {
+  margin-left: 0m;
 }
 
 /* ====== 特殊区块 ====== */
@@ -352,12 +406,12 @@ footer img:hover {
 }
 
 /* ====== 响应式设计 ====== */
-@media (max-width: 768px) {
-  .guild-nav {
+@media (max-width: 480px) {
+  .nav {
     padding: var(--spacing-small) var(--spacing-medium);
   }
   
-  .guild-nav ul {
+  .nav ul {
     gap: var(--spacing-medium);
     flex-wrap: wrap;
   }
@@ -378,9 +432,66 @@ footer img:hover {
     height: 20px;
   }
   
-  .dkp-table {
+  .table {
     display: block;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--color-border);
+  }
+  
+  .table-responsive::after {
+    content: "← 左右滑动查看完整表格 →";
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+  }
+
+  .table thead {
+    display: none;
+  }
+  
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+  
+  .table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-secondary);
+    background: rgba(30, 30, 30, 0.7);
+  }
+  
+  .table td {
+    display: block;
+    text-align: right;
+    padding: 0.8rem;
+    position: relative;
+    border-bottom: 1px solid rgba(255,215,0,0.1);
+  }
+  
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0.8rem;
+    top: 0.8rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    text-align: left;
+  }
+  
+  .table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* 图片单元格特殊处理 */
+  .table td img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
   }
   
   .iframe-container iframe {
@@ -424,7 +535,7 @@ footer img:hover {
   column-gap: var(--spacing-large);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .wipe-list {
     column-count: 1;
   }
