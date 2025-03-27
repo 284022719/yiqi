@@ -8,43 +8,61 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
 </head>
 
 <body>
   <!-- 网站头部 -->
-  <header class="guild-header" role="banner">
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+  <header class="guild-header" >
     <h1 class="guild-title">一起公会</h1>
     <p class="guild-motto">打本 休闲 洗脚</p>
   </header>
 
   <!-- 主导航 -->
   <nav class="guild-nav" aria-label="主菜单">
-    <ul role="menubar">
+    <ul >
       
-      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
+      <li ><a href="index.html" >首页</a></li>
     
-      <li class="dropdown" role="none">
-        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
-        <div class="dropdown-content" role="menu">
-          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
-            <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
-            <div class="menu-text">
-              <span class="menu-title">Warcraft Logs</span>
-              <span class="menu-desc">战斗数据分析与排行</span>
+      <li class="dropdown" >
+        <a href="#" class="dropbtn">实用网站 ▼</a>
+        <div class="dropdown-content" >
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" class="dropdown-item">
+            
+            <span class="dropdown-icon">
+              <img src="img/nav/wcl.png" alt="WCL图标">
+            </span>
+
+            <div class="dropdown-text">
+              <span class="dropdown-title">Warcraft Logs</span>
+              <span class="dropdown-desc">战斗数据分析与排行</span>
             </div>
           </a>
-          <a href="https://raider.io" target="_blank" role="menuitem">
-            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
-            <div class="menu-text">
-              <span class="menu-title">Raider.IO</span>
-              <span class="menu-desc">大秘境评分</span>
+          <a href="https://raider.io" target="_blank" class="dropdown-item">
+            <span class="dropdown-icon">
+              <img src="https://cdn.raiderio.net/images/mstile-144x144.png" alt="Raider.IO图标">
+            </span>
+            <div class="dropdown-text">
+              <span class="dropdown-title">Raider.IO</span>
+              <span class="dropdown-desc">大秘境评分</span>
             </div>
           </a>
         </div>
       </li>
 
-      <li role="none"><a href="wcl.html" role="menuitem">开荒记录</a></li>
+      <li class="dropdown" >
+        <a href="#" class="dropbtn">团本工具 ▼</a>
+        <div class="dropdown-content" >
+          <a href="https://raidplan.io/plan/create?raid=wow.undermine" target="_blank" class="dropdown-item">        
+            <div class="dropdown-text">
+              <span class="dropdown-title">RaidPlan</span>
+              <span class="dropdown-desc">战术图绘制</span>
+            </div>
+          </a>
+        </div>
+      </li>
+
+      <li ><a href="wcl.html" class=".guild-nav">开荒记录</a></li>
       
     </ul>
   </nav>
@@ -59,6 +77,14 @@
         <h2>战术攻略</h2>
       </header>
       <a href="H6.html" class="raid-button">H6 独臂盗匪</a>
+      <a href="H7.HTML" class="raid-button">H7 穆格·兹伊,安保头子</a>
+    </article>
+
+    <article class="content-card">
+      <header>
+        <h2>会员风采</h2>
+      </header>
+      <img src="img/mdz.jpg" alt="P1阶段小怪" class="mechanism-img zoomable">
     </article>
 
     <!-- 公会视频部分 -->
@@ -68,7 +94,7 @@
       </header>
       <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
       <figure class="iframe-container">
-        <iframe 
+        <iframe loading="lazy"
           src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
           title="凋零密院"
           scrolling="no"  
@@ -82,12 +108,12 @@
   </main>
 
   <!-- 页脚 -->
-  <footer class="content-card" role="contentinfo">
+  <footer class="content-card" >
     <address>
       <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
       <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
     </address>
   </footer>
-
+  <script src="js/main.js"></script>
 </body>
 </html>

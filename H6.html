@@ -7,38 +7,37 @@
   <title>H6 独臂盗匪 - 一起公会</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
-  <!-- 加载模态框JS -->
-  <script src="js/modal.js" defer></script>
 </head>
 <body>
   <!-- 网站头部 -->
-  <header class="guild-header" role="banner">
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
+  <header class="guild-header" >
     <h1 class="guild-title">一起公会</h1>
     <p class="guild-motto">打本 休闲 洗脚</p>
   </header>
 
   <!-- 主导航 -->
   <nav class="guild-nav" aria-label="主菜单">
-    <ul role="menubar">
-      <li role="none"><a href="index.html" role="menuitem">首页</a></li>
+    <ul >
+      <li ><a href="index.html" >首页</a></li>
 
-      <li class="dropdown" role="none">
-        <a href="#" class="dropbtn" role="menuitem" aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
+      <li class="dropdown" >
+        <a href="#" class="dropbtn"  aria-haspopup="true" aria-expanded="false">工具网站 ▼</a>
 
-        <div class="dropdown-content" role="menu">
-          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" role="menuitem">
-            <img src="img/nav/wcl.png" class="menu-icon" alt="WCL图标">
-            <div class="menu-text">
-              <span class="menu-title">Warcraft Logs</span>
-              <span class="menu-desc">战斗数据分析与排行</span>
+        <div class="dropdown-content" >
+          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" >
+            <img src="img/nav/wcl.png" class="dropdown-icon" alt="WCL图标">
+            <div class="dropdown-text">
+              <span class="dropdown-title">Warcraft Logs</span>
+              <span class="dropdown-desc">战斗数据分析与排行</span>
             </div>
           </a>
 
-          <a href="https://raider.io" target="_blank" role="menuitem">
-            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="menu-icon" alt="raiderio图标">
-            <div class="menu-text">
-              <span class="menu-title">Raider.IO</span>
-              <span class="menu-desc">大秘境评分</span>
+          <a href="https://raider.io" target="_blank" >
+            <img src="https://cdn.raiderio.net/images/mstile-144x144.png" class="dropdown-icon" alt="raiderio图标">
+            <div class="dropdown-text">
+              <span class="dropdown-title">Raider.IO</span>
+              <span class="dropdown-desc">大秘境评分</span>
             </div>
           </a>
         </div>
@@ -47,11 +46,6 @@
   </nav>
 
   <main class="main-content">
-    <!-- 返回按钮 -->
-    <div class="content-card">
-      <a href="index.html" class="raid-button">← 返回主页</a>
-    </div>
-
     <article class="content-card strategy-container">
       <header>
         <h1 class="guild-title">H6 独臂盗匪</h1>
@@ -143,11 +137,12 @@
   </main>
 
   <!-- 页脚 -->
-  <footer class="content-card" role="contentinfo">
+  <footer class="content-card" >
     <address>
       <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
       <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
     </address>
   </footer>
+  <script src="js/main.js"></script>
 </body>
 </html>
