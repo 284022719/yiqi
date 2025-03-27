@@ -316,6 +316,10 @@ a:hover {
   transform: scale(0.95);
 }
 
+.raid-button + .raid-button {
+  margin-left: 1rem; /* 或使用变量：var(--spacing-medium) */
+}
+
 /* ====== 特殊区块 ====== */
 .important-notice {
   background: rgba(70, 0, 0, 0.8);
