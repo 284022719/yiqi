@@ -24,7 +24,7 @@
   --small-avatar-size: 30px;
   
   /* 动画变量 */
-  --transition-time: 0.3s;
+  --transition-time: 0.05s;
 }
 
 /* ====== 全局基础样式 ====== */
@@ -95,6 +95,8 @@ a:hover {
   border-bottom: var(--border-width) solid var(--color-border);
   padding: var(--spacing-medium) var(--spacing-large);
   backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 1000; /* 确保高于内容卡片 */
 }
 
 .guild-nav ul {
@@ -108,87 +110,156 @@ a:hover {
 .guild-nav a {
   color: var(--color-primary);
   font-size: 1.1rem;
+  transition: transform 0.2s ease-out;
 }
-
-/* 下拉菜单样式 */
+.guild-nav a:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+/* 重构后的下拉菜单样式 */
 .dropdown {
   position: relative;
 }
 
+/* 下拉内容容器 - 改名为 menu-container 更语义化 */
 .dropdown-content {
-  display: none;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s, height 0.3s;
   position: absolute;
-  background: rgba(30, 30, 30, 0.95);
+  background: var(--color-bg-card);
   min-width: 200px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  z-index: 1;
+  z-index: 1001;
   border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  left: 0;
+  top: 100%; /* 紧贴父元素下方 */
+  margin-top: 5px; /* 避免粘连 */
+  padding: 5px 0; /* 增加内边距 */
+}
+
+/* 修改下拉菜单项样式 */
+.dropdown-item {
+  color: var(--color-text);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all var(--transition-time) ease-out;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  overflow: hidden;
+  z-index: 1;
+  margin: 0 5px;
   border-radius: var(--border-radius);
 }
 
-.dropdown-content a {
-  color: var(--color-text);
-  padding: 12px 16px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-size: 1rem;
+/* 使用伪元素实现悬浮背景 */
+.dropdown-item:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 215, 0, 0.1) 0%,
+    rgba(255, 215, 0, 0) 100%
+  );
+  z-index: -1;
+  border-radius: var(--border-radius);
 }
 
-.dropdown-content a:hover {
-  background: rgba(255, 215, 0, 0.1);
+/* 最后一个选项不需要分割线 */
+.dropdown-item:last-child {
+  border-bottom: none;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* 下拉菜单图标样式 */
-.menu-icon {
+/* 菜单项子元素 - 统一前缀 */
+.dropdown-icon {
   font-size: 1.2rem;
-  width: 28px;
+  width: 24px;
+  height: 24px;
   color: var(--color-primary);
   margin-right: 12px;
   text-align: center;
+  transition: transform var(--transition-time);
+  flex-shrink: 0; /* 防止图标被压缩 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 文字内容容器 */
-.menu-text {
+/* 确保图片适应图标容器 */
+.dropdown-icon img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.dropdown-text {
   flex: 1;
+  min-width: 0; /* 防止文字溢出 */
 }
 
-/* 主标题样式 */
-.menu-title {
+.dropdown-title {
   color: var(--color-primary);
   font-size: 1.05rem;
   margin-bottom: 3px;
   display: block;
 }
 
-/* 说明文字样式 */
-.menu-desc {
+.dropdown-desc {
   color: var(--color-text-secondary);
   font-size: 0.85rem;
   display: block;
   line-height: 1.4;
 }
 
-/* 分隔线 */
-.menu-divider {
-  height: 1px;
-  background: var(--color-border);
-  margin: 6px 0;
+/* 状态类 */
+.dropdown-item:hover .dropdown-icon {
+  transform: translateX(3px);
+  color: var(--color-primary);
+}
+
+.dropdown-item:hover .dropdown-title {
+  color: var(--color-primary);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.dropdown-item:hover .dropdown-desc {
+  color: #d0d0d0;
+}
+
+/* ====== 下拉菜单悬停触发 ====== */
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+@media (max-width: 768px) {
+  .dropdown-item {
+    padding: 12px 16px;
+  }
+  
+  .dropdown-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 /* ====== 内容卡片 ====== */
 .content-card {
-  background: var(--color-bg-card);
-  border: var(--border-width) solid var(--color-border);
   border-radius: 8px;
   padding: var(--spacing-large);
   margin: var(--spacing-large) auto;
   max-width: 1200px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(30, 30, 30, 0.6);
 }
 
 .content-card header {
@@ -229,9 +300,16 @@ a:hover {
   display: inline-block;
 }
 
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
 .raid-button:hover {
   background: linear-gradient(to bottom, #92752F, var(--color-secondary));
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  animation: pulse 1.5s infinite;
 }
 
 .raid-button:active {
@@ -243,13 +321,6 @@ a:hover {
   background: rgba(70, 0, 0, 0.8);
   border-left: 5px solid var(--color-secondary);
   position: relative;
-}
-
-.notice-flame {
-  position: absolute;
-  right: -20px;
-  top: -15px;
-  width: 40px;
 }
 
 /* ====== 视频容器样式 ====== */
@@ -267,6 +338,13 @@ a:hover {
   aspect-ratio: 16/9;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
+}
+
+footer img {
+  transition: transform 0.3s;
+}
+footer img:hover {
+  transform: rotate(15deg) scale(1.2);
 }
 
 /* ====== 响应式设计 ====== */
@@ -472,74 +550,6 @@ a:hover {
 .loading i {
   margin-right: 0.5rem;
 }
- // CSS样式
-.tab-button {
-  background: var(--color-bg-card);
-  border: none;
-  color: var(--color-text);
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-}
-
-.tab-button.active {
-  background: var(--color-secondary);
-  color: white;
-/* ====== 新增成员状态样式 ====== */
-.online-member {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
-  transition: background-color var(--transition-time);
-}
-
-.online-member:hover {
-  background-color: rgba(255, 215, 0, 0.05);
-}
-
-.member-avatar {
-  width: var(--avatar-size);
-  height: var(--avatar-size);
-  border-radius: 50%;
-  margin-right: 1rem;
-  border: 2px solid var(--color-primary);
-}
-
-.member-status {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-right: 0.5rem;
-}
-
-.status-online { background: #00ff00; }
-.status-raid { background: #ff9900; }
-.status-dungeon { background: #9900ff; }
-.status-offline { background: #666; }
-}
-/* ====== 新增日历和活动样式 ====== */
-.fc {
-  font-family: inherit;
-}
-
-.fc .fc-toolbar-title {
-  color: var(--color-primary);
-}
-
-.fc .fc-button {
-  background-color: var(--color-bg-card);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-}
-
-.fc .fc-button-primary:not(:disabled).fc-button-active {
-  background-color: var(--color-secondary);
-}
-
-.fc .fc-daygrid-day.fc-day-today {
-  background-color: rgba(255, 215, 0, 0.1);
-}
 
 /* ====== 新增排行榜标签样式 ====== */
 .tab-container {
@@ -570,63 +580,4 @@ a:hover {
   right: 0;
   height: 3px;
   background: var(--color-primary);
-}
-
-/* ====== 新增语音聊天样式 ====== */
-.voice-channel {
-  margin-bottom: 1.5rem;
-  background: rgba(30, 30, 30, 0.7);
-  padding: var(--spacing-small);
-  border-radius: var(--border-radius);
-  border-left: 3px solid var(--color-secondary);
-}
-
-.voice-user {
-  display: flex;
-  align-items: center;
-  padding: 0.3rem 0;
-}
-
-.voice-avatar {
-  width: var(--small-avatar-size);
-  height: var(--small-avatar-size);
-  border-radius: 50%;
-  margin-right: 0.5rem;
-}
-
-/* ====== 新增装备统计样式 ====== */
-.gear-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-medium);
-  margin-bottom: var(--spacing-large);
-  padding: var(--spacing-medium);
-  background: rgba(40, 40, 40, 0.7);
-  border-radius: var(--border-radius);
-}
-
-.gear-summary div {
-  text-align: center;
-}
-
-.gear-summary strong {
-  color: var(--color-primary);
-  font-size: 1.2rem;
-}
-
-/* ====== 响应式调整 ====== */
-@media (max-width: 768px) {
-  .online-member {
-    padding: 0.3rem;
-  }
-  
-  .member-avatar {
-    width: 30px;
-    height: 30px;
-    margin-right: 0.5rem;
-  }
-  
-  .gear-summary {
-    grid-template-columns: 1fr;
-  }
 }
