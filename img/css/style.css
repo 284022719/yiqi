@@ -90,14 +90,14 @@ a:hover {
 }
 
 /* ====== 导航栏样式 ====== */
-.guild-nav {
+.nav {
   background: var(--color-bg-dark);
   border-bottom: var(--border-width) solid var(--color-border);
   padding: var(--spacing-medium) var(--spacing-large);
   backdrop-filter: blur(8px);
 }
 
-.guild-nav ul {
+.nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -105,7 +105,7 @@ a:hover {
   gap: var(--spacing-large);
 }
 
-.guild-nav a {
+.nav a {
   color: var(--color-primary);
   font-size: 1.1rem;
 }
@@ -196,28 +196,28 @@ a:hover {
 }
 
 /* ====== 数据表格 ====== */
-.dkp-table {
+.table {
   width: 100%;
   border-collapse: collapse;
   background: rgba(40, 40, 40, 0.9);
   margin: 1.5rem 0;
 }
 
-.dkp-table th {
+.table th {
   background: #1a1200;
   color: var(--color-primary);
   padding: var(--spacing-medium);
   border-bottom: 3px solid var(--color-secondary);
 }
 
-.dkp-table td {
+.table td {
   padding: 0.8rem;
   border-bottom: 1px solid var(--color-border);
   text-align: center;
 }
 
 /* ====== 按钮控件 ====== */
-.raid-button {
+.button {
   background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
   border: 1px solid var(--color-primary);
   color: white;
@@ -229,12 +229,12 @@ a:hover {
   display: inline-block;
 }
 
-.raid-button:hover {
+.button:hover {
   background: linear-gradient(to bottom, #92752F, var(--color-secondary));
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
 }
 
-.raid-button:active {
+.button:active {
   transform: scale(0.95);
 }
 
@@ -270,12 +270,12 @@ a:hover {
 }
 
 /* ====== 响应式设计 ====== */
-@media (max-width: 768px) {
-  .guild-nav {
+@media (max-width: 480px) {
+  .nav {
     padding: var(--spacing-small) var(--spacing-medium);
   }
   
-  .guild-nav ul {
+  .nav ul {
     gap: var(--spacing-medium);
     flex-wrap: wrap;
   }
@@ -296,7 +296,7 @@ a:hover {
     height: 20px;
   }
   
-  .dkp-table {
+  .table {
     display: block;
     overflow-x: auto;
   }
@@ -342,7 +342,7 @@ a:hover {
   column-gap: var(--spacing-large);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .wipe-list {
     column-count: 1;
   }

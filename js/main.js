@@ -318,7 +318,7 @@
           <td>
             <a href="https://www.warcraftlogs.com/reports/${report.code}" 
                target="_blank" 
-               class="raid-button wcl-button">
+               class="button wcl-button">
               查看详情
             </a>
           </td>
@@ -352,11 +352,12 @@
         // 初始化粒子动画 (所有页面)
         new ParticleSystem();
       
-        // 初始化图片模态框 (有zoomable图片的页面)
-        if (document.querySelector('.zoomable')) {
-          const imageModal = new ImageModal();
-          imageModal.registerImages(document.querySelectorAll('.zoomable'));
-        }
+  // 初始化图片模态框 (检查是否有zoomable图片)
+  const zoomableImages = document.querySelectorAll('.zoomable');
+  if (zoomableImages.length > 0) {
+    const imageModal = new ImageModal();
+    imageModal.registerImages(zoomableImages);
+  }
       
         // 初始化WCL数据 (仅WCL页面)
         if (document.getElementById('wcl-table')) {
