@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "."
+
+[functions]
+  directory = "netlify/functions"
+
+[context.production.environment]
+  GIT_LFS_ENABLED = "true"
+
+[dev]
+  port = 8888  # 开发服务器端口
+  targetPort = 3999  # 函数服务器端口
+  framework = "#static"
