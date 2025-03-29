@@ -9,5 +9,8 @@
   "scripts": {
     "start": "netlify dev",
     "build": "echo 'No build needed'"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.7"
   }
 }

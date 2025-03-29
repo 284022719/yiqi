@@ -2,13 +2,21 @@
   command = "npm run build"
   publish = "."
 
+[build.environment]
+  CLOUDINARY_CLOUD_NAME = "dilzhjgei"
+  CLOUDINARY_API_KEY = "489569147855735"
+  CLOUDINARY_API_SECRET = "your_real_secret_here"
+  WCL_API_KEY = ""
+  WCL_CLIENT_ID = ""
+  WCL_CLIENT_SECRET = ""
+  WOW_CLIENT_ID = ""
+  WOW_CLIENT_SECRET = ""
+  GIT_LFS_ENABLED = "true"
+
 [functions]
   directory = "netlify/functions"
 
-[context.production.environment]
-  GIT_LFS_ENABLED = "true"
-
 [dev]
-  port = 8888  # 开发服务器端口
-  targetPort = 3999  # 函数服务器端口
+  port = 8888
+  targetPort = 3999
   framework = "#static"
