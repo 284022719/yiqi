@@ -902,3 +902,14 @@ footer img:hover {
     min-height: 120px;
   }
 }
+
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-primary);
+  grid-column: 1 / -1; /* 跨所有列 */
+}
+
+.fa-spinner {
+  margin-right: 0.5rem;
+}
