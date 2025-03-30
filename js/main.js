@@ -5,12 +5,11 @@
  * - 首页粒子动画
  * - WCL数据加载
  */
-(function() {
-    'use strict'; // 使用严格模式避免常见错误
-    
-    /*************************
-     * 全局配置
-     *************************/
+
+
+/*************************
+* 全局配置
+*************************/
     const CONFIG = {
       particleCount: 150,
       particleColors: ['#FFD700', '#785A28', '#FFFFFF', '#FFA500'],
@@ -349,31 +348,29 @@
           /*************************
    * 图片上传功能
    *************************/
-          class ImageUploader {
-            constructor() {
-              this.uploadForm = document.getElementById('upload-form');
-              this.imageUpload = document.getElementById('image-upload');
-              this.imagePreview = document.getElementById('image-preview');
-              this.imageDescription = document.getElementById('image-description');
-              this.uploadStatus = document.getElementById('upload-status');
-              this.gallery = document.getElementById('gallery');
-              
-              if (this.uploadForm) {
-                this.init();
-              }
-            }
-            if (this.uploadForm) {
-              this.init();
-              this.loadGallery(); // 确保调用加载画廊
-            }
-          }
+    class ImageUploader {
+
+      constructor() {
+        this.uploadForm = document.getElementById('upload-form');
+        this.imageUpload = document.getElementById('image-upload');
+        this.imagePreview = document.getElementById('image-preview');
+        this.imageDescription = document.getElementById('image-description');
+        this.uploadStatus = document.getElementById('upload-status');
+        this.gallery = document.getElementById('gallery');
+      
+        if (this.uploadForm) {
+          this.init();
+          this.loadGallery(); 
+        }
+
+      }
             
-            init() {
-              this.setupEventListeners();
-              this.loadGallery();
-            }
+      init() {
+        this.setupEventListeners();
+        this.loadGallery();
+      }
             
-            setupEventListeners() {
+      setupEventListeners() {
               this.imageUpload.addEventListener('change', (e) => this.handleFileSelect(e));
               this.uploadForm.addEventListener('submit', (e) => this.handleFormSubmit(e));
             }
@@ -512,8 +509,16 @@
   /*************************
    * 页面初始化
    *************************/
-  function init() {
+   import { loadHeader } from './components/header.js';
+   import { loadNavigation } from './components/nav.js';
+   import { loadFooter } from './components/footer.js';
 
+   function init() {
+
+    loadHeader();
+    loadNavigation();
+    loadFooter();
+    
    // 初始化粒子动画 (所有页面)
    new ParticleSystem();
       
@@ -540,4 +545,3 @@
  // DOM加载完成后初始化
  document.addEventListener('DOMContentLoaded', init);
 
-})();
