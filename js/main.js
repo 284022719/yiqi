@@ -362,6 +362,11 @@
                 this.init();
               }
             }
+            if (this.uploadForm) {
+              this.init();
+              this.loadGallery(); // 确保调用加载画廊
+            }
+          }
             
             init() {
               this.setupEventListeners();
@@ -504,25 +509,35 @@
             }
           }
           
-    /*************************
-     * 页面初始化
-     *************************/
-      function init() {
-        // 初始化粒子动画 (所有页面)
-        new ParticleSystem();
+  /*************************
+   * 页面初始化
+   *************************/
+  function init() {
+
+   // 初始化粒子动画 (所有页面)
+   new ParticleSystem();
       
-  // 初始化图片模态框 (检查是否有zoomable图片)
-  const zoomableImages = document.querySelectorAll('.zoomable');
-  if (zoomableImages.length > 0) {
-    const imageModal = new ImageModal();
-    imageModal.registerImages(zoomableImages);
+   // 初始化图片模态框 (检查是否有zoomable图片)
+   const zoomableImages = document.querySelectorAll('.zoomable');
+
+    if (zoomableImages.length > 0) {
+     const imageModal = new ImageModal();
+     imageModal.registerImages(zoomableImages);
+    }
+     
+  // 初始化WCL数据 (仅WCL页面)
+    if (document.getElementById('wcl-table')) {
+      new WCLDataLoader();
+   }
+
+  // 初始化图片上传和画廊 (仅在包含上传表单的页面)
+   if (document.getElementById('upload-form')) {
+      new ImageUploader();
+    }
+
   }
-      
-        // 初始化WCL数据 (仅WCL页面)
-        if (document.getElementById('wcl-table')) {
-          new WCLDataLoader();
-        }
-      }
-    // DOM加载完成后初始化
-    document.addEventListener('DOMContentLoaded', init);
-  })();
+
+ // DOM加载完成后初始化
+ document.addEventListener('DOMContentLoaded', init);
+
+})();
