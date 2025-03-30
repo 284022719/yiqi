@@ -752,3 +752,153 @@ footer img:hover {
   text-align: center;
   font-size: 0.9rem;
 }
+
+/* ====== 图片上传表单样式 ====== */
+.upload-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-medium);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-medium);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-small);
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.form-group input[type="file"] {
+  display: none;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: rgba(40, 40, 40, 0.8);
+  color: var(--color-text);
+  transition: all var(--transition-time);
+}
+
+.form-group input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+/* 自定义文件上传按钮 */
+.file-upload-label {
+  display: inline-block;
+  padding: 0.5rem 1rem; /* 减小内边距 */
+  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  color: white;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-time);
+  border: 1px solid var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-medium);
+  font-size: 0.9rem; /* 减小字体大小 */
+  min-width: 120px; /* 设置最小宽度 */
+}
+
+.file-upload-label i {
+  font-size: 0.9rem; /* 图标大小调整为0.9rem */
+  margin-right: 0.4rem;
+}
+
+/* 上传按钮图标 */
+.upload-form .button i {
+  font-size: 0.85rem; /* 上传按钮图标稍小 */
+  margin-right: 0.4rem;
+}
+
+.file-upload-label:hover {
+  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* 图片预览区域 */
+.preview-container {
+  margin-top: var(--spacing-small); /* 减小上边距 */
+  text-align: center;
+  min-height: 150px; /* 减小最小高度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(40, 40, 40, 0.5);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-time);
+  padding: 0.5rem; /* 添加内边距 */
+}
+
+.preview-container:hover {
+  border-color: var(--color-primary);
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: block;
+}
+
+/* 上传按钮样式增强 */
+.upload-form .button {
+  width: auto; /* 改为自动宽度 */
+  margin-top: var(--spacing-medium);
+  font-size: 0.9rem; /* 减小字体大小 */
+  padding: 0.7rem 1.2rem; /* 减小内边距 */
+  min-width: 120px; /* 设置最小宽度 */
+}
+
+/* 上传状态提示 */
+#upload-status {
+  margin-top: var(--spacing-medium);
+  padding: var(--spacing-small);
+  text-align: center;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+}
+
+#upload-status:not(:empty) {
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* 上传结果预览 */
+#preview {
+  margin-top: var(--spacing-medium);
+  text-align: center;
+}
+
+#preview img {
+  max-width: 100%;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-small);
+}
+
+@media (max-width: 768px) {
+  .file-upload-label {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .upload-form .button {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .preview-container {
+    min-height: 120px;
+  }
+}
