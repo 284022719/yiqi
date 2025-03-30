@@ -11,61 +11,7 @@
 </head>
 
 <body>
-  <!-- 网站头部 -->
-  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
-  <header class="guild-header" >
-    <h1 class="guild-title">一起公会</h1>
-    <p class="guild-motto">打本 休闲 洗脚</p>
-  </header>
 
-  <!-- 主导航 -->
-  <nav class="nav" aria-label="主菜单">
-    <ul >
-      
-      <li ><a href="index.html" >首页</a></li>
-    
-      <li class="dropdown" >
-        <a href="#" class="dropbtn">实用网站 ▼</a>
-        <div class="dropdown-content" >
-          <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" class="dropdown-item">
-            
-            <span class="dropdown-icon">
-              <img src="img/nav/wcl.png" alt="WCL图标">
-            </span>
-
-            <div class="dropdown-text">
-              <span class="dropdown-title">Warcraft Logs</span>
-              <span class="dropdown-desc">战斗数据分析与排行</span>
-            </div>
-          </a>
-          <a href="https://raider.io" target="_blank" class="dropdown-item">
-            <span class="dropdown-icon">
-              <img src="https://cdn.raiderio.net/images/mstile-144x144.png" alt="Raider.IO图标">
-            </span>
-            <div class="dropdown-text">
-              <span class="dropdown-title">Raider.IO</span>
-              <span class="dropdown-desc">大秘境评分</span>
-            </div>
-          </a>
-        </div>
-      </li>
-
-      <li class="dropdown" >
-        <a href="#" class="dropbtn">团本工具 ▼</a>
-        <div class="dropdown-content" >
-          <a href="https://raidplan.io/plan/create?raid=wow.undermine" target="_blank" class="dropdown-item">        
-            <div class="dropdown-text">
-              <span class="dropdown-title">RaidPlan</span>
-              <span class="dropdown-desc">战术图绘制</span>
-            </div>
-          </a>
-        </div>
-      </li>
-
-      <li ><a href="wcl.html" class="">开荒记录</a></li>
-      
-    </ul>
-  </nav>
 
   <!-- 主内容区 -->
   <main class="main-content">
@@ -98,7 +44,7 @@
       <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
       <figure class="iframe-container">
         <iframe loading="lazy"
-          src="//player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
+          src="https://player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
           title="凋零密院"
           scrolling="no"  
           frameborder="no" 
@@ -145,85 +91,7 @@
     </div>
   </article>
 
-  <!-- 页脚 -->
-  <footer class="content-card" >
-    <address>
-      <p><img src="img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
-      <p><img src="img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
-    </address>
-  </footer>
-  <script src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
-
-<script>
-  // 在页面底部或单独的 main.js 中添加
-  document.getElementById('image-upload').addEventListener('change', function(e) {
-  const preview = document.getElementById('image-preview');
-  const placeholder = document.getElementById('preview-placeholder');
-  const file = e.target.files[0];
-  
-  if (file) {
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-      preview.src = e.target.result;
-      preview.style.display = 'block';
-      if (placeholder) placeholder.style.display = 'none';
-    }
-    
-    reader.readAsDataURL(file);
-  } else {
-    preview.style.display = 'none';
-    if (placeholder) placeholder.style.display = 'block';
-  }
-});
-
-// 上传状态提示改进
-document.getElementById('upload-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const statusEl = document.getElementById('upload-status');
-  statusEl.textContent = '上传中，请稍候...';
-  statusEl.style.color = var(--color-primary);
-  
-  try {
-    const formData = new FormData(e.target);
-    const response = await fetch(e.target.action, {
-      method: 'POST',
-      body: formData
-    });
-    
-    const result = await response.json();
-    if (result.success) {
-      statusEl.textContent = '✅ 上传成功！';
-      statusEl.style.color = var(--color-success);
-      
-      // 添加到画廊
-      const gallery = document.getElementById('gallery');
-      const galleryItem = document.createElement('div');
-      galleryItem.className = 'gallery-item';
-      galleryItem.innerHTML = `
-        <img src="${result.url}" class="gallery-image zoomable" alt="${formData.get('description') || '公会图片'}">
-        <div class="gallery-caption">${formData.get('description') || '公会图片'}</div>
-      `;
-      gallery.prepend(galleryItem);
-      
-      // 重置表单
-      e.target.reset();
-      document.getElementById('image-preview').style.display = 'none';
-      document.getElementById('preview-placeholder').style.display = 'block';
-      
-      // 3秒后清除状态提示
-      setTimeout(() => {
-        statusEl.textContent = '';
-      }, 3000);
-    } else {
-      throw new Error(result.error || '上传失败');
-    }
-  } catch (error) {
-    statusEl.textContent = `❌ 上传失败: ${error.message}`;
-    statusEl.style.color = var(--color-danger);
-  }
-});
-  </script>
   
 </html>
