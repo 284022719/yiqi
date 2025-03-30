@@ -1,30 +1,17 @@
-const fs = require('fs');
-const path = require('path');
-
-// 假设图片存储在 netlify/large-media 目录下
-const IMAGE_DIR = path.join(process.cwd(), 'netlify', 'large-media', 'guild-images');
+const cloudinary = require('cloudinary').v2;
 
 exports.handler = async () => {
   try {
-    // 确保目录存在
-    if (!fs.existsSync(IMAGE_DIR)) {
-      fs.mkdirSync(IMAGE_DIR, { recursive: true });
-      return {
-        statusCode: 200,
-        body: JSON.stringify([])
-      };
-    }
-    
-    // 读取目录中的文件
-    const files = fs.readdirSync(IMAGE_DIR)
-      .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
-      .map(file => {
-        return {
-          url: `/large-media/guild-images/${file}`,
-          description: file.split('.')[0].replace(/-/g, ' ')
-        };
-      });
-    
+    const result = await cloudinary.api.resources({
+      type: 'upload',
+      prefix: 'guild-uploads/'
+    });
+
+    const files = result.resources.map(file => ({
+      url: file.secure_url,
+      description: file.public_id.split('/').pop().split('.')[0].replace(/-/g, ' ')
+    }));
+
     return {
       statusCode: 200,
       body: JSON.stringify(files)

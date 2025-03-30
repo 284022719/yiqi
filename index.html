@@ -115,36 +115,28 @@
       <h2>图片上传</h2>
     </header>
 
-    <form 
-      id="upload-form" 
-      action="/.netlify/functions/handle-upload" 
-      class="upload-form" 
-      method="POST" 
-      enctype="multipart/form-data">
-
-  <div class="form-group">
-    <label for="image-upload">选择图片</label>
-    <input type="file" id="image-upload" name="image" accept="image/*" required>
-      <div class="preview-container">
-      <img id="image-preview" class="preview-image" style="display: none;">
+    <form id="upload-form" action="/.netlify/functions/handle-upload" class="upload-form" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="image-upload" class="file-upload-label">
+          <i class="fas fa-cloud-upload-alt"></i> 选择图片
+        </label>
+        <input type="file" id="image-upload" name="image" accept="image/*" required>
+        <div class="preview-container">
+          <img id="image-preview" class="preview-image" style="display: none;">
+          <p id="preview-placeholder" style="color: var(--color-text-secondary);">图片预览将显示在这里</p>
+        </div>
       </div>
-  </div>
-
-  <div id="upload-result">
-    <div id="preview"></div>
-    <div id="upload-status"></div>
-  </div>
-
-<div class="form-group">
-  <label for="image-description">图片描述</label>
-  <input type="text" id="image-description" name="description" placeholder="请输入图片描述">
-</div>
-
-<button type="submit" class="button">上传图片</button>
-<div id="upload-status" class="upload-status"></div>
-</form>
-
-
+    
+      <div class="form-group">
+        <label for="image-description">图片描述</label>
+        <input type="text" id="image-description" name="description" placeholder="请输入图片描述(可选)">
+      </div>
+    
+      <button type="submit" class="button">
+        <i class="fas fa-upload"></i> 上传图片
+      </button>
+      <div id="upload-status" class="upload-status"></div>
+    </form>
     
     <div id="gallery" class="gallery"></div>
   </article>
@@ -161,35 +153,73 @@
 
 <script>
   // 在页面底部或单独的 main.js 中添加
-  document.getElementById('upload-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const statusEl = document.getElementById('upload-status');
-    statusEl.textContent = '上传中...';
+  document.getElementById('image-upload').addEventListener('change', function(e) {
+  const preview = document.getElementById('image-preview');
+  const placeholder = document.getElementById('preview-placeholder');
+  const file = e.target.files[0];
+  
+  if (file) {
+    const reader = new FileReader();
     
-    try {
-      const formData = new FormData(e.target);
-      const response = await fetch(e.target.action, {
-        method: 'POST',
-        body: formData
-      });
-      
-      const result = await response.json();
-      if (result.success) {
-        document.getElementById('preview').innerHTML = `
-          <img src="${result.url}" style="max-width: 300px">
-          <p>✅ 上传成功！</p>
-        `;
-      } else {
-        throw new Error(result.error || '上传失败');
-      }
-    } catch (error) {
-      document.getElementById('preview').innerHTML = `
-        <p style="color:red">❌ ${error.message}</p>
-      `;
-    } finally {
-      statusEl.textContent = '';
+    reader.onload = function(e) {
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+      if (placeholder) placeholder.style.display = 'none';
     }
-  });
+    
+    reader.readAsDataURL(file);
+  } else {
+    preview.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'block';
+  }
+});
+
+// 上传状态提示改进
+document.getElementById('upload-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const statusEl = document.getElementById('upload-status');
+  statusEl.textContent = '上传中，请稍候...';
+  statusEl.style.color = var(--color-primary);
+  
+  try {
+    const formData = new FormData(e.target);
+    const response = await fetch(e.target.action, {
+      method: 'POST',
+      body: formData
+    });
+    
+    const result = await response.json();
+    if (result.success) {
+      statusEl.textContent = '✅ 上传成功！';
+      statusEl.style.color = var(--color-success);
+      
+      // 添加到画廊
+      const gallery = document.getElementById('gallery');
+      const galleryItem = document.createElement('div');
+      galleryItem.className = 'gallery-item';
+      galleryItem.innerHTML = `
+        <img src="${result.url}" class="gallery-image zoomable" alt="${formData.get('description') || '公会图片'}">
+        <div class="gallery-caption">${formData.get('description') || '公会图片'}</div>
+      `;
+      gallery.prepend(galleryItem);
+      
+      // 重置表单
+      e.target.reset();
+      document.getElementById('image-preview').style.display = 'none';
+      document.getElementById('preview-placeholder').style.display = 'block';
+      
+      // 3秒后清除状态提示
+      setTimeout(() => {
+        statusEl.textContent = '';
+      }, 3000);
+    } else {
+      throw new Error(result.error || '上传失败');
+    }
+  } catch (error) {
+    statusEl.textContent = `❌ 上传失败: ${error.message}`;
+    statusEl.style.color = var(--color-danger);
+  }
+});
   </script>
   
 </html>
