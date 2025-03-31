@@ -2,6 +2,7 @@
     "name": "yiqi-guild",
     "version": "1.0.0",
     "dependencies": {
+      "cloudinary": "^1.37.0",
       "dotenv": "^16.0.3",
       "lambda-multipart-parser": "^1.0.1",
       "node-fetch": "^2.6.7"
