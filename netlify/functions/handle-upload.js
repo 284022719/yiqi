@@ -18,6 +18,22 @@ exports.handler = async (event) => {
     if (!result.files || result.files.length === 0) {
       throw new Error('没有接收到文件');
     }
+// 在解析表单后添加
+if (!result.files || result.files.length === 0) {
+  return {
+    statusCode: 400,
+    body: JSON.stringify({ error: "未接收到文件" })
+  };
+}
+
+const file = result.files[0];
+if (!file.contentType || !file.content) {
+  return {
+    statusCode: 400,
+    body: JSON.stringify({ error: "文件数据不完整" })
+  };
+}
+
 
     const file = result.files[0];
       // ======== 安全增强代码 ========
