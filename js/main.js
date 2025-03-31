@@ -392,44 +392,32 @@
               reader.readAsDataURL(file);
             }
             
-            async handleFormSubmit(e) {
-              e.preventDefault();
-              
-              const file = this.imageUpload.files[0];
-              if (!file) {
-                this.showStatus('请选择要上传的图片', 'error');
-                return;
-              }
-              
-              this.showStatus('上传中...', 'info');
+            async function handleFormSubmit(event) {
+              event.preventDefault();
               
               try {
-                const formData = new FormData(this.uploadForm);
-                
-                const response = await fetch(this.uploadForm.action, {
+                const formData = new FormData(event.target);
+                const response = await fetch('/.netlify/functions/handle-upload', {
                   method: 'POST',
                   body: formData
                 });
-                
-                const data = await response.json();
+            
+                const result = await response.json();
                 
                 if (!response.ok) {
-                  throw new Error(data.error || '上传失败');
+                  throw new Error(result.error || '上传失败');
                 }
+            
+                // 确保安全访问响应数据
+                const imageUrl = result?.url || '';
+                const imageId = result?.public_id?.split('/').pop()?.split('.')[0]?.replace(/-/g, ' ') || '未命名';
                 
-                // 上传成功处理
-                this.showStatus('图片上传成功!', 'success');
-                this.resetForm();
-                
-                // 自动添加到画廊而不重新加载
-                this.addImageToGallery({
-                  url: data.url,
-                  description: data.fileName.split('-').slice(0, -1).join(' ') // 从文件名提取描述
-                });
+                // 更新UI显示
+                updateGallery(imageUrl, imageId);
                 
               } catch (error) {
                 console.error('上传错误:', error);
-                this.showStatus(`上传失败: ${error.message}`, 'error');
+                alert(`上传失败: ${error.message}`);
               }
             }
             
