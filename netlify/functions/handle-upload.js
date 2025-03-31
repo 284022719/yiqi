@@ -1,12 +1,12 @@
 require('dotenv').config();
-const multipart = require('lambda-multipart-parser'); // 确保这行存在
+const multipart = require('lambda-multipart-parser');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '默认cloud_name',
   api_key: process.env.CLOUDINARY_API_KEY || '默认api_key',
   api_secret: process.env.CLOUDINARY_API_SECRET || '默认api_secret',
-  secure: true // 强制HTTPS
+  secure: true
 });
 
 exports.handler = async (event) => {
@@ -15,28 +15,26 @@ exports.handler = async (event) => {
     
     // 1. 解析表单数据
     const result = await multipart.parse(event);
+    
+    // 检查文件是否存在
     if (!result.files || result.files.length === 0) {
-      throw new Error('没有接收到文件');
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "未接收到文件" })
+      };
     }
-// 在解析表单后添加
-if (!result.files || result.files.length === 0) {
-  return {
-    statusCode: 400,
-    body: JSON.stringify({ error: "未接收到文件" })
-  };
-}
-
-const file = result.files[0];
-if (!file.contentType || !file.content) {
-  return {
-    statusCode: 400,
-    body: JSON.stringify({ error: "文件数据不完整" })
-  };
-}
-
 
     const file = result.files[0];
-      // ======== 安全增强代码 ========
+    
+    // 检查文件数据是否完整
+    if (!file.contentType || !file.content) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: "文件数据不完整" })
+      };
+    }
+
+    // ======== 安全增强代码 ========
     // 文件类型检查
     const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
     if (!ALLOWED_TYPES.includes(file.contentType)) {
@@ -49,6 +47,7 @@ if (!file.contentType || !file.content) {
       throw new Error('图片大小不能超过10MB');
     }
     // ======== 安全增强结束 ========
+    
     console.log(`接收到文件: ${file.filename}, 类型: ${file.contentType}`);
 
     // 2. 转换为Cloudinary需要的格式
