@@ -40,6 +40,7 @@ export function loadNavigation() {
             </div>
           </li>
   
+          <li><a href="gallery.html">公会画廊</a></li>
           <li><a href="wcl.html">开荒记录</a></li>
         </ul>
       </nav>
