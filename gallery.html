@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - 公会画廊">
+  <title>公会画廊 - 一起公会</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="guild-header-container"></div>
+  <nav class="nav-container" aria-label="主菜单"></nav>
+  <main class="main-content">
+    <article class="content-card">
+      <header>
+        <h2>公会画廊</h2>
+      </header>
+      <form id="upload-form" action="/.netlify/functions/handle-upload" class="upload-form" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="image-upload" class="file-upload-label">
+            <i class="fas fa-cloud-upload-alt"></i> 选择图片
+          </label>
+          <input type="file" id="image-upload" name="image" accept="image/*" required>
+          <div class="preview-container">
+            <img id="image-preview" class="preview-image" style="display: none;">
+            <p id="preview-placeholder" style="color: var(--color-text-secondary);">图片预览将显示在这里</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="image-description">图片描述</label>
+          <input type="text" id="image-description" name="description" placeholder="请输入图片描述(可选)">
+        </div>
+        <button type="submit" class="button">
+          <i class="fas fa-upload"></i> 上传图片
+        </button>
+        <div id="upload-status" class="upload-status"></div>
+      </form>
+      <div id="gallery" class="gallery">
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i> 加载图片中...
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="footer-container"></footer>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html> 
