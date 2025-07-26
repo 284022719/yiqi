@@ -860,3 +860,17 @@ a:hover {
 .strategy-section li {
   margin-bottom: 0.5rem;
 }
+
+/* 导航栏始终置顶 */
+.nav, .nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--color-bg-dark, #fff); /* 推荐用已定义变量 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* 主内容区避免被导航栏遮挡（如有需要可调整高度） */
+.main-content {
+  padding-top: 20px;
+}
