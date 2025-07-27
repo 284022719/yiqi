@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>坐骑排行榜 - 一起公会</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+    <script type="module" src="../js/main.js" defer></script>
+</head>
+
+<body>
+    <div class="guild-header-container"></div>
+    <main class="main-content">
+      <section class="content-card">
+        <h2 class="content-title">🏆 坐骑排行榜</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>排名</th>
+                    <th>角色名</th>
+                    <th>坐骑数量</th>
+                    <th>最近坐骑</th>
+                </tr>
+            </thead>
+            <tbody id="mounts-table-body"></tbody>
+        </table>
+        <div style="text-align: center; margin-top: var(--spacing-large);">
+            <a href="index.html" class="button">← 返回主页</a>
+        </div>
+      </section>
+    </main>
+    <script type="module">
+        // 只保留表格渲染部分，头部/导航/底部由main.js自动加载
+        fetch('../data/guildmember.json')
+            .then(res => res.json())
+            .then(data => {
+                const filtered = data.filter(row => !isNaN(Number(row.mounts)));
+                filtered.sort((a, b) => Number(b.mounts) - Number(a.mounts));
+                const tbody = document.getElementById('mounts-table-body');
+                tbody.innerHTML = '';
+                filtered.forEach((row, idx) => {
+                    const tr = document.createElement('tr');
+                    let mountsHtml = '';
+                    if (row.recent_mounts && row.recent_mounts.length > 0) {
+                        mountsHtml = row.recent_mounts.slice(0, 3).map(m =>
+                            `<div style='display:inline-block; margin:4px 32px 4px 0; vertical-align:top;'>
+                                <img src="${m.img}" alt="${m.name}" class="zoomable" style="max-width:120px;max-height:120px;">
+                                <div style="text-align:center;font-size:12px;">${m.name}</div>
+                            </div>`
+                        ).join('');
+                    }
+                    tr.innerHTML = `
+                        <td class="rank-number">${idx + 1}</td>
+                        <td>${row.name}</td>
+                        <td class="mount-count">${row.mounts}</td>
+                        <td class="recent-mounts-cell">${mountsHtml}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                // 这里注册 zoomable 图片
+                if (window.imageModal) {
+                    window.imageModal.registerImages(document.querySelectorAll('.zoomable'));
+                }
+            });
+    </script>
+</body>
+</html>

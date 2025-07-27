@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>公会成员坐骑展示</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        img { max-width: 80px; max-height: 80px; margin: 2px; }
+        .recent-mounts-cell { min-width: 260px; }
+    </style>
+</head>
+<body>
+    <h2>公会成员坐骑展示</h2>
+    <table id="mounts-table">
+        <thead>
+            <tr>
+                <th>角色名</th>
+                <th>坐骑数量</th>
+                <th>最近三个坐骑</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+    fetch('data/test.json')
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.querySelector('#mounts-table tbody');
+            data.forEach(row => {
+                let mountsHtml = '';
+                if (row.recent_mounts && row.recent_mounts.length > 0) {
+                    mountsHtml = row.recent_mounts.map(m =>
+                        `<div style='display:inline-block;margin:4px;'>
+                            <div>${m.name}</div>
+                            <img src="${m.img}" alt="${m.name}">
+                        </div>`
+                    ).join('');
+                }
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.name}</td>
+                    <td>${row.mounts}</td>
+                    <td class="recent-mounts-cell">${mountsHtml}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ export function loadNavigation() {
             <div class="dropdown-content">
               <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" class="dropdown-item">
                 <span class="dropdown-icon">
-                  <img src="img/nav/wcl.png" alt="WCL图标">
+                  <img src="../img/nav/wcl.png" alt="WCL图标">
                 </span>
                 <div class="dropdown-text">
                   <span class="dropdown-title">Warcraft Logs</span>
