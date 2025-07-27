@@ -47,7 +47,7 @@ export function loadNavigation() {
       </nav>
     `;
     
-    const header = document.querySelector('.guild-header');
+    const header = document.querySelector('.guild-header-container');
     if (header) {
       header.insertAdjacentHTML('afterend', navHTML);
     }
