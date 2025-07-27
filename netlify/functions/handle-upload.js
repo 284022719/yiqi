@@ -3,16 +3,14 @@ const multipart = require('lambda-multipart-parser');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '默认cloud_name',
-  api_key: process.env.CLOUDINARY_API_KEY || '默认api_key',
-  api_secret: process.env.CLOUDINARY_API_SECRET || '默认api_secret',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
   secure: true
 });
 
 exports.handler = async (event) => {
   try {
-    console.log('开始处理上传请求');
-    
     // 1. 解析表单数据
     const result = await multipart.parse(event);
     
@@ -48,8 +46,6 @@ exports.handler = async (event) => {
     }
     // ======== 安全增强结束 ========
     
-    console.log(`接收到文件: ${file.filename}, 类型: ${file.contentType}`);
-
     // 2. 转换为Cloudinary需要的格式
     const fileBuffer = file.content;
     const base64Data = fileBuffer.toString('base64');
@@ -61,8 +57,6 @@ exports.handler = async (event) => {
       resource_type: 'auto',
       quality_analysis: true
     });
-
-    console.log('上传成功:', uploadResult.secure_url);
 
     return {
       statusCode: 200,
@@ -88,9 +82,3 @@ exports.handler = async (event) => {
     };
   }
 };
-
-console.log('当前环境变量:', {
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET ? '已设置' : '未设置'
-});

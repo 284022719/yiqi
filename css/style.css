@@ -75,11 +75,34 @@ a:hover {
 
 /* ====== 布局组件 ====== */
 /* 头部区域 */
-.guild-header {
+.guild-header-container {
   background: var(--color-bg-dark);
   padding: var(--spacing-large);
   border-bottom: 3px solid var(--color-secondary);
   backdrop-filter: blur(8px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-large);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.logo-image {
+  height: 60px;
+  width: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-text {
   text-align: center;
 }
 
@@ -812,6 +835,15 @@ a:hover {
   
   .preview-container {
     min-height: 120px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: var(--spacing-medium);
+  }
+
+  .logo-image {
+    height: 50px;
   }
 }
 
