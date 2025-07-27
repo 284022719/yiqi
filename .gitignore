@@ -1,0 +1,82 @@
+# 一起公会项目 .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日志文件
+logs/*.log
+*.log
+
+# 敏感数据
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Cookie文件（包含敏感信息）
+cookies.pkl
+
+# 临时文件
+*.tmp
+*.temp
+temp/
+tmp/
+
+# 数据文件（可选，根据需要调整）
+# data/mounts.json
+
+# Netlify
+.netlify/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 浏览器缓存
+.cache/ 

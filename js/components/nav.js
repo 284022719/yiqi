@@ -42,6 +42,7 @@ export function loadNavigation() {
   
           <li><a href="gallery.html">公会画廊</a></li>
           <li><a href="wcl.html">开荒记录</a></li>
+          <li><a href="mounts.html">坐骑排行</a></li>
         </ul>
       </nav>
     `;
