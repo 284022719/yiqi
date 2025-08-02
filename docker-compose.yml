@@ -1,0 +1,109 @@
+# Docker Compose配置 - 易骑公会项目
+
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend-refactor
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend-refactor:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - yiqi-network
+
+  # 后端服务
+  backend:
+    build:
+      context: ./backend-refactor
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=sqlite:///./data/database/guild.db
+      - CACHE_DIR=./data/cache
+      - LOG_DIR=./data/logs
+    volumes:
+      - ./backend-refactor:/app
+      - ./data:/app/data
+    networks:
+      - yiqi-network
+
+  # 数据库服务（可选，使用SQLite时不需要）
+  # postgres:
+  #   image: postgres:15-alpine
+  #   environment:
+  #     POSTGRES_DB: yiqi_guild
+  #     POSTGRES_USER: yiqi
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - yiqi-network
+
+  # Redis缓存服务
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - yiqi-network
+
+  # Nginx反向代理
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./infrastructure/nginx/conf.d:/etc/nginx/conf.d
+      - ./frontend-refactor/dist:/usr/share/nginx/html
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - yiqi-network
+
+  # 监控服务
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - yiqi-network
+
+  # 日志聚合
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - yiqi-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  grafana_data:
+
+networks:
+  yiqi-network:
+    driver: bridge 

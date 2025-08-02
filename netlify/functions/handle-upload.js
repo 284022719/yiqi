@@ -1,5 +1,4 @@
 require('dotenv').config();
-const multipart = require('lambda-multipart-parser');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({ 
@@ -9,10 +8,70 @@ cloudinary.config({
   secure: true
 });
 
+// 安全的multipart解析函数
+function parseMultipartData(event) {
+  return new Promise((resolve, reject) => {
+    try {
+      const boundary = event.headers['content-type']?.split('boundary=')[1];
+      if (!boundary) {
+        reject(new Error('无法解析multipart边界'));
+        return;
+      }
+
+      const body = event.body;
+      if (event.isBase64Encoded) {
+        const buffer = Buffer.from(body, 'base64');
+        const parts = buffer.toString('binary').split(`--${boundary}`);
+        
+        for (const part of parts) {
+          if (part.includes('Content-Type:')) {
+            const lines = part.split('\r\n');
+            let contentType = '';
+            let content = '';
+            let filename = '';
+            
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              if (line.startsWith('Content-Type:')) {
+                contentType = line.split(': ')[1];
+              } else if (line.startsWith('Content-Disposition:')) {
+                const filenameMatch = line.match(/filename="([^"]+)"/);
+                if (filenameMatch) {
+                  filename = filenameMatch[1];
+                }
+              } else if (line === '' && i < lines.length - 1) {
+                // 空行后的内容是文件数据
+                content = lines.slice(i + 1).join('\r\n').replace(/\r\n$/, '');
+                break;
+              }
+            }
+            
+            if (contentType && content) {
+              resolve({
+                files: [{
+                  contentType,
+                  filename,
+                  content: Buffer.from(content, 'binary')
+                }]
+              });
+              return;
+            }
+          }
+        }
+        reject(new Error('未找到有效的文件数据'));
+      } else {
+        reject(new Error('请求体必须是base64编码'));
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
 exports.handler = async (event) => {
   try {
     // 1. 解析表单数据
-    const result = await multipart.parse(event);
+    const result = await parseMultipartData(event);
     
     // 检查文件是否存在
     if (!result.files || result.files.length === 0) {

@@ -1,0 +1,55 @@
+{
+  "api_version": "1.0",
+  "description": "公会成员数据库API",
+  "endpoints": {
+    "statistics": {
+      "description": "获取公会统计信息",
+      "method": "GET",
+      "parameters": {},
+      "response": "统计信息对象"
+    },
+    "mythic_ranking": {
+      "description": "获取Mythic+排行榜",
+      "method": "GET",
+      "parameters": {
+        "limit": "返回结果数量限制（可选，默认10）"
+      },
+      "response": "排行榜玩家列表"
+    },
+    "member": {
+      "description": "获取指定成员信息",
+      "method": "GET",
+      "parameters": {
+        "name": "角色名称（必需）",
+        "realm": "服务器名称（必需）"
+      },
+      "response": "成员详细信息"
+    },
+    "search": {
+      "description": "搜索成员",
+      "method": "GET",
+      "parameters": {
+        "q": "搜索查询（必需）",
+        "limit": "返回结果数量限制（可选，默认20）"
+      },
+      "response": "搜索结果列表"
+    },
+    "class": {
+      "description": "根据职业获取成员列表",
+      "method": "GET",
+      "parameters": {
+        "class": "职业名称（必需）"
+      },
+      "response": "该职业的成员列表"
+    },
+    "realm": {
+      "description": "根据服务器获取成员列表",
+      "method": "GET",
+      "parameters": {
+        "realm": "服务器名称（必需）"
+      },
+      "response": "该服务器的成员列表"
+    }
+  },
+  "timestamp": "2025-08-01T03:06:33.644796"
+}

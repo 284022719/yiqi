@@ -1,0 +1,222 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    name: 测试
+    runs-on: ubuntu-latest
+    
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 设置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: 安装后端依赖
+      working-directory: ./backend-refactor
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov pytest-asyncio
+    
+    - name: 运行后端测试
+      working-directory: ./backend-refactor
+      run: |
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=html
+    
+    - name: 上传测试覆盖率
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend-refactor/coverage.xml
+        flags: backend
+        name: backend-coverage
+    
+    - name: 设置Node.js环境
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend-refactor/package-lock.json'
+    
+    - name: 安装前端依赖
+      working-directory: ./frontend-refactor
+      run: npm ci
+    
+    - name: 运行前端测试
+      working-directory: ./frontend-refactor
+      run: npm test -- --coverage --watchAll=false
+    
+    - name: 上传前端测试覆盖率
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./frontend-refactor/coverage/lcov.info
+        flags: frontend
+        name: frontend-coverage
+
+  lint:
+    name: 代码检查
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 设置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: 安装Python检查工具
+      run: |
+        pip install flake8 black isort mypy
+    
+    - name: 运行Python代码检查
+      working-directory: ./backend-refactor
+      run: |
+        flake8 src/ --max-line-length=88 --extend-ignore=E203,W503
+        black --check src/
+        isort --check-only src/
+        mypy src/
+    
+    - name: 设置Node.js环境
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend-refactor/package-lock.json'
+    
+    - name: 安装前端依赖
+      working-directory: ./frontend-refactor
+      run: npm ci
+    
+    - name: 运行前端代码检查
+      working-directory: ./frontend-refactor
+      run: |
+        npm run lint
+        npm run type-check
+
+  security:
+    name: 安全检查
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 设置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: 安装安全扫描工具
+      run: |
+        pip install bandit safety
+    
+    - name: 运行Python安全扫描
+      working-directory: ./backend-refactor
+      run: |
+        bandit -r src/ -f json -o bandit-report.json || true
+        safety check --json --output safety-report.json || true
+    
+    - name: 设置Node.js环境
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend-refactor/package-lock.json'
+    
+    - name: 安装前端依赖
+      working-directory: ./frontend-refactor
+      run: npm ci
+    
+    - name: 运行前端安全扫描
+      working-directory: ./frontend-refactor
+      run: |
+        npm audit --audit-level=moderate
+        npm run security-check || true
+
+  build:
+    name: 构建镜像
+    needs: [test, lint, security]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 登录到容器注册表
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: 设置Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: 构建并推送后端镜像
+      uses: docker/build-push-action@v5
+      with:
+        context: ./backend-refactor
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    
+    - name: 构建并推送前端镜像
+      uses: docker/build-push-action@v5
+      with:
+        context: ./frontend-refactor
+        push: true
+        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+  deploy:
+    name: 部署
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+    
+    - name: 部署到生产环境
+      run: |
+        echo "部署到生产环境"
+        # 这里可以添加实际的部署脚本
+        # 例如：使用Docker Compose、Kubernetes等
+    
+    - name: 发送部署通知
+      run: |
+        echo "部署完成通知"
+        # 这里可以添加通知逻辑
+        # 例如：发送Slack消息、邮件等 

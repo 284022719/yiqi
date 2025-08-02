@@ -1,0 +1,53 @@
+# Docker Compose开发环境配置 - 易骑公会项目
+
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: ./frontend-refactor
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend-refactor:/app
+      - /app/node_modules
+    networks:
+      - yiqi-network
+
+  # 后端服务
+  backend:
+    build:
+      context: ./backend-refactor
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=sqlite:///./data/database/guild.db
+      - CACHE_DIR=./data/cache
+      - LOG_DIR=./data/logs
+    volumes:
+      - ./backend-refactor:/app
+      - ./data:/app/data
+    networks:
+      - yiqi-network
+
+  # Redis缓存服务
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - yiqi-network
+
+volumes:
+  redis_data:
+
+networks:
+  yiqi-network:
+    driver: bridge 

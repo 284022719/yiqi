@@ -1,0 +1,22 @@
+{
+  "name": "yiqi-guild-backend",
+  "version": "3.0.0",
+  "description": "易骑公会官方网站后端API服务",
+  "type": "module",
+  "scripts": {
+    "dev": "echo 'Starting backend development server...' && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000",
+    "start": "echo 'Starting backend production server...' && python -m uvicorn main:app --host 0.0.0.0 --port 8000",
+    "build": "echo 'Backend build completed'",
+    "test": "echo 'Running backend tests...' && python -m pytest",
+    "test:coverage": "echo 'Running backend tests with coverage...' && python -m pytest --cov=src --cov-report=html",
+    "lint": "echo 'Running backend linting...' && python -m flake8 src/",
+    "lint:fix": "echo 'Fixing backend linting issues...' && python -m autopep8 --in-place --recursive src/",
+    "format": "echo 'Formatting backend code...' && python -m black src/",
+    "type-check": "echo 'Running backend type checking...' && python -m mypy src/",
+    "clean": "echo 'Cleaning backend cache...' && python -c \"import os; [os.remove(f) for f in [os.path.join(root, name) for root, dirs, files in os.walk('.') for name in files if name.endswith('.pyc')]]\" && python -c \"import shutil; [shutil.rmtree(d) for d in [os.path.join(root, dir) for root, dirs, files in os.walk('.') for dir in dirs if dir == '__pycache__']]\""
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+} 

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - 魔兽世界休闲公会">
+  <title>一起 - 魔兽世界公会</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="./public/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="guild-header-container"></div>
+  <nav class="nav-container" aria-label="主菜单"></nav>
+  
+  <!-- 主内容区 -->
+  <main class="main-content">
+    <!-- 公会简介 -->
+    <article class="content-card">
+      <header>
+        <h2>🏰 一起公会简介</h2>
+      </header>
+      <div class="guild-intro">
+        <div class="intro-content">
+          <p>一起公会是一个充满活力的魔兽世界休闲公会，成立于2022年。我们致力于为所有成员提供一个温暖、友好的游戏环境。</p>
+          <div class="guild-highlights">
+            <div class="highlight-item">
+              <i class="fas fa-users"></i>
+              <span>960名成员</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>主要服务器：阿尔萨斯</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>部落阵营</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-gamepad"></i>
+              <span>休闲游戏</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 公会统计部分 -->
+    <article class="content-card">
+      <header>
+        <h2>📊 公会统计</h2>
+      </header>
+      <div id="guild-stats">
+        <div class="stats-summary">
+          <div class="stat-item">
+            <span class="stat-number" id="total-members">-</span>
+            <span class="stat-label">总会员数</span>
+            <div class="stat-note">公会总成员数量</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="active-members">-</span>
+            <span class="stat-label">活跃会员</span>
+            <div class="stat-note">近期活跃的成员</div>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" id="class-count">-</span>
+            <span class="stat-label">职业种类</span>
+            <div class="stat-note">公会职业多样性</div>
+          </div>
+        </div>
+        
+        <div class="stats-details">
+          <div class="class-stats">
+            <h3>🏆 职业分布</h3>
+            <div id="class-distribution" class="distribution-chart"></div>
+          </div>
+        </div>
+        
+        <div class="stats-details">
+          <div class="race-stats">
+            <h3>👥 种族排行</h3>
+            <div id="race-distribution" class="distribution-chart"></div>
+          </div>
+          <div class="server-stats">
+            <h3>🌍 服务器排行</h3>
+            <div id="server-distribution" class="distribution-chart"></div>
+          </div>
+        </div>
+        
+        <div class="stats-details">
+          <div class="mythic-stats">
+            <h3>🏅 史诗钥匙评分排行</h3>
+            <div id="mythic-ranking" class="ranking-list"></div>
+          </div>
+          <div class="mythic-stats">
+            <h3>🏆 成就点数排行</h3>
+            <div id="achievement-ranking" class="ranking-list"></div>
+          </div>
+        </div>
+        
+        <div class="stats-details">
+          <div class="mounts-stats">
+            <h3>🐎 坐骑排行</h3>
+            <div id="mounts-ranking" class="ranking-list"></div>
+          </div>
+        </div>
+        
+        <div class="stats-details">
+          <div class="faction-stats">
+            <h3>⚔️ 阵营分布</h3>
+            <div id="faction-distribution" class="pie-chart"></div>
+          </div>
+          <div class="gender-stats">
+            <h3>⚧ 性别分布</h3>
+            <div id="gender-distribution" class="pie-chart"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-card">
+      <header>
+        <h2>会员风采</h2>
+      </header>
+      <img src="./img/mdz.jpg" alt="P1阶段小怪" class="mechanism-img zoomable">
+    </article>
+
+    <article class="content-card">
+      <header>
+        <h2>公会主播</h2>
+      </header>
+      <div class="iframe-container">
+        <iframe 
+          style="width: 700px;height: 400px;" 
+          src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30654671&quality=0" 
+          frameborder="no" 
+          framespacing="0" 
+          scrolling="no" 
+          allow="autoplay; encrypted-media" 
+          allowfullscreen="true">
+        </iframe>
+      </div>
+    </article>
+
+    <!-- 公会视频部分 -->
+    <article class="content-card">
+      <header>
+        <h2>公会视频</h2>
+      </header>
+      <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
+      <figure class="iframe-container">
+        <iframe 
+          loading="lazy"
+          src="https://player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
+          title="凋零密院"
+          scrolling="no"  
+          frameborder="no" 
+          framespacing="0" 
+          allowfullscreen="true">
+        </iframe>
+      </figure>
+      <p>2022年夏天一把平平无奇的大米</p>
+    </article>
+  </main>
+
+  <footer class="footer-container"></footer>
+  
+  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/class-colors.js"></script>
+  <script type="module" src="./js/stats.js"></script>
+</body>
+</html>

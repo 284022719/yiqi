@@ -1,10 +1,71 @@
 {
-    "name": "yiqi-guild",
-    "version": "1.0.0",
-    "dependencies": {
-      "cloudinary": "^1.37.0",
-      "dotenv": "^16.0.3",
-      "lambda-multipart-parser": "^1.0.1",
-      "node-fetch": "^2.6.7"
+  "name": "yiqi-guild-workspace",
+  "version": "3.0.0",
+  "description": "易骑公会官方网站 - 现代化重构工作区",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build": "npm run build --workspaces",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "test": "npm run test --workspaces",
+    "test:frontend": "npm run test --workspace=frontend",
+    "test:backend": "npm run test --workspace=backend",
+    "lint": "npm run lint --workspaces",
+    "lint:fix": "npm run lint:fix --workspaces",
+    "format": "npm run format --workspaces",
+    "clean": "npm run clean --workspaces",
+    "install:all": "npm install --workspaces",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "setup": "bash scripts/setup.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "backup": "bash scripts/backup.sh"
+  },
+  "keywords": [
+    "wow",
+    "guild",
+    "gaming",
+    "website",
+    "modern",
+    "react",
+    "fastapi",
+    "typescript"
+  ],
+  "author": "易骑公会技术团队",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
+} 

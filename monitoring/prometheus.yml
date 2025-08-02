@@ -1,0 +1,46 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  # 监控后端服务
+  - job_name: 'yiqi-backend'
+    static_configs:
+      - targets: ['backend:8000']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # 监控前端服务
+  - job_name: 'yiqi-frontend'
+    static_configs:
+      - targets: ['frontend:80']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # 监控Redis
+  - job_name: 'yiqi-redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # 监控Nginx
+  - job_name: 'yiqi-nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    metrics_path: '/nginx_status'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # 监控系统资源
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 15s
+    scrape_timeout: 10s 
