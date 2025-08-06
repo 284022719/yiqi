@@ -1,0 +1,151 @@
+/* ====== 布局组件 ====== */
+/* 头部区域 */
+.guild-header-container {
+  background: var(--color-bg-dark);
+  padding: var(--spacing-large);
+  border-bottom: 3px solid var(--color-secondary);
+  backdrop-filter: blur(8px);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-large);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-logo {
+  flex-shrink: 0;
+}
+
+.logo-image {
+  height: 60px;
+  width: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-text {
+  text-align: center;
+}
+
+.guild-title {
+  color: var(--color-primary);
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  animation: glow 2s ease-in-out infinite;
+}
+
+.guild-motto {
+  margin: var(--spacing-small) 0 0;
+  font-size: 1.2rem;
+}
+
+/* 内容卡片 */
+.content-card {
+  border-radius: 8px;
+  padding: var(--spacing-large);
+  margin: var(--spacing-large) auto;
+  max-width: 1200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(30, 30, 30, 0.6);
+}
+
+.content-card header {
+  margin-bottom: var(--spacing-medium);
+}
+
+/* 导航栏 */
+.nav-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: var(--spacing-large);
+}
+
+.nav-container a {
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease-out;
+}
+
+.nav-container a:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* 导航栏始终置顶 */
+.nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--color-bg-dark);
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding: var(--spacing-medium) var(--spacing-large);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* 页脚样式 */
+.footer-container {
+  background: var(--color-bg-dark);
+  border-top: var(--border-width) solid var(--color-border);
+  padding: var(--spacing-medium) var(--spacing-large);
+  backdrop-filter: blur(8px);
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-large);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-container div {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-small);
+  color: var(--color-text);
+}
+
+.footer-container img {
+  border-radius: var(--border-radius);
+}
+
+.footer-container span {
+  font-size: 0.9rem;
+}
+
+/* 响应式调整：移动端优化 */
+@media (max-width: 480px) {
+
+
+  .header-content {
+    flex-direction: column;
+    gap: var(--spacing-medium);
+  }
+
+  .logo-image {
+    height: 50px;
+  }
+
+  .content-card {
+    margin: var(--spacing-medium);
+    padding: var(--spacing-medium);
+    background: rgba(30, 30, 30, 0.95);
+  }
+
+  .nav-container {
+    padding: var(--spacing-small) var(--spacing-medium);
+  }
+  
+  .nav-container ul {
+    gap: var(--spacing-medium);
+    flex-wrap: wrap;
+  }
+} 

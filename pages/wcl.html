@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - WCL战斗记录">
+  <title>一起公会 - WCL数据</title>
+      <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+  <!-- 网站头部 -->
+  <div class="guild-header-container"></div>
+  <nav class="nav-container" aria-label="主菜单"></nav>
+
+  <main class="main-content">
+    <section class="content-card">
+      <header>
+        <h2>近期团队活动报告</h2>
+      </header>
+      <div id="loading" class="loading">
+        <i class="fas fa-spinner fa-spin"></i> 正在加载WCL数据...
+      </div>
+      <div id="error" class="error" style="display: none;"></div>
+      <table id="wcl-table" class="table">
+        <caption class="visually-hidden">WCL战斗记录</caption>
+        <thead>
+          <tr>
+            <th scope="col">日期</th>
+            <th scope="col">副本</th>
+            <th scope="col">进度</th>
+            <th scope="col">上传者</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  
+  <script type="module" src="../js/main.js"></script>
+</body>
+</html>

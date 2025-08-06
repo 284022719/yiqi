@@ -1,15 +1,22 @@
 export function loadNavigation() {
+    // 检查当前页面是否在pages文件夹中
+    const isInPages = window.location.pathname.includes('/pages/');
+    
+    // 根据页面位置调整路径前缀
+    const homePath = isInPages ? '../index.html' : 'index.html';
+    const pagesPath = isInPages ? '' : 'pages/';
+    const imgPath = isInPages ? '../img/nav/wcl.png' : 'img/nav/wcl.png';
+    
     const navHTML = `
-      <nav class="nav" aria-label="主菜单">
         <ul>
-          <li><a href="index.html">首页</a></li>
+          <li><a href="${homePath}">首页</a></li>
           
           <li class="dropdown">
             <a href="#" class="dropbtn" aria-haspopup="true" aria-expanded="false">实用网站 ▼</a>
             <div class="dropdown-content">
               <a href="https://www.warcraftlogs.com/guild/rankings/586445/latest?difficulty=4" target="_blank" class="dropdown-item">
                 <span class="dropdown-icon">
-                  <img src="../img/nav/wcl.png" alt="WCL图标">
+                  <img src="${imgPath}" alt="WCL图标">
                 </span>
                 <div class="dropdown-text">
                   <span class="dropdown-title">Warcraft Logs</span>
@@ -39,16 +46,32 @@ export function loadNavigation() {
               </a>
             </div>
           </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropbtn" aria-haspopup="true" aria-expanded="false">战术攻略 ▼</a>
+            <div class="dropdown-content">
+              <a href="${pagesPath}H6.html" target="_blank" class="dropdown-item">
+                <div class="dropdown-text">
+                  <span class="dropdown-title">H6独臂盗匪</span>
+                </div>
+              </a>
+              <a href="${pagesPath}H7.html" target="_blank" class="dropdown-item">
+                <div class="dropdown-text">
+                  <span class="dropdown-title">H7穆格·兹伊</span>
+                </div>
+              </a>
+            </div>
+          </li>
   
-          <li><a href="gallery.html">公会画廊</a></li>
-          <li><a href="wcl.html">开荒记录</a></li>
-          <li><a href="mounts.html">坐骑排行</a></li>
+          <li><a href="${pagesPath}gallery.html">公会画廊</a></li>
+
+          <li><a href="${pagesPath}wcl.html">开荒记录</a></li>
+          
         </ul>
-      </nav>
     `;
     
-    const header = document.querySelector('.guild-header-container');
-    if (header) {
-      header.insertAdjacentHTML('afterend', navHTML);
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer) {
+      navContainer.innerHTML = navHTML;
     }
   }

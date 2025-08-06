@@ -4,28 +4,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="一起公会 - 魔兽世界休闲公会">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>一起 - 魔兽世界公会</title>
-  <link rel="stylesheet"href="../css/style.css">
-  <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
 <div class="guild-header-container"></div>
 <nav class="nav-container" aria-label="主菜单"></nav>
-  <!-- 主内容区 -->
+<!-- 主内容区 -->
   <main class="main-content">
     
-
-
-    <!-- 攻略部分 -->
+    <!-- 公会统计数据 -->
     <article class="content-card">
       <header>
-        <h2>战术攻略</h2>
+        <h2>公会统计</h2>
+        <p class="stats-update-time">最后更新: <span id="lastUpdated"></span></p>
       </header>
-      <div class="button-group">
-        <a href="H6.html" class="button">H6 独臂盗匪</a>
-        <a href="H7.html" class="button">H7 穆格·兹伊,安保头子</a>
+      
+      <div class="stats-grid">
+        <!-- 活跃会员 -->
+        <div class="stat-card">
+          <div class="stat-number" id="activeMembers">-</div>
+          <div class="stat-label">11.1活跃玩家</div>
+        </div>
+        
+      </div>
+      
+      <div class="stats-charts">
+        <!-- 职业分布 - 单行 -->
+        <div class="chart-container full-width">
+          <h3>职业分布</h3>
+          <div class="chart" id="classChart"></div>
+        </div>
+        
+        <!-- 阵营分布和性别分布 - 一行两列 -->
+        <div class="charts-row">
+          <div class="chart-container">
+            <h3>阵营分布</h3>
+            <div class="chart" id="factionChart"></div>
+          </div>
+          <div class="chart-container">
+            <h3>性别分布</h3>
+            <div class="chart" id="genderChart"></div>
+          </div>
+        </div>
+        
+        <!-- 服务器分布和种族分布 - 一行两列 -->
+        <div class="charts-row">
+          <div class="chart-container">
+            <h3>服务器分布（前25个）</h3>
+            <div class="chart" id="realmChart"></div>
+          </div>
+          <div class="chart-container">
+            <h3>种族分布</h3>
+            <div class="chart" id="raceChart"></div>
+          </div>
+        </div>
+        
+      </div>
+    </article>
+
+    <!-- 成就点数排行榜 -->
+    <article class="content-card">
+      <header>
+        <h2>🏆 成就点数排行榜</h2>
+        <p class="stats-update-time">前20名</p>
+      </header>
+      <div class="ranking-table-container">
+        <table class="ranking-table" id="achievementRanking">
+          <thead>
+            <tr>
+              <th class="rank-header">排名</th>
+              <th class="character-name-header">角色名</th>
+              <th class="class-header">职业</th>
+              <th class="achievement-points-header">成就点数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 数据将通过JavaScript动态填充 -->
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <!-- 史诗钥石评分排行榜 -->
+    <article class="content-card">
+      <header>
+        <h2>🗝️ 史诗钥石评分排行榜</h2>
+        <p class="stats-update-time">前20名</p>
+      </header>
+      <div class="ranking-table-container">
+        <table class="ranking-table" id="mythicScoreRanking">
+          <thead>
+            <tr>
+              <th class="rank-header">排名</th>
+              <th class="character-name-header">角色名</th>
+              <th class="class-header">职业</th>
+              <th class="mythic-score-header">钥石评分</th>
+              <th class="item-level-header">平均装等</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 数据将通过JavaScript动态填充 -->
+          </tbody>
+        </table>
       </div>
     </article>
 
@@ -33,7 +118,7 @@
       <header>
         <h2>会员风采</h2>
       </header>
-      <img src="../img/mdz.jpg" alt="P1阶段小怪" class="mechanism-img zoomable">
+      <img src="img/mdz.jpg" alt="P1阶段小怪" class="mechanism-img zoomable">
     </article>
 
     <article class="content-card">
@@ -47,7 +132,10 @@
                 framespacing="0" 
                 scrolling="no" 
                 allow="autoplay; encrypted-media" 
-                allowfullscreen="true">
+                allowfullscreen="true"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+                loading="lazy"
+                referrerpolicy="no-referrer">
         </iframe>
       </div>
     </article>
@@ -60,12 +148,14 @@
       <h3>【魔兽回忆】你以为这只是你生命中平常的一天</h3>
       <figure class="iframe-container">
         <iframe loading="lazy"
-          src="https://player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1"
+          src="https://player.bilibili.com/player.html?isOutside=true&aid=528839609&bvid=BV1au411x7XF&cid=1136167682&p=1" 
           title="凋零密院"
           scrolling="no"  
           frameborder="no" 
           framespacing="0" 
-          allowfullscreen="true">
+          allowfullscreen="true"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+          referrerpolicy="no-referrer">
         </iframe>
       </figure>
       <p>2022年夏天一把平平无奇的大米</p>
@@ -73,7 +163,7 @@
   </main>
 
 <footer class="footer-container"></footer>
-  <script type="module" src="../js/main.js"></script>
+<script type="module" src="js/main.js"></script>
 </body>
   
 </html>

@@ -1,0 +1,229 @@
+/* ====== 统计数据样式 ====== */
+.stats-update-time {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+  text-align: right;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-medium);
+  margin-bottom: var(--spacing-large);
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(120, 90, 40, 0.1) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-medium);
+  text-align: center;
+  transition: transform var(--transition-time), box-shadow var(--transition-time);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-small);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.stat-label {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats-charts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-large);
+  margin-top: var(--spacing-large);
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-large);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.chart-container {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-medium);
+  overflow: hidden;
+}
+
+.chart-container h3 {
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-medium) 0;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.chart {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  color: var(--color-text-secondary);
+  overflow: hidden;
+}
+
+.chart-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-small);
+  padding: var(--spacing-small);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  gap: var(--spacing-small);
+}
+
+.chart-bar-label {
+  font-size: 0.9rem;
+  min-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.chart-bar-value {
+  font-weight: bold;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  min-width: fit-content;
+}
+
+.chart-bar-fill {
+  height: 8px;
+  border-radius: 4px;
+  min-width: 20px;
+  transition: all 0.3s ease;
+}
+
+.chart-pie {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.chart-pie-slice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform-origin: center;
+}
+
+.chart-pie-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: var(--color-bg-card);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-charts {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .chart-container {
+    padding: var(--spacing-small);
+  }
+  
+  .chart-bar {
+    padding: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .chart-bar-label {
+    font-size: 0.8rem;
+    min-width: 60px;
+  }
+  
+  .chart-bar-value {
+    font-size: 0.8rem;
+  }
+  
+  .chart-bar-fill {
+    height: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .chart-container {
+    padding: 0.5rem;
+  }
+  
+  .chart {
+    min-height: 150px;
+  }
+  
+  .chart-bar {
+    padding: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .chart-bar-label {
+    font-size: 0.75rem;
+    min-width: 50px;
+  }
+  
+  .chart-bar-value {
+    font-size: 0.75rem;
+  }
+  
+  .chart-bar-fill {
+    height: 5px;
+  }
+} 

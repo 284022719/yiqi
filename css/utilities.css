@@ -1,0 +1,300 @@
+/* ====== 职业颜色工具类 ====== */
+
+/* 背景颜色 */
+.class-color-deathknight { background-color: var(--class-deathknight); }
+.class-color-demonhunter { background-color: var(--class-demonhunter); }
+.class-color-druid { background-color: var(--class-druid); }
+.class-color-evoker { background-color: var(--class-evoker); }
+.class-color-hunter { background-color: var(--class-hunter); }
+.class-color-mage { background-color: var(--class-mage); }
+.class-color-monk { background-color: var(--class-monk); }
+.class-color-paladin { background-color: var(--class-paladin); }
+.class-color-priest { background-color: var(--class-priest); }
+.class-color-rogue { background-color: var(--class-rogue); }
+.class-color-shaman { background-color: var(--class-shaman); }
+.class-color-warlock { background-color: var(--class-warlock); }
+.class-color-warrior { background-color: var(--class-warrior); }
+
+/* 文本颜色 */
+.class-text-deathknight { color: var(--class-deathknight); }
+.class-text-demonhunter { color: var(--class-demonhunter); }
+.class-text-druid { color: var(--class-druid); }
+.class-text-evoker { color: var(--class-evoker); }
+.class-text-hunter { color: var(--class-hunter); }
+.class-text-mage { color: var(--class-mage); }
+.class-text-monk { color: var(--class-monk); }
+.class-text-paladin { color: var(--class-paladin); }
+.class-text-priest { color: var(--class-priest); }
+.class-text-rogue { color: var(--class-rogue); }
+.class-text-shaman { color: var(--class-shaman); }
+.class-text-warlock { color: var(--class-warlock); }
+.class-text-warrior { color: var(--class-warrior); }
+
+/* 边框颜色 */
+.class-border-deathknight { border-color: var(--class-deathknight); }
+.class-border-demonhunter { border-color: var(--class-demonhunter); }
+.class-border-druid { border-color: var(--class-druid); }
+.class-border-evoker { border-color: var(--class-evoker); }
+.class-border-hunter { border-color: var(--class-hunter); }
+.class-border-mage { border-color: var(--class-mage); }
+.class-border-monk { border-color: var(--class-monk); }
+.class-border-paladin { border-color: var(--class-paladin); }
+.class-border-priest { border-color: var(--class-priest); }
+.class-border-rogue { border-color: var(--class-rogue); }
+.class-border-shaman { border-color: var(--class-shaman); }
+.class-border-warlock { border-color: var(--class-warlock); }
+.class-border-warrior { border-color: var(--class-warrior); }
+
+/* 发光效果 */
+.class-glow-deathknight {
+  box-shadow: 0 0 8px 2px var(--class-deathknight);
+}
+.class-glow-demonhunter {
+  box-shadow: 0 0 8px 2px var(--class-demonhunter);
+}
+.class-glow-druid {
+  box-shadow: 0 0 8px 2px var(--class-druid);
+}
+.class-glow-evoker {
+  box-shadow: 0 0 8px 2px var(--class-evoker);
+}
+.class-glow-hunter {
+  box-shadow: 0 0 8px 2px var(--class-hunter);
+}
+.class-glow-mage {
+  box-shadow: 0 0 8px 2px var(--class-mage);
+}
+.class-glow-monk {
+  box-shadow: 0 0 8px 2px var(--class-monk);
+}
+.class-glow-paladin {
+  box-shadow: 0 0 8px 2px var(--class-paladin);
+}
+.class-glow-priest {
+  box-shadow: 0 0 8px 2px var(--class-priest);
+}
+.class-glow-rogue {
+  box-shadow: 0 0 8px 2px var(--class-rogue);
+}
+.class-glow-shaman {
+  box-shadow: 0 0 8px 2px var(--class-shaman);
+}
+.class-glow-warlock {
+  box-shadow: 0 0 8px 2px var(--class-warlock);
+}
+.class-glow-warrior {
+  box-shadow: 0 0 8px 2px var(--class-warrior);
+}
+
+/* 职业颜色预览 */
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.color-item {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.color-item:hover {
+  transform: translateY(-5px);
+}
+
+.color-header {
+  padding: 12px 15px;
+  font-size: 16px;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+.color-values {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+.copy-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: inherit;
+  font-size: 12px;
+}
+
+.copy-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+/* 职业主题 */
+.theme-warrior {
+  --primary: var(--class-warrior);
+  --secondary: #E0C9AC;
+  --text: var(--class-text-light);
+}
+
+.theme-paladin {
+  --primary: var(--class-paladin);
+  --secondary: #F0F0F0;
+  --text: var(--class-text-dark);
+}
+
+.theme-hunter {
+  --primary: var(--class-hunter);
+  --secondary: #D4E8B4;
+  --text: var(--class-text-dark);
+}
+
+.theme-rogue {
+  --primary: var(--class-rogue);
+  --secondary: #FFF9B3;
+  --text: var(--class-text-dark);
+}
+
+.theme-priest {
+  --primary: var(--class-priest);
+  --secondary: #F0F0F0;
+  --text: #333;
+  --border: #CCC;
+}
+
+.theme-warlock {
+  --primary: var(--class-warlock);
+  --secondary: #C4B8E8;
+  --text: var(--class-text-light);
+}
+
+.theme-mage {
+  --primary: var(--class-mage);
+  --secondary: #B8E8F0;
+  --text: var(--class-text-dark);
+}
+
+.theme-monk {
+  --primary: var(--class-monk);
+  --secondary: #B3FFD6;
+  --text: var(--class-text-dark);
+}
+
+.theme-deathknight {
+  --primary: var(--class-deathknight);
+  --secondary: #E8B8B8;
+  --text: var(--class-text-light);
+}
+
+.theme-druid {
+  --primary: var(--class-druid);
+  --secondary: #FFD4B3;
+  --text: var(--class-text-light);
+}
+
+.theme-shaman {
+  --primary: var(--class-shaman);
+  --secondary: #B3D4FF;
+  --text: var(--class-text-light);
+}
+
+.theme-demonhunter {
+  --primary: var(--class-demonhunter);
+  --secondary: #E8B8F0;
+  --text: var(--class-text-light);
+}
+
+.theme-evoker {
+  --primary: var(--class-evoker);
+  --secondary: #B8F0E8;
+  --text: var(--class-text-light);
+}
+
+/* 打印优化 */
+@media print {
+  .class-icon {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    border: 1px solid #000 !important;
+  }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --class-priest: #E0E0E0; /* 在深色模式下调整白色 */
+    --class-text-dark: #F5F5F5;
+  }
+}
+
+/* 性能优化 */
+.class-icon {
+  will-change: transform;
+  contain: content;
+}
+
+/* 职业颜色预览页面样式 */
+.usage-examples {
+  margin: 2rem 0;
+}
+
+.usage-examples h3 {
+  color: var(--color-primary);
+  margin: 1.5rem 0 1rem;
+  border-bottom: 2px solid var(--color-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.usage-examples pre {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.usage-examples code {
+  color: var(--color-text);
+  font-family: 'Courier New', monospace;
+}
+
+.example-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.example-items span {
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: bold;
+  border: 1px solid var(--color-border);
+}
+
+.example-items .class-color-warrior {
+  background-color: var(--class-warrior);
+  color: var(--class-text-light);
+}
+
+.example-items .class-text-paladin {
+  color: var(--class-paladin);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.example-items .class-border-mage {
+  color: var(--class-mage);
+  border-color: var(--class-mage);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.example-items .class-glow-rogue {
+  color: var(--class-rogue);
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 8px 2px var(--class-rogue);
+} 

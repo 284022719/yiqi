@@ -1,0 +1,4 @@
+# 将根目录的 *.html 请求重定向到 /pages 文件夹
+/*.html  /pages/:splat.html  200
+# 排除 index.html（保持根目录访问）
+/index.html  /index.html  200

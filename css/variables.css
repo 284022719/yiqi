@@ -1,0 +1,43 @@
+/* ====== CSS变量定义 ====== */
+:root {
+  /* 颜色变量 */
+  --color-primary: #FFD700;
+  --color-secondary: #785A28;
+  --color-dark: #0f0f0f;
+  --color-text: #e0e0e0;
+  --color-text-secondary: #a0a0a0;
+  --color-bg-dark: rgba(15, 15, 15, 0.95);
+  --color-bg-card: rgba(30, 30, 30, 0.9);
+  --color-border: #423714;
+  --color-warning: #FFC107;
+  
+  /* 职业颜色 - 官方标准 */
+  --class-deathknight: #C41E3A;    /* 死亡骑士 */
+  --class-demonhunter: #A330C9;   /* 恶魔猎手 */
+  --class-druid: #FF7C0A;         /* 德鲁伊 */
+  --class-evoker: #33937F;        /* 唤魔师 */
+  --class-hunter: #AAD372;        /* 猎人 */
+  --class-mage: #3FC7EB;          /* 法师 */
+  --class-monk: #00FF98;          /* 武僧 */
+  --class-paladin: #F48CBA;       /* 圣骑士 */
+  --class-priest: #FFFFFF;        /* 牧师 */
+  --class-rogue: #FFF468;         /* 潜行者 */
+  --class-shaman: #0070DD;        /* 萨满 */
+  --class-warlock: #8788EE;       /* 术士 */
+  --class-warrior: #C69B6D;       /* 战士 */
+  
+  /* 辅助颜色 */
+  --class-text-light: #F0F0F0;    /* 浅色文本 */
+  --class-text-dark: #222222;     /* 深色文本 */
+  
+  /* 尺寸变量 */
+  --border-radius: 4px;
+  --border-width: 2px;
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+
+  
+  /* 动画变量 */
+  --transition-time: 0.05s;
+} 

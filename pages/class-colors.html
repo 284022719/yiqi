@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一起公会 - 魔兽世界职业颜色预览">
+  <title>职业颜色预览 - 一起公会</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="guild-header-container"></div>
+  <nav class="nav-container" aria-label="主菜单"></nav>
+  
+  <main class="main-content">
+    <article class="content-card">
+      <header>
+        <h1>魔兽世界职业颜色预览</h1>
+        <p>官方标准的职业颜色系统，点击颜色值可复制到剪贴板</p>
+      </header>
+      
+      <div id="color-palette"></div>
+    </article>
+    
+    <article class="content-card">
+      <header>
+        <h2>使用示例</h2>
+      </header>
+      
+      <div class="usage-examples">
+        <h3>CSS 变量使用</h3>
+        <pre><code>/* 使用职业颜色变量 */
+.character-name {
+  color: var(--class-warrior); /* 战士颜色 */
+}
+
+.character-card {
+  background-color: var(--class-paladin); /* 圣骑士背景 */
+  color: var(--class-text-dark); /* 深色文本 */
+}</code></pre>
+        
+        <h3>工具类使用</h3>
+        <div class="example-items">
+          <span class="class-color-warrior">战士背景</span>
+          <span class="class-text-paladin">圣骑士文字</span>
+          <span class="class-border-mage">法师边框</span>
+          <span class="class-glow-rogue">潜行者发光</span>
+        </div>
+        
+        <h3>JavaScript 使用</h3>
+        <pre><code>import { getClassColor, getClassInfo } from './js/data/wow-classes.js';
+
+const classInfo = getClassInfo('warrior');
+const color = getClassColor('warrior');
+console.log(color); // "var(--class-warrior)"</code></pre>
+      </div>
+    </article>
+  </main>
+  
+  <footer class="footer-container"></footer>
+  
+  <script type="module">
+    import ClassColorPalette from '../js/components/ClassColorPalette.js';
+    
+    // 初始化颜色预览
+    new ClassColorPalette('color-palette');
+  </script>
+</body>
+</html> 

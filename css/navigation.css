@@ -1,0 +1,146 @@
+/* ====== 下拉菜单 ====== */
+.dropdown {
+  position: relative;
+}
+
+/* 确保下拉菜单在nav-container中也能正常工作 */
+.nav-container .dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s, height 0.3s;
+  position: absolute;
+  background: var(--color-bg-card);
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  z-index: 1001;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--border-radius);
+  left: 0;
+  top: 100%;
+  margin-top: 5px;
+  padding: 5px 0;
+}
+
+.dropdown-item {
+  color: var(--color-text);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all var(--transition-time) ease-out;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  overflow: hidden;
+  z-index: 1;
+  margin: 0 5px;
+  border-radius: var(--border-radius);
+}
+
+.dropdown-item:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 215, 0, 0.1) 0%,
+    rgba(255, 215, 0, 0) 100%
+  );
+  z-index: -1;
+  border-radius: var(--border-radius);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+/* 下拉菜单子元素 */
+.dropdown-icon {
+  font-size: 1.2rem;
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary);
+  margin-right: 12px;
+  text-align: center;
+  transition: transform var(--transition-time);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown-icon img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.dropdown-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.dropdown-title {
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.dropdown-desc {
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  display: block;
+  line-height: 1.4;
+}
+
+/* 状态类 */
+.dropdown-item:hover .dropdown-icon {
+  transform: translateX(3px);
+  color: var(--color-primary);
+}
+
+.dropdown-item:hover .dropdown-title {
+  color: var(--color-primary);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
+
+.dropdown-item:hover .dropdown-desc {
+  color: #d0d0d0;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+/* 确保nav-container中的下拉菜单也能正常工作 */
+.nav-container .dropdown:hover .dropdown-content {
+  opacity: 1;
+  height: auto;
+  overflow: visible;
+}
+
+/* 响应式调整 */
+@media (max-width: 480px) {
+  .dropdown-content {
+    position: static;
+    min-width: 100%;
+  }
+  
+  .dropdown-item {
+    padding: 12px 16px;
+  }
+  
+  .dropdown-icon {
+    width: 20px;
+    height: 20px;
+  }
+} 

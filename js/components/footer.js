@@ -1,10 +1,17 @@
 export function loadFooter() {
     const footerHTML = `
-      <footer class="content-card">
-        <address>
-          <p><img src="../img/yy.png" alt="YY语音" width="20" height="20"> YY：74814646</p>
-          <p><img src="../img/bn.webp" alt="战网" width="20" height="20"> 战网：284022719@qq.com</p>
-        </address>
+      <footer class="footer-container">
+        
+        <div>
+            <img src="https://web.yystatic.com/project/yycom_header/pc/assets/logo.png" alt="YY语音" width="24" height="24">
+            <span>74814646</span>
+        </div>
+           
+        <div>
+            <img src="https://contentstack-images.blzstatic.cn/v3/assets/blt13393558c8f39060/blt99d316461099db22/644fe236d3c3ea26f40ed388/desktop-app.png" alt="战网" width="24" height="24">
+            <span>284022719@qq.com</span>
+        </div>
+
       </footer>
     `;
     

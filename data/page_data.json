@@ -1,0 +1,997 @@
+{
+  "lastUpdated": "2025-08-06 22:32:58",
+  "stats": {
+    "totalMembers": 703,
+    "activeMembers": 703,
+    "dataCompleteness": {
+      "total": 703,
+      "complete": 703,
+      "incomplete": 0,
+      "percentage": 100.0
+    }
+  },
+  "charts": {
+    "classDistribution": [
+      {
+        "name": "圣骑士",
+        "value": 96
+      },
+      {
+        "name": "恶魔猎手",
+        "value": 75
+      },
+      {
+        "name": "猎人",
+        "value": 73
+      },
+      {
+        "name": "战士",
+        "value": 65
+      },
+      {
+        "name": "法师",
+        "value": 65
+      },
+      {
+        "name": "死亡骑士",
+        "value": 60
+      },
+      {
+        "name": "德鲁伊",
+        "value": 52
+      },
+      {
+        "name": "萨满祭司",
+        "value": 45
+      },
+      {
+        "name": "武僧",
+        "value": 40
+      },
+      {
+        "name": "潜行者",
+        "value": 38
+      },
+      {
+        "name": "术士",
+        "value": 38
+      },
+      {
+        "name": "牧师",
+        "value": 34
+      },
+      {
+        "name": "唤魔师",
+        "value": 22
+      }
+    ],
+    "factionDistribution": [
+      {
+        "name": "Horde",
+        "value": 618
+      },
+      {
+        "name": "Alliance",
+        "value": 85
+      }
+    ],
+    "raceDistribution": [
+      {
+        "name": "血精灵",
+        "value": 233
+      },
+      {
+        "name": "牛头人",
+        "value": 74
+      },
+      {
+        "name": "兽人",
+        "value": 48
+      },
+      {
+        "name": "亡灵",
+        "value": 40
+      },
+      {
+        "name": "龙希尔",
+        "value": 35
+      },
+      {
+        "name": "玛格汉兽人",
+        "value": 33
+      },
+      {
+        "name": "熊猫人",
+        "value": 33
+      },
+      {
+        "name": "巨魔",
+        "value": 30
+      },
+      {
+        "name": "狐人",
+        "value": 30
+      },
+      {
+        "name": "夜之子",
+        "value": 20
+      },
+      {
+        "name": "赞达拉巨魔",
+        "value": 18
+      },
+      {
+        "name": "暗夜精灵",
+        "value": 18
+      },
+      {
+        "name": "至高岭牛头人",
+        "value": 17
+      },
+      {
+        "name": "虚空精灵",
+        "value": 12
+      },
+      {
+        "name": "人类",
+        "value": 10
+      },
+      {
+        "name": "地精",
+        "value": 9
+      },
+      {
+        "name": "矮人",
+        "value": 8
+      },
+      {
+        "name": "土灵",
+        "value": 7
+      },
+      {
+        "name": "光铸德莱尼",
+        "value": 7
+      },
+      {
+        "name": "侏儒",
+        "value": 5
+      },
+      {
+        "name": "黑铁矮人",
+        "value": 5
+      },
+      {
+        "name": "库尔提拉斯人",
+        "value": 4
+      },
+      {
+        "name": "狼人",
+        "value": 3
+      },
+      {
+        "name": "机械侏儒",
+        "value": 2
+      },
+      {
+        "name": "德莱尼",
+        "value": 2
+      }
+    ],
+    "realmDistribution": [
+      {
+        "name": "阿尔萨斯",
+        "value": 528
+      },
+      {
+        "name": "白银之手",
+        "value": 24
+      },
+      {
+        "name": "死亡之翼",
+        "value": 23
+      },
+      {
+        "name": "罗宁",
+        "value": 15
+      },
+      {
+        "name": "燃烧之刃",
+        "value": 12
+      },
+      {
+        "name": "冬泉谷",
+        "value": 10
+      },
+      {
+        "name": "祖达克",
+        "value": 7
+      },
+      {
+        "name": "国王之谷",
+        "value": 6
+      },
+      {
+        "name": "凤凰之神",
+        "value": 6
+      },
+      {
+        "name": "阿克蒙德",
+        "value": 6
+      },
+      {
+        "name": "阿古斯",
+        "value": 5
+      },
+      {
+        "name": "影之哀伤",
+        "value": 4
+      },
+      {
+        "name": "克尔苏加德",
+        "value": 4
+      },
+      {
+        "name": "斯克提斯",
+        "value": 4
+      },
+      {
+        "name": "金色平原",
+        "value": 3
+      },
+      {
+        "name": "无尽之海",
+        "value": 3
+      },
+      {
+        "name": "红龙军团",
+        "value": 3
+      },
+      {
+        "name": "巴瑟拉斯",
+        "value": 3
+      },
+      {
+        "name": "塞拉摩",
+        "value": 2
+      },
+      {
+        "name": "安苏",
+        "value": 2
+      },
+      {
+        "name": "苏拉玛",
+        "value": 2
+      },
+      {
+        "name": "伊利丹",
+        "value": 2
+      },
+      {
+        "name": "血色十字军",
+        "value": 2
+      },
+      {
+        "name": "暴风祭坛",
+        "value": 2
+      },
+      {
+        "name": "梅尔加尼",
+        "value": 1
+      },
+      {
+        "name": "熊猫酒仙",
+        "value": 1
+      },
+      {
+        "name": "瓦里安",
+        "value": 1
+      },
+      {
+        "name": "布兰卡德",
+        "value": 1
+      },
+      {
+        "name": "符文图腾",
+        "value": 1
+      },
+      {
+        "name": "伊森利恩",
+        "value": 1
+      },
+      {
+        "name": "埃德萨拉",
+        "value": 1
+      },
+      {
+        "name": "海克泰尔",
+        "value": 1
+      },
+      {
+        "name": "贫瘠之地",
+        "value": 1
+      },
+      {
+        "name": "冰风岗",
+        "value": 1
+      },
+      {
+        "name": "丽丽（四川）",
+        "value": 1
+      },
+      {
+        "name": "瓦拉纳",
+        "value": 1
+      },
+      {
+        "name": "霜之哀伤",
+        "value": 1
+      },
+      {
+        "name": "回音山",
+        "value": 1
+      },
+      {
+        "name": "烈焰荆棘",
+        "value": 1
+      },
+      {
+        "name": "风暴峭壁",
+        "value": 1
+      },
+      {
+        "name": "加里索斯",
+        "value": 1
+      },
+      {
+        "name": "黑铁",
+        "value": 1
+      },
+      {
+        "name": "主宰之剑",
+        "value": 1
+      },
+      {
+        "name": "诺莫瑞根",
+        "value": 1
+      },
+      {
+        "name": "玛里苟斯",
+        "value": 1
+      },
+      {
+        "name": "莱索恩",
+        "value": 1
+      },
+      {
+        "name": "霜狼",
+        "value": 1
+      },
+      {
+        "name": "格瑞姆巴托",
+        "value": 1
+      },
+      {
+        "name": "地狱之石",
+        "value": 1
+      }
+    ],
+    "genderDistribution": [
+      {
+        "name": "男",
+        "value": 327
+      },
+      {
+        "name": "女",
+        "value": 376
+      }
+    ]
+  },
+  "rankings": {
+    "achievementRanking": [
+      {
+        "rank": 1,
+        "name": "逸龙戏贰凤",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "野兽控制",
+        "achievement_points": 43950,
+        "average_item_level": 680.0,
+        "mythic_score": 3031
+      },
+      {
+        "rank": 2,
+        "name": "九羅密羙星",
+        "realm": "阿尔萨斯",
+        "class": "恶魔猎手",
+        "spec": "浩劫",
+        "achievement_points": 42380,
+        "average_item_level": 667.0,
+        "mythic_score": 2614
+      },
+      {
+        "rank": 3,
+        "name": "九羅密羙雲",
+        "realm": "阿尔萨斯",
+        "class": "牧师",
+        "spec": "暗影",
+        "achievement_points": 42060,
+        "average_item_level": 202.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 4,
+        "name": "寄八只羊",
+        "realm": "死亡之翼",
+        "class": "死亡骑士",
+        "spec": "邪恶",
+        "achievement_points": 41680,
+        "average_item_level": 664.0,
+        "mythic_score": 2035
+      },
+      {
+        "rank": 5,
+        "name": "情爱里无智者",
+        "realm": "死亡之翼",
+        "class": "猎人",
+        "spec": "野兽控制",
+        "achievement_points": 41680,
+        "average_item_level": 641.0,
+        "mythic_score": 161
+      },
+      {
+        "rank": 6,
+        "name": "情让人伤神",
+        "realm": "燃烧之刃",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 41680,
+        "average_item_level": 651.0,
+        "mythic_score": 347
+      },
+      {
+        "rank": 7,
+        "name": "四顾剑",
+        "realm": "阿尔萨斯",
+        "class": "战士",
+        "spec": "防护",
+        "achievement_points": 39680,
+        "average_item_level": 292.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 8,
+        "name": "风剑的荣耀",
+        "realm": "阿尔萨斯",
+        "class": "战士",
+        "spec": "武器",
+        "achievement_points": 38390,
+        "average_item_level": 669.0,
+        "mythic_score": 166
+      },
+      {
+        "rank": 9,
+        "name": "Ruling",
+        "realm": "阿尔萨斯",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 38160,
+        "average_item_level": 684.0,
+        "mythic_score": 3005
+      },
+      {
+        "rank": 10,
+        "name": "我的犄角呢",
+        "realm": "阿尔萨斯",
+        "class": "唤魔师",
+        "spec": "湮灭",
+        "achievement_points": 37070,
+        "average_item_level": 643.0,
+        "mythic_score": 853
+      },
+      {
+        "rank": 11,
+        "name": "战复我再嗜血",
+        "realm": "阿尔萨斯",
+        "class": "潜行者",
+        "spec": "敏锐",
+        "achievement_points": 37070,
+        "average_item_level": 635.0,
+        "mythic_score": 331
+      },
+      {
+        "rank": 12,
+        "name": "Oliveoyl",
+        "realm": "阿尔萨斯",
+        "class": "恶魔猎手",
+        "spec": "浩劫",
+        "achievement_points": 36810,
+        "average_item_level": 618.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 13,
+        "name": "白鲸",
+        "realm": "阿尔萨斯",
+        "class": "术士",
+        "spec": "毁灭",
+        "achievement_points": 36760,
+        "average_item_level": 455.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 14,
+        "name": "白鯨",
+        "realm": "国王之谷",
+        "class": "牧师",
+        "spec": "戒律",
+        "achievement_points": 36665,
+        "average_item_level": 682.0,
+        "mythic_score": 3567
+      },
+      {
+        "rank": 15,
+        "name": "道别哀歌",
+        "realm": "阿尔萨斯",
+        "class": "战士",
+        "spec": "武器",
+        "achievement_points": 36570,
+        "average_item_level": 679.0,
+        "mythic_score": 3137
+      },
+      {
+        "rank": 16,
+        "name": "Visons",
+        "realm": "阿尔萨斯",
+        "class": "死亡骑士",
+        "spec": "鲜血",
+        "achievement_points": 36060,
+        "average_item_level": 181.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 17,
+        "name": "白鯨儿",
+        "realm": "国王之谷",
+        "class": "圣骑士",
+        "spec": "神圣",
+        "achievement_points": 36060,
+        "average_item_level": 276.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 18,
+        "name": "白鯨儿",
+        "realm": "阿尔萨斯",
+        "class": "圣骑士",
+        "spec": "神圣",
+        "achievement_points": 36060,
+        "average_item_level": 276.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 19,
+        "name": "白鲸儿",
+        "realm": "阿尔萨斯",
+        "class": "牧师",
+        "spec": "神圣",
+        "achievement_points": 35535,
+        "average_item_level": 283.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 20,
+        "name": "Juunoo",
+        "realm": "死亡之翼",
+        "class": "武僧",
+        "spec": "踏风",
+        "achievement_points": 35485,
+        "average_item_level": 630.0,
+        "mythic_score": 0
+      }
+    ],
+    "itemLevelRanking": [
+      {
+        "rank": 1,
+        "name": "Playerwqhvlt",
+        "realm": "冬泉谷",
+        "class": "猎人",
+        "spec": "野兽控制",
+        "achievement_points": 27895,
+        "average_item_level": 685.0,
+        "mythic_score": 2881
+      },
+      {
+        "rank": 2,
+        "name": "绕指柔",
+        "realm": "伊利丹",
+        "class": "牧师",
+        "spec": "冰霜",
+        "achievement_points": 19340,
+        "average_item_level": 685.0,
+        "mythic_score": 0
+      },
+      {
+        "rank": 3,
+        "name": "戎卷风",
+        "realm": "阿尔萨斯",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 18595,
+        "average_item_level": 685.0,
+        "mythic_score": 3196
+      },
+      {
+        "rank": 4,
+        "name": "风少爷丶",
+        "realm": "阿克蒙德",
+        "class": "萨满祭司",
+        "spec": "恢复",
+        "achievement_points": 13585,
+        "average_item_level": 685.0,
+        "mythic_score": 3175
+      },
+      {
+        "rank": 5,
+        "name": "你也曾心动吧",
+        "realm": "暴风祭坛",
+        "class": "圣骑士",
+        "spec": "防护",
+        "achievement_points": 9295,
+        "average_item_level": 685.0,
+        "mythic_score": 3544
+      },
+      {
+        "rank": 6,
+        "name": "Ruling",
+        "realm": "阿尔萨斯",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 38160,
+        "average_item_level": 684.0,
+        "mythic_score": 3005
+      },
+      {
+        "rank": 7,
+        "name": "居仔",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "野兽控制",
+        "achievement_points": 35485,
+        "average_item_level": 684.0,
+        "mythic_score": 2613
+      },
+      {
+        "rank": 8,
+        "name": "山菜",
+        "realm": "凤凰之神",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 32160,
+        "average_item_level": 684.0,
+        "mythic_score": 3322
+      },
+      {
+        "rank": 9,
+        "name": "狮萨",
+        "realm": "凤凰之神",
+        "class": "死亡骑士",
+        "spec": "冰霜",
+        "achievement_points": 32160,
+        "average_item_level": 684.0,
+        "mythic_score": 3535
+      },
+      {
+        "rank": 10,
+        "name": "月影佑汐",
+        "realm": "阿尔萨斯",
+        "class": "德鲁伊",
+        "spec": "守护",
+        "achievement_points": 29410,
+        "average_item_level": 684.0,
+        "mythic_score": 3029
+      },
+      {
+        "rank": 11,
+        "name": "夢隊長",
+        "realm": "阿尔萨斯",
+        "class": "恶魔猎手",
+        "spec": "复仇",
+        "achievement_points": 29045,
+        "average_item_level": 684.0,
+        "mythic_score": 3108
+      },
+      {
+        "rank": 12,
+        "name": "夸父不想追日",
+        "realm": "金色平原",
+        "class": "德鲁伊",
+        "spec": "野性",
+        "achievement_points": 28970,
+        "average_item_level": 684.0,
+        "mythic_score": 3012
+      },
+      {
+        "rank": 13,
+        "name": "Pro",
+        "realm": "阿尔萨斯",
+        "class": "潜行者",
+        "spec": "狂徒",
+        "achievement_points": 23865,
+        "average_item_level": 684.0,
+        "mythic_score": 3532
+      },
+      {
+        "rank": 14,
+        "name": "公牛也喂奶",
+        "realm": "凤凰之神",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 23515,
+        "average_item_level": 684.0,
+        "mythic_score": 3012
+      },
+      {
+        "rank": 15,
+        "name": "华师傅",
+        "realm": "阿尔萨斯",
+        "class": "死亡骑士",
+        "spec": "冰霜",
+        "achievement_points": 23515,
+        "average_item_level": 684.0,
+        "mythic_score": 3577
+      },
+      {
+        "rank": 16,
+        "name": "圣光拯救",
+        "realm": "阿尔萨斯",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 22845,
+        "average_item_level": 684.0,
+        "mythic_score": 3088
+      },
+      {
+        "rank": 17,
+        "name": "Meteorra",
+        "realm": "死亡之翼",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 21855,
+        "average_item_level": 684.0,
+        "mythic_score": 3801
+      },
+      {
+        "rank": 18,
+        "name": "一枪八百里",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "射击",
+        "achievement_points": 18700,
+        "average_item_level": 684.0,
+        "mythic_score": 3065
+      },
+      {
+        "rank": 19,
+        "name": "Firstshoot",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "射击",
+        "achievement_points": 17185,
+        "average_item_level": 684.0,
+        "mythic_score": 3014
+      },
+      {
+        "rank": 20,
+        "name": "妙不可言",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "射击",
+        "achievement_points": 17045,
+        "average_item_level": 684.0,
+        "mythic_score": 3593
+      }
+    ],
+    "mythicScoreRanking": [
+      {
+        "rank": 1,
+        "name": "Meteorra",
+        "realm": "死亡之翼",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 21855,
+        "average_item_level": 684.0,
+        "mythic_score": 3801
+      },
+      {
+        "rank": 2,
+        "name": "西途",
+        "realm": "国王之谷",
+        "class": "德鲁伊",
+        "spec": "平衡",
+        "achievement_points": 24570,
+        "average_item_level": 683.0,
+        "mythic_score": 3647
+      },
+      {
+        "rank": 3,
+        "name": "妙不可言",
+        "realm": "阿尔萨斯",
+        "class": "猎人",
+        "spec": "射击",
+        "achievement_points": 17045,
+        "average_item_level": 684.0,
+        "mythic_score": 3593
+      },
+      {
+        "rank": 4,
+        "name": "华师傅",
+        "realm": "阿尔萨斯",
+        "class": "死亡骑士",
+        "spec": "冰霜",
+        "achievement_points": 23515,
+        "average_item_level": 684.0,
+        "mythic_score": 3577
+      },
+      {
+        "rank": 5,
+        "name": "白鯨",
+        "realm": "国王之谷",
+        "class": "牧师",
+        "spec": "戒律",
+        "achievement_points": 36665,
+        "average_item_level": 682.0,
+        "mythic_score": 3567
+      },
+      {
+        "rank": 6,
+        "name": "久世",
+        "realm": "阿尔萨斯",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 14300,
+        "average_item_level": 684.0,
+        "mythic_score": 3552
+      },
+      {
+        "rank": 7,
+        "name": "你也曾心动吧",
+        "realm": "暴风祭坛",
+        "class": "圣骑士",
+        "spec": "防护",
+        "achievement_points": 9295,
+        "average_item_level": 685.0,
+        "mythic_score": 3544
+      },
+      {
+        "rank": 8,
+        "name": "狮萨",
+        "realm": "凤凰之神",
+        "class": "死亡骑士",
+        "spec": "冰霜",
+        "achievement_points": 32160,
+        "average_item_level": 684.0,
+        "mythic_score": 3535
+      },
+      {
+        "rank": 9,
+        "name": "Pro",
+        "realm": "阿尔萨斯",
+        "class": "潜行者",
+        "spec": "狂徒",
+        "achievement_points": 23865,
+        "average_item_level": 684.0,
+        "mythic_score": 3532
+      },
+      {
+        "rank": 10,
+        "name": "樱桃牛奶酱",
+        "realm": "红龙军团",
+        "class": "牧师",
+        "spec": "戒律",
+        "achievement_points": 13105,
+        "average_item_level": 684.0,
+        "mythic_score": 3493
+      },
+      {
+        "rank": 11,
+        "name": "牛铁钢丶",
+        "realm": "阿尔萨斯",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 6395,
+        "average_item_level": 684.0,
+        "mythic_score": 3348
+      },
+      {
+        "rank": 12,
+        "name": "山菜",
+        "realm": "凤凰之神",
+        "class": "圣骑士",
+        "spec": "惩戒",
+        "achievement_points": 32160,
+        "average_item_level": 684.0,
+        "mythic_score": 3322
+      },
+      {
+        "rank": 13,
+        "name": "雪蒂凯",
+        "realm": "阿尔萨斯",
+        "class": "死亡骑士",
+        "spec": "邪恶",
+        "achievement_points": 20580,
+        "average_item_level": 681.0,
+        "mythic_score": 3315
+      },
+      {
+        "rank": 14,
+        "name": "柠檬泡腾片",
+        "realm": "阿尔萨斯",
+        "class": "恶魔猎手",
+        "spec": "复仇",
+        "achievement_points": 23515,
+        "average_item_level": 683.0,
+        "mythic_score": 3312
+      },
+      {
+        "rank": 15,
+        "name": "丶王祖贤",
+        "realm": "白银之手",
+        "class": "潜行者",
+        "spec": "奇袭",
+        "achievement_points": 4285,
+        "average_item_level": 682.0,
+        "mythic_score": 3305
+      },
+      {
+        "rank": 16,
+        "name": "小佐手",
+        "realm": "死亡之翼",
+        "class": "圣骑士",
+        "spec": "防护",
+        "achievement_points": 12895,
+        "average_item_level": 636.0,
+        "mythic_score": 3216
+      },
+      {
+        "rank": 17,
+        "name": "塔塔皮卡丘",
+        "realm": "阿尔萨斯",
+        "class": "萨满祭司",
+        "spec": "恢复",
+        "achievement_points": 20550,
+        "average_item_level": 680.0,
+        "mythic_score": 3200
+      },
+      {
+        "rank": 18,
+        "name": "戎卷风",
+        "realm": "阿尔萨斯",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 18595,
+        "average_item_level": 685.0,
+        "mythic_score": 3196
+      },
+      {
+        "rank": 19,
+        "name": "火焰弹",
+        "realm": "白银之手",
+        "class": "法师",
+        "spec": "奥术",
+        "achievement_points": 9265,
+        "average_item_level": 682.0,
+        "mythic_score": 3191
+      },
+      {
+        "rank": 20,
+        "name": "妙妙德",
+        "realm": "阿尔萨斯",
+        "class": "德鲁伊",
+        "spec": "平衡",
+        "achievement_points": 16710,
+        "average_item_level": 680.0,
+        "mythic_score": 3184
+      }
+    ]
+  }
+}
