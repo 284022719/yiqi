@@ -11,6 +11,8 @@ import { ImageModal } from './modules/ImageModal.js';
 import { ParticleSystem } from './modules/ParticleSystem.js';
 import { GuildStatsLoader } from './modules/GuildStatsLoader.js';
 import { IframeErrorHandler } from './modules/IframeErrorHandler.js';
+import { WCLDataLoader } from './modules/WCLDataLoader.js';
+import { ImageUploader } from './modules/ImageUploader.js';
 
 // 导入组件
 import { loadHeader } from './components/header.js';
@@ -49,6 +51,16 @@ async function init() {
     const statsLoader = new GuildStatsLoader();
     await statsLoader.init();
   }
+  
+  // 初始化WCL数据加载器（如果存在相关元素）
+  if (document.getElementById('wcl-table')) {
+    new WCLDataLoader();
+  }
+  
+  // 初始化图片上传器（如果存在相关元素）
+  if (document.getElementById('upload-form')) {
+    new ImageUploader();
+  }
 }
 
 /*************************
@@ -59,7 +71,9 @@ async function init() {
 window.GuildApp = {
   ImageModal,
   ParticleSystem,
-  GuildStatsLoader
+  GuildStatsLoader,
+  WCLDataLoader,
+  ImageUploader
 };
 
 /*************************
