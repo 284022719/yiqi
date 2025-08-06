@@ -19,6 +19,273 @@
   text-align: center;
 }
 
+/* ====== WCL表格样式 ====== */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(40, 40, 40, 0.9);
+  margin: 1.5rem 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.section-description {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.refresh-button {
+  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  border: 1px solid var(--color-primary);
+  color: white;
+  padding: 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--transition-time);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.refresh-button i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.refresh-button:hover {
+  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transform: scale(1.1);
+}
+
+.refresh-button:hover i {
+  transform: rotate(180deg);
+}
+
+.refresh-button:active {
+  transform: scale(0.95);
+}
+
+.refresh-button.loading i {
+  animation: spin 1s linear infinite;
+}
+
+.table thead {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-background);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.table th {
+  padding: 1rem 0.8rem;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-background);
+  position: relative;
+}
+
+.table th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0.7;
+}
+
+.table tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  position: relative;
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.table tbody tr:nth-child(even):hover {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.table td {
+  padding: 1rem 0.8rem;
+  vertical-align: middle;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.3s ease;
+}
+
+.table td:last-child {
+  text-align: center;
+}
+
+.table tbody tr:hover td {
+  color: var(--color-primary);
+}
+
+/* WCL按钮样式 */
+.wcl-button {
+  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  border: 1px solid var(--color-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-time);
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  min-width: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wcl-button i {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.wcl-button:hover i {
+  transform: translateX(2px);
+}
+
+.wcl-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.wcl-button:hover::before {
+  left: 100%;
+}
+
+.wcl-button:hover {
+  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.wcl-button:active {
+  transform: scale(0.95);
+}
+
+/* 表格加载和错误状态 */
+.table:empty::before {
+  content: '暂无数据';
+  display: block;
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .refresh-button {
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .refresh-button i {
+    font-size: 1rem;
+  }
+  
+  .table {
+    font-size: 0.9rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .wcl-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    gap: 0.8rem;
+  }
+  
+  .refresh-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .refresh-button i {
+    font-size: 0.9rem;
+  }
+  
+  .table {
+    font-size: 0.8rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.6rem 0.3rem;
+  }
+  
+  .wcl-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    min-width: 70px;
+  }
+  
+  .table tbody tr:hover {
+    transform: translateX(2px);
+  }
+}
+
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -192,11 +459,31 @@
   border: 1px solid #ff6b6b;
   border-radius: var(--border-radius);
   margin: 1rem 0;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
 }
 
-.error:before {
+.error::before {
   content: "⚠️ ";
   font-size: 1.2em;
+  margin-right: 0.5rem;
+}
+
+.error::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
 .loading {
@@ -204,10 +491,21 @@
   text-align: center;
   color: var(--color-primary);
   font-size: 1.2rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  backdrop-filter: blur(10px);
 }
 
 .loading i {
   margin-right: 0.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* ====== 特殊区块 ====== */

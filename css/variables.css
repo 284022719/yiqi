@@ -4,6 +4,7 @@
   --color-primary: #FFD700;
   --color-secondary: #785A28;
   --color-dark: #0f0f0f;
+  --color-background: #0f0f0f;
   --color-text: #e0e0e0;
   --color-text-secondary: #a0a0a0;
   --color-bg-dark: rgba(15, 15, 15, 0.95);
@@ -39,5 +40,5 @@
 
   
   /* 动画变量 */
-  --transition-time: 0.05s;
+  --transition-time: 0.3s;
 } 
