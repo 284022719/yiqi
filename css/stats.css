@@ -19,11 +19,13 @@
   border-radius: var(--border-radius);
   padding: var(--spacing-medium);
   text-align: center;
-  transition: transform var(--transition-time), box-shadow var(--transition-time);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, box-shadow;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px) translateZ(0);
   box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
 }
 

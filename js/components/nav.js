@@ -65,6 +65,8 @@ export function loadNavigation() {
   
           <li><a href="${pagesPath}gallery.html">公会画廊</a></li>
 
+          <li><a href="${pagesPath}all-rankings.html">职业排名</a></li>
+
           <li><a href="${pagesPath}wcl.html">开荒记录</a></li>
           
         </ul>

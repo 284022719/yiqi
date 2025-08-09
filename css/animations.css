@@ -1,21 +1,270 @@
-/* ====== 动画 ====== */
+/* ====== 性能优化的动画 ====== */
+
+/* 启用硬件加速的通用类 */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* 减少动画的类 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 优化的发光动画 - 使用transform替代text-shadow */
 @keyframes glow {
-  0%, 100% { text-shadow: 0 0 10px var(--color-primary); }
-  50% { text-shadow: 0 0 20px var(--color-primary); }
+  0%, 100% { 
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% { 
+    transform: scale(1.02);
+    filter: brightness(1.2) drop-shadow(0 0 10px var(--color-primary));
+  }
 }
 
+/* 优化的脉冲动画 - 使用transform替代box-shadow */
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+  0% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
+/* 优化的淡入动画 */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* 优化的旋转动画 */
 @keyframes spin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 优化的滑入动画 */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 优化的弹跳动画 */
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40%, 43% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
+  90% {
+    transform: translateY(-2px);
+  }
+}
+
+/* 优化的闪烁动画 - 使用opacity替代visibility */
+@keyframes shimmer {
+  0% { 
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% { 
+    opacity: 1;
+  }
+  100% { 
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* 优化的缩放动画 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 优化的悬停效果类 */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* 优化的按钮动画 */
+.button-animate {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.button-animate:active {
+  transform: scale(0.95);
+}
+
+/* 优化的加载动画 */
+.loading-optimized {
+  animation: spin 1s linear infinite;
+  will-change: transform;
+}
+
+/* 优化的表格行悬停 */
+.table-row-hover {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.2s ease;
+  will-change: transform, background-color;
+}
+
+.table-row-hover:hover {
+  transform: translateX(5px);
+}
+
+/* 优化的卡片悬停 */
+.card-hover {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 优化的导航悬停 */
+.nav-hover {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.nav-hover:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* 优化的图标旋转 */
+.icon-rotate {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.icon-rotate:hover {
+  transform: rotate(180deg);
+}
+
+/* 优化的淡入淡出 */
+.fade-transition {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+/* 优化的颜色过渡 */
+.color-transition {
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: color;
+}
+
+/* 优化的背景过渡 */
+.bg-transition {
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: background-color;
+}
+
+/* 优化的边框过渡 */
+.border-transition {
+  transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: border-color;
+}
+
+/* 性能优化的动画容器 */
+.animation-container {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* 优化的关键帧动画性能提示 */
+@keyframes optimizedGlow {
+  0%, 100% { 
+    transform: scale(1) translateZ(0);
+  }
+  50% { 
+    transform: scale(1.02) translateZ(0);
+  }
+}
+
+/* 优化的3D变换 */
+.transform-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* 优化的滚动性能 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 优化的图片加载动画 */
+.image-loading {
+  animation: pulse 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* 优化的文本选择动画 */
+.text-select {
+  transition: background-color 0.15s ease;
+  will-change: background-color;
+}
+
+.text-select::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background);
 } 

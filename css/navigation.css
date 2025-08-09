@@ -12,7 +12,7 @@
   opacity: 0;
   height: 0;
   overflow: hidden;
-  transition: opacity 0.3s, height 0.3s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: absolute;
   background: var(--color-bg-card);
   min-width: 200px;
@@ -24,6 +24,7 @@
   top: 100%;
   margin-top: 5px;
   padding: 5px 0;
+  will-change: opacity;
 }
 
 .dropdown-item {
@@ -32,12 +33,13 @@
   display: flex;
   align-items: center;
   position: relative;
-  transition: all var(--transition-time) ease-out;
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   overflow: hidden;
   z-index: 1;
   margin: 0 5px;
   border-radius: var(--border-radius);
+  will-change: background-color;
 }
 
 .dropdown-item:hover::before {
@@ -68,11 +70,12 @@
   color: var(--color-primary);
   margin-right: 12px;
   text-align: center;
-  transition: transform var(--transition-time);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform;
 }
 
 .dropdown-icon img {
@@ -102,7 +105,7 @@
 
 /* 状态类 */
 .dropdown-item:hover .dropdown-icon {
-  transform: translateX(3px);
+  transform: translateX(3px) translateZ(0);
   color: var(--color-primary);
 }
 

@@ -73,11 +73,12 @@
 .nav-container a {
   color: var(--color-primary);
   font-size: 1.1rem;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .nav-container a:hover {
-  transform: scale(1.05) translateY(-2px);
+  transform: scale(1.05) translateY(-2px) translateZ(0);
 }
 
 /* 导航栏始终置顶 */

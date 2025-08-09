@@ -49,27 +49,41 @@ class DatabaseQueryTool:
         print(f"角色信息查询: {character_name} ({realm})")
         print(f"{'='*60}")
         
-        # 获取最新数据
-        latest_data = self.db_manager.get_latest_character_data(character_name, realm)
-        if not latest_data:
-            print(f"未找到角色 {character_name} 的数据")
-            return
-        
-        print(f"角色名称: {latest_data.get('name', 'N/A')}")
-        print(f"等级: {latest_data.get('level', 'N/A')}")
-        print(f"职业: {latest_data.get('class', 'N/A')} - {latest_data.get('spec', 'N/A')}")
-        print(f"种族: {latest_data.get('race', 'N/A')}")
-        print(f"阵营: {latest_data.get('faction', 'N/A')}")
-        print(f"公会: {latest_data.get('guild', 'N/A')}")
-        print(f"成就点数: {latest_data.get('achievement_points', 'N/A')}")
-        print(f"平均装等: {latest_data.get('average_item_level', 'N/A')}")
-        print(f"装备装等: {latest_data.get('equipped_item_level', 'N/A')}")
-        print(f"盟约: {latest_data.get('covenant', 'N/A')}")
-        print(f"名望等级: {latest_data.get('renown_level', 'N/A')}")
-        print(f"装备数量: {latest_data.get('equipment_count', 'N/A')}")
-        print(f"坐骑数量: {latest_data.get('mounts_count', 'N/A')}")
-        print(f"成就数量: {latest_data.get('achievements_count', 'N/A')}")
-        print(f"数据时间: {latest_data.get('crawl_timestamp', 'N/A')}")
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute('''
+                    SELECT name, level, class, race, faction, realm, guild, 
+                           achievement_points, average_item_level, equipped_item_level,
+                           mythic_score, last_online_days, mounts_now, mounts_total
+                    FROM guild_characters 
+                    WHERE name = ? AND realm = ?
+                    LIMIT 1
+                ''', (character_name, realm))
+                
+                row = cursor.fetchone()
+                if not row:
+                    print(f"未找到角色 {character_name} 的数据")
+                    return
+                
+                name, level, class_name, race, faction, realm_name, guild, achievement_points, avg_ilvl, equipped_ilvl, mythic_score, last_online, mounts_now, mounts_total = row
+                
+                print(f"角色名称: {name}")
+                print(f"等级: {level}")
+                print(f"职业: {class_name}")
+                print(f"种族: {race}")
+                print(f"阵营: {faction}")
+                print(f"服务器: {realm_name}")
+                print(f"公会: {guild}")
+                print(f"成就点数: {achievement_points}")
+                print(f"平均装等: {avg_ilvl}")
+                print(f"装备装等: {equipped_ilvl}")
+                print(f"钥石评分: {mythic_score}")
+                print(f"离线天数: {last_online}")
+                print(f"坐骑数量: {mounts_now}/{mounts_total}")
+                
+        except Exception as e:
+            print(f"查询角色信息失败: {e}")
     
     def show_character_history(self, character_name: str, realm: str = "arthas"):
         """显示角色历史数据"""
@@ -77,21 +91,35 @@ class DatabaseQueryTool:
         print(f"角色历史数据: {character_name} ({realm})")
         print(f"{'='*60}")
         
-        history = self.db_manager.get_character_history(character_name, realm)
-        if not history:
-            print(f"未找到角色 {character_name} 的历史数据")
-            return
-        
-        print(f"共找到 {len(history)} 条历史记录:")
-        for i, record in enumerate(history, 1):
-            print(f"\n--- 记录 {i} ---")
-            print(f"时间: {record.get('crawl_timestamp', 'N/A')}")
-            print(f"等级: {record.get('level', 'N/A')}")
-            print(f"装等: {record.get('average_item_level', 'N/A')}")
-            print(f"成就点数: {record.get('achievement_points', 'N/A')}")
-            print(f"装备数量: {record.get('equipment_count', 'N/A')}")
-            print(f"坐骑数量: {record.get('mounts_count', 'N/A')}")
-            print(f"成就数量: {record.get('achievements_count', 'N/A')}")
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute('''
+                    SELECT crawl_timestamp, level, average_item_level, achievement_points, 
+                           mythic_score, mounts_now, mounts_total
+                    FROM guild_characters 
+                    WHERE name = ? AND realm = ?
+                    ORDER BY crawl_timestamp DESC
+                ''', (character_name, realm))
+                
+                rows = cursor.fetchall()
+                if not rows:
+                    print(f"未找到角色 {character_name} 的历史数据")
+                    return
+                
+                print(f"共找到 {len(rows)} 条历史记录:")
+                for i, row in enumerate(rows, 1):
+                    timestamp, level, avg_ilvl, achievement_points, mythic_score, mounts_now, mounts_total = row
+                    print(f"\n--- 记录 {i} ---")
+                    print(f"时间: {timestamp}")
+                    print(f"等级: {level}")
+                    print(f"装等: {avg_ilvl}")
+                    print(f"成就点数: {achievement_points}")
+                    print(f"钥石评分: {mythic_score}")
+                    print(f"坐骑数量: {mounts_now}/{mounts_total}")
+                
+        except Exception as e:
+            print(f"查询角色历史失败: {e}")
     
     def show_top_characters(self, category: str = "item_level", limit: int = 10):
         """显示排行榜"""
@@ -105,9 +133,9 @@ class DatabaseQueryTool:
                 
                 if category == "item_level":
                     cursor.execute('''
-                        SELECT name, class, spec, average_item_level, achievement_points
-                        FROM character_details 
-                        WHERE data_source = "api" AND average_item_level > 0
+                        SELECT name, class, level, average_item_level, achievement_points
+                        FROM guild_characters 
+                        WHERE average_item_level > 0
                         ORDER BY average_item_level DESC
                         LIMIT ?
                     ''', (limit,))
@@ -115,9 +143,9 @@ class DatabaseQueryTool:
                     value_col = "平均装等"
                 elif category == "achievement":
                     cursor.execute('''
-                        SELECT name, class, spec, achievement_points, average_item_level
-                        FROM character_details 
-                        WHERE data_source = "api" AND achievement_points > 0
+                        SELECT name, class, level, achievement_points, average_item_level
+                        FROM guild_characters 
+                        WHERE achievement_points > 0
                         ORDER BY achievement_points DESC
                         LIMIT ?
                     ''', (limit,))
@@ -125,12 +153,10 @@ class DatabaseQueryTool:
                     value_col = "成就点数"
                 elif category == "mounts":
                     cursor.execute('''
-                        SELECT cd.name, cd.class, cd.spec, COUNT(cm.id) as mount_count, cd.average_item_level
-                        FROM character_details cd
-                        LEFT JOIN character_mounts cm ON cd.id = cm.character_detail_id
-                        WHERE cd.data_source = "api"
-                        GROUP BY cd.id
-                        ORDER BY mount_count DESC
+                        SELECT name, class, level, mounts_now, mounts_total, average_item_level
+                        FROM guild_characters 
+                        WHERE mounts_now > 0
+                        ORDER BY mounts_now DESC
                         LIMIT ?
                     ''', (limit,))
                     title = "坐骑数量排行榜"
@@ -141,18 +167,18 @@ class DatabaseQueryTool:
                 
                 results = cursor.fetchall()
                 print(f"{title} (前{limit}名):")
-                print(f"{'排名':<4} {'角色名':<15} {'职业':<8} {'专精':<8} {value_col:<10} {'其他信息':<15}")
+                print(f"{'排名':<4} {'角色名':<15} {'职业':<8} {'等级':<4} {value_col:<10} {'其他信息':<15}")
                 print("-" * 70)
                 
                 for i, row in enumerate(results, 1):
                     if category == "mounts":
-                        name, class_name, spec, value, other = row
+                        name, class_name, level, value, mounts_total, other = row
                         other_info = f"装等{other}"
                     else:
-                        name, class_name, spec, value, other = row
+                        name, class_name, level, value, other = row
                         other_info = f"成就{other}"
                     
-                    print(f"{i:<4} {name:<15} {class_name:<8} {spec:<8} {value:<10} {other_info:<15}")
+                    print(f"{i:<4} {name:<15} {class_name:<8} {level:<4} {value:<10} {other_info:<15}")
                 
         except Exception as e:
             print(f"获取排行榜失败: {e}")
@@ -201,7 +227,11 @@ class DatabaseQueryTool:
                 
                 # 获取角色详细信息
                 cursor.execute('''
-                    SELECT * FROM character_details 
+                    SELECT name, level, class, race, faction, realm, guild, 
+                           achievement_points, average_item_level, equipped_item_level,
+                           mythic_score, last_online_days, mounts_now, mounts_total,
+                           crawl_timestamp, updated_at
+                    FROM guild_characters 
                     WHERE name = ? AND realm = ?
                     ORDER BY crawl_timestamp DESC
                     LIMIT 1
@@ -212,78 +242,26 @@ class DatabaseQueryTool:
                     print(f"未找到角色 {character_name} 的数据")
                     return
                 
-                # 获取装备信息
-                cursor.execute('''
-                    SELECT slot, item_name, item_level, quality, enchantments, gems, temporary_enchantments
-                    FROM character_equipment 
-                    WHERE character_detail_id = ?
-                ''', (character_data[0],))
-                
-                equipment = []
-                for row in cursor.fetchall():
-                    equipment.append({
-                        'slot': row[0],
-                        'name': row[1],
-                        'item_level': row[2],
-                        'quality': row[3],
-                        'enchantments': json.loads(row[4]) if row[4] else [],
-                        'gems': json.loads(row[5]) if row[5] else [],
-                        'temporary_enchantments': json.loads(row[6]) if row[6] else []
-                    })
-                
-                # 获取坐骑信息
-                cursor.execute('''
-                    SELECT mount_name, mount_id, creature_displays
-                    FROM character_mounts 
-                    WHERE character_detail_id = ?
-                ''', (character_data[0],))
-                
-                mounts = []
-                for row in cursor.fetchall():
-                    mounts.append({
-                        'name': row[0],
-                        'id': row[1],
-                        'creature_displays': json.loads(row[2]) if row[2] else []
-                    })
-                
-                # 获取成就信息
-                cursor.execute('''
-                    SELECT achievement_id, achievement_name, description, completed_timestamp, category
-                    FROM character_achievements 
-                    WHERE character_detail_id = ?
-                ''', (character_data[0],))
-                
-                achievements = []
-                for row in cursor.fetchall():
-                    achievements.append({
-                        'id': row[0],
-                        'name': row[1],
-                        'description': row[2],
-                        'completed_timestamp': row[3],
-                        'category': row[4]
-                    })
-                
                 # 构建导出数据
                 export_data = {
                     'character_info': {
-                        'name': character_data[2],
-                        'realm': character_data[3],
-                        'guild': character_data[4],
-                        'level': character_data[5],
-                        'faction': character_data[6],
-                        'race': character_data[7],
-                        'class': character_data[8],
-                        'spec': character_data[9],
-                        'achievement_points': character_data[10],
-                        'average_item_level': character_data[11],
-                        'equipped_item_level': character_data[12],
-                        'covenant': character_data[14],
-                        'renown_level': character_data[15],
-                        'crawl_timestamp': character_data[17]
-                    },
-                    'equipment': equipment,
-                    'mounts': mounts,
-                    'achievements': achievements
+                        'name': character_data[0],
+                        'level': character_data[1],
+                        'class': character_data[2],
+                        'race': character_data[3],
+                        'faction': character_data[4],
+                        'realm': character_data[5],
+                        'guild': character_data[6],
+                        'achievement_points': character_data[7],
+                        'average_item_level': character_data[8],
+                        'equipped_item_level': character_data[9],
+                        'mythic_score': character_data[10],
+                        'last_online_days': character_data[11],
+                        'mounts_now': character_data[12],
+                        'mounts_total': character_data[13],
+                        'crawl_timestamp': character_data[14],
+                        'updated_at': character_data[15]
+                    }
                 }
                 
                 # 保存到文件
@@ -291,9 +269,12 @@ class DatabaseQueryTool:
                     json.dump(export_data, f, ensure_ascii=False, indent=2)
                 
                 print(f"数据已导出到: {output_file}")
-                print(f"装备数量: {len(equipment)}")
-                print(f"坐骑数量: {len(mounts)}")
-                print(f"成就数量: {len(achievements)}")
+                print(f"角色名称: {character_data[0]}")
+                print(f"等级: {character_data[1]}")
+                print(f"职业: {character_data[2]}")
+                print(f"装等: {character_data[8]}")
+                print(f"成就点数: {character_data[7]}")
+                print(f"坐骑数量: {character_data[12]}/{character_data[13]}")
                 
         except Exception as e:
             print(f"导出数据失败: {e}")

@@ -17,7 +17,7 @@ class GuildDatabaseManager:
             level=logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',
             handlers=[
-                logging.FileHandler('Database/logs/database_manager.log', encoding='utf-8'),
+                logging.FileHandler('logs/database_manager.log', encoding='utf-8'),
                 logging.StreamHandler()
             ]
         )
@@ -209,6 +209,66 @@ class GuildDatabaseManager:
         except Exception as e:
             self.logger.error(f"获取坐骑排行榜失败: {e}")
             return []
+    
+    def get_guild_statistics(self) -> Dict[str, Any]:
+        """获取公会统计信息"""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                
+                # 总角色数
+                cursor.execute("SELECT COUNT(*) FROM guild_characters")
+                total_characters = cursor.fetchone()[0]
+                
+                # 按职业统计
+                cursor.execute("""
+                    SELECT class, COUNT(*) as count
+                    FROM guild_characters
+                    WHERE class IS NOT NULL
+                    GROUP BY class
+                    ORDER BY count DESC
+                """)
+                class_distribution = {}
+                for row in cursor.fetchall():
+                    class_distribution[row[0]] = row[1]
+                
+                # 按等级统计
+                cursor.execute("""
+                    SELECT level, COUNT(*) as count
+                    FROM guild_characters
+                    WHERE level IS NOT NULL
+                    GROUP BY level
+                    ORDER BY level DESC
+                """)
+                level_distribution = {}
+                for row in cursor.fetchall():
+                    level_distribution[row[0]] = row[1]
+                
+                # 装等统计
+                cursor.execute("""
+                    SELECT 
+                        AVG(average_item_level) as avg_ilvl,
+                        MAX(average_item_level) as max_ilvl,
+                        MIN(average_item_level) as min_ilvl
+                    FROM guild_characters
+                    WHERE average_item_level > 0
+                """)
+                ilvl_stats = cursor.fetchone()
+                
+                return {
+                    'total_characters': total_characters,
+                    'class_distribution': class_distribution,
+                    'level_distribution': level_distribution,
+                    'item_level_stats': {
+                        'average': round(ilvl_stats[0], 1) if ilvl_stats[0] else 0,
+                        'max': ilvl_stats[1] or 0,
+                        'min': ilvl_stats[2] or 0
+                    }
+                }
+                
+        except Exception as e:
+            self.logger.error(f"获取公会统计信息失败: {e}")
+            return {}
     
     def export_mounts_data(self, output_file: str = None) -> str:
         """导出坐骑数据"""

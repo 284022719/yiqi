@@ -13,6 +13,7 @@ import { GuildStatsLoader } from './modules/GuildStatsLoader.js';
 import { IframeErrorHandler } from './modules/IframeErrorHandler.js';
 import { WCLDataLoader } from './modules/WCLDataLoader.js';
 import { ImageUploader } from './modules/ImageUploader.js';
+import { DPSTierList } from './modules/DPSTierList.js';
 
 // 导入组件
 import { loadHeader } from './components/header.js';
@@ -61,6 +62,11 @@ async function init() {
   if (document.getElementById('upload-form')) {
     new ImageUploader();
   }
+  
+  // 初始化DPS Tier List（如果存在相关元素）
+  if (document.getElementById('dps-tier-list-container')) {
+    new DPSTierList('dps-tier-list-container');
+  }
 }
 
 /*************************
@@ -73,7 +79,8 @@ window.GuildApp = {
   ParticleSystem,
   GuildStatsLoader,
   WCLDataLoader,
-  ImageUploader
+  ImageUploader,
+  DPSTierList
 };
 
 /*************************

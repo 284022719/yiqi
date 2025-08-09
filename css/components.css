@@ -1,8 +1,36 @@
+/* ====== CSS变量和公共样式 ====== */
+:root {
+  /* 公共渐变 */
+  --gradient-primary: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  --gradient-hover: linear-gradient(to bottom, #92752F, var(--color-secondary));
+  --gradient-header: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  
+  /* 公共阴影 */
+  --shadow-gold: 0 0 15px rgba(255, 215, 0, 0.4);
+  --shadow-box: 0 4px 8px rgba(0, 0, 0, 0.3);
+  
+  /* 公共过渡 */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 公共背景 */
+  --bg-dark: rgba(40, 40, 40, 0.9);
+  --bg-darker: rgba(40, 40, 40, 0.8);
+  --bg-light: rgba(40, 40, 40, 0.5);
+  
+  /* 公共边框 */
+  --border-gold: 1px solid var(--color-primary);
+  --border-light: 1px solid var(--color-border);
+}
+
+
+
 /* ====== 表格样式 ====== */
 .dkp-table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(40, 40, 40, 0.9);
+  background: var(--bg-dark);
   margin: 1.5rem 0;
 }
 
@@ -15,7 +43,7 @@
 
 .dkp-table td {
   padding: 0.8rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: var(--border-light);
   text-align: center;
 }
 
@@ -23,11 +51,11 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(40, 40, 40, 0.9);
+  background: var(--bg-dark);
   margin: 1.5rem 0;
   border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-box);
   backdrop-filter: blur(10px);
 }
 
@@ -46,50 +74,51 @@
   gap: 1rem;
 }
 
+/* ====== 按钮样式 ====== */
 .refresh-button {
-  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
-  border: 1px solid var(--color-primary);
+  background: var(--gradient-primary);
+  border: var(--border-gold);
   color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform var(--transition-fast),
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+  will-change: transform, background, box-shadow;
+  position: relative;
+  overflow: hidden;
   padding: 0.8rem;
   border-radius: 50%;
-  cursor: pointer;
-  transition: all var(--transition-time);
-  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
   flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
 }
 
 .refresh-button i {
   font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.refresh-button:hover {
-  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  transform: scale(1.1);
+  transition: transform var(--transition-medium);
+  will-change: transform;
 }
 
 .refresh-button:hover i {
   transform: rotate(180deg);
 }
 
-.refresh-button:active {
-  transform: scale(0.95);
+.refresh-button:hover {
+  @extend .btn-base:hover;
+  transform: scale(1.1) translateZ(0);
 }
 
 .refresh-button.loading i {
   animation: spin 1s linear infinite;
+  will-change: transform;
 }
 
 .table thead {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--gradient-header);
   color: var(--color-background);
   position: sticky;
   top: 0;
@@ -119,15 +148,10 @@
 }
 
 .table tbody tr {
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), 
+              background-color 0.2s ease;
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-  position: relative;
-}
-
-.table tbody tr:hover {
-  background: rgba(255, 215, 0, 0.1);
-  transform: translateX(5px);
-  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+  will-change: transform, background-color;
 }
 
 .table tbody tr:nth-child(even) {
@@ -142,8 +166,9 @@
   padding: 1rem 0.8rem;
   vertical-align: middle;
   color: var(--color-text);
-  border-bottom: 1px solid var(--color-border);
-  transition: color 0.3s ease;
+  border-bottom: var(--border-light);
+  transition: color var(--transition-fast);
+  will-change: color;
 }
 
 .table td:last-child {
@@ -156,27 +181,31 @@
 
 /* WCL按钮样式 */
 .wcl-button {
-  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
-  border: 1px solid var(--color-primary);
+  background: var(--gradient-primary);
+  border: var(--border-gold);
   color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform var(--transition-fast),
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+  will-change: transform, background, box-shadow;
+  position: relative;
+  overflow: hidden;
   padding: 0.5rem 1rem;
   border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: all var(--transition-time);
-  font-weight: bold;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
   min-width: 100px;
-  position: relative;
-  overflow: hidden;
 }
 
 .wcl-button i {
   font-size: 0.8rem;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-medium);
+  will-change: transform;
 }
 
 .wcl-button:hover i {
@@ -191,21 +220,19 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  transition: transform var(--transition-slow);
+  transform: translateX(0);
+  will-change: transform;
 }
 
 .wcl-button:hover::before {
-  left: 100%;
+  transform: translateX(200%);
 }
 
 .wcl-button:hover {
-  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-  transform: translateY(-2px);
-}
-
-.wcl-button:active {
-  transform: scale(0.95);
+  background: var(--gradient-hover);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-2px) translateZ(0);
 }
 
 /* 表格加载和错误状态 */
@@ -216,87 +243,6 @@
   padding: 2rem;
   color: var(--color-text-secondary);
   font-style: italic;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .refresh-button {
-    align-self: flex-end;
-    width: 40px;
-    height: 40px;
-  }
-  
-  .refresh-button i {
-    font-size: 1rem;
-  }
-  
-  .table {
-    font-size: 0.9rem;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.8rem 0.5rem;
-  }
-  
-  .wcl-button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-    min-width: 80px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-content {
-    gap: 0.8rem;
-  }
-  
-  .refresh-button {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .refresh-button i {
-    font-size: 0.9rem;
-  }
-  
-  .table {
-    font-size: 0.8rem;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.6rem 0.3rem;
-  }
-  
-  .wcl-button {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.7rem;
-    min-width: 70px;
-  }
-  
-  .table tbody tr:hover {
-    transform: translateX(2px);
-  }
-}
-
-.table-responsive {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 1rem 0;
-  border-radius: var(--border-radius);
-}
-
-/* ====== 策略容器 ====== */
-.strategy-container {
-  max-width: 1000px;
-  margin: 0 auto;
 }
 
 /* ====== 表单样式 ====== */
@@ -324,11 +270,13 @@
 .form-group input[type="text"] {
   width: 100%;
   padding: 0.8rem;
-  border: 1px solid var(--color-border);
+  border: var(--border-light);
   border-radius: var(--border-radius);
-  background: rgba(40, 40, 40, 0.8);
+  background: var(--bg-darker);
   color: var(--color-text);
-  transition: all var(--transition-time);
+  transition: border-color var(--transition-fast),
+              box-shadow 0.2s ease;
+  will-change: border-color, box-shadow;
 }
 
 .form-group input[type="text"]:focus {
@@ -338,14 +286,20 @@
 }
 
 .file-upload-label {
+  background: var(--gradient-primary);
+  border: var(--border-gold);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform var(--transition-fast),
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+  will-change: transform, background, box-shadow;
+  position: relative;
+  overflow: hidden;
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
-  color: white;
   border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: all var(--transition-time);
-  border: 1px solid var(--color-primary);
   text-align: center;
   margin-bottom: var(--spacing-medium);
   font-size: 0.9rem;
@@ -357,11 +311,6 @@
   margin-right: 0.4rem;
 }
 
-.file-upload-label:hover {
-  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-}
-
 .preview-container {
   margin-top: var(--spacing-small);
   text-align: center;
@@ -369,11 +318,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(40, 40, 40, 0.5);
+  background: var(--bg-light);
   border: 2px dashed var(--color-border);
   border-radius: var(--border-radius);
-  transition: all var(--transition-time);
+  transition: border-color var(--transition-fast);
   padding: 0.5rem;
+  will-change: border-color;
 }
 
 .preview-container:hover {
@@ -384,20 +334,25 @@
   max-width: 100%;
   max-height: 400px;
   border-radius: var(--border-radius);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-box);
   display: block;
 }
 
 /* ====== 按钮样式 ====== */
 .button {
-  background: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
-  border: 1px solid var(--color-primary);
+  background: var(--gradient-primary);
+  border: var(--border-gold);
   color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform var(--transition-fast),
+              background 0.2s ease,
+              box-shadow 0.2s ease;
+  will-change: transform, background, box-shadow;
+  position: relative;
+  overflow: hidden;
   padding: 0.8rem 2rem;
   border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: all var(--transition-time);
-  font-weight: bold;
   display: inline-block;
   text-align: center;
   white-space: nowrap;
@@ -405,22 +360,20 @@
 }
 
 .button:hover {
-  background: linear-gradient(to bottom, #92752F, var(--color-secondary));
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  background: var(--gradient-hover);
+  box-shadow: var(--shadow-gold);
   animation: pulse 1.5s infinite;
 }
 
-.button:active {
-  transform: scale(0.95);
-}
-
-/* ====== 上传状态样式 ====== */
+/* ====== 状态样式 ====== */
 .upload-status {
   margin-top: 1rem;
   padding: 0.5rem;
   border-radius: 4px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: opacity var(--transition-medium),
+              background-color 0.3s ease;
+  will-change: opacity, background-color;
 }
 
 .upload-status.info {
@@ -438,7 +391,6 @@
   color: #c92a2a;
 }
 
-/* ====== 加载动画样式 ====== */
 .loading-spinner {
   padding: 2rem;
   text-align: center;
@@ -450,7 +402,6 @@
   margin-right: 0.5rem;
 }
 
-/* ====== 错误和加载状态 ====== */
 .error {
   padding: 1.5rem;
   text-align: center;
@@ -479,6 +430,7 @@
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
   animation: shimmer 2s infinite;
+  will-change: transform;
 }
 
 @keyframes shimmer {
@@ -501,6 +453,7 @@
 .loading i {
   margin-right: 0.5rem;
   animation: spin 1s linear infinite;
+  will-change: transform;
 }
 
 @keyframes spin {
@@ -520,32 +473,38 @@
   column-gap: var(--spacing-large);
 }
 
-/* 响应式调整 */
-@media (max-width: 480px) {
-  .wipe-list {
-    column-count: 1;
-  }
+.strategy-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+  border-radius: var(--border-radius);
 }
 
 /* ====== 排行榜表格样式 ====== */
 .ranking-table-container {
   border-radius: var(--border-radius);
   background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--color-border);
-  /* 取消滚动条 */
+  border: var(--border-light);
   overflow: hidden;
 }
 
 .ranking-table {
   width: 100%;
   border-collapse: collapse;
+  background: var(--bg-dark);
+  margin: 1.5rem 0;
   font-size: 0.9rem;
   background: transparent;
   table-layout: fixed;
 }
 
 .ranking-table thead {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--gradient-header);
   color: var(--color-background);
   position: sticky;
   top: 0;
@@ -561,49 +520,38 @@
   border-bottom: 2px solid var(--color-primary);
 }
 
-.ranking-table th:nth-child(1) { width: 10%; } /* 排名 */
-.ranking-table th:nth-child(2) { width: 25%; } /* 角色名 */
-.ranking-table th:nth-child(3) { width: 20%; } /* 职业 */
-.ranking-table th:nth-child(4) { width: 20%; } /* 数值 */
-.ranking-table th:nth-child(5) { width: 15%; } /* 装等（如果有） */
+.ranking-table th:nth-child(1) { width: 10%; }
+.ranking-table th:nth-child(2) { width: 25%; }
+.ranking-table th:nth-child(3) { width: 20%; }
+.ranking-table th:nth-child(4) { width: 20%; }
+.ranking-table th:nth-child(5) { width: 15%; }
 
-/* 列标题样式 - 与数据列对齐和颜色一致 */
+/* 列标题样式 */
 .ranking-table .rank-header {
   text-align: center;
   color: var(--color-primary);
 }
 
-.ranking-table .character-name-header {
-  color: var(--color-primary);
-}
-
+.ranking-table .character-name-header,
 .ranking-table .class-header {
   color: var(--color-primary);
 }
 
-.ranking-table .achievement-points-header {
+.ranking-table .achievement-points-header,
+.ranking-table .mythic-score-header,
+.ranking-table .item-level-header {
   color: #FFD700;
+}
+
+.ranking-table .achievement-points-header {
   text-align: right;
 }
 
-.ranking-table .mythic-score-header {
-  color: #FFD700;
-  text-align: left;
-}
-
-.ranking-table .item-level-header {
-  color: #FFD700;
-  text-align: left;
-}
-
 .ranking-table tbody tr {
-  transition: all 0.3s ease;
+  transition: transform var(--transition-fast), 
+              background-color 0.2s ease;
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-.ranking-table tbody tr:hover {
-  background: rgba(255, 215, 0, 0.1);
-  transform: translateX(5px);
+  will-change: transform, background-color;
 }
 
 .ranking-table tbody tr:nth-child(1) {
@@ -667,36 +615,52 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.ranking-table .achievement-points {
-  font-weight: bold;
-  color: #FFD700;
-  text-align: right;
-  min-width: 100px;
-}
-
-.ranking-table .item-level {
-  font-weight: bold;
-  color: #FFD700;
-  text-align: left;
-  min-width: 100px;
-}
-
+.ranking-table .achievement-points,
+.ranking-table .item-level,
 .ranking-table .mythic-score {
   font-weight: bold;
   color: #FFD700;
-  text-align: left;
   min-width: 100px;
 }
 
-/* 响应式设计 */
+.ranking-table .achievement-points {
+  text-align: right;
+}
+
+/* ====== 响应式设计 ====== */
 @media (max-width: 768px) {
-  .ranking-table {
-    font-size: 0.8rem;
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
   
+  .refresh-button {
+    align-self: flex-end;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .refresh-button i {
+    font-size: 1rem;
+  }
+  
+  .table,
+  .ranking-table {
+    font-size: 0.9rem;
+  }
+  
+  .table th,
+  .table td,
   .ranking-table th,
   .ranking-table td {
-    padding: 0.6rem 0.4rem;
+    padding: 0.8rem 0.5rem;
+  }
+  
+  .wcl-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    min-width: 80px;
   }
   
   .ranking-table .character-name {
@@ -705,18 +669,48 @@
 }
 
 @media (max-width: 480px) {
+  .header-content {
+    gap: 0.8rem;
+  }
+  
+  .refresh-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .refresh-button i {
+    font-size: 0.9rem;
+  }
+  
+  .table,
+  .ranking-table {
+    font-size: 0.8rem;
+  }
+  
+  .table th,
+  .table td,
+  .ranking-table th,
+  .ranking-table td {
+    padding: 0.6rem 0.3rem;
+  }
+  
+  .wcl-button {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    min-width: 70px;
+  }
+  
+  .table tbody tr:hover {
+    transform: translateX(2px);
+  }
+  
+  .wipe-list {
+    column-count: 1;
+  }
+  
   .ranking-table-container {
     margin: 0 -1rem;
     border-radius: 0;
-  }
-  
-  .ranking-table {
-    font-size: 0.7rem;
-  }
-  
-  .ranking-table th,
-  .ranking-table td {
-    padding: 0.4rem 0.3rem;
   }
   
   .ranking-table .class {

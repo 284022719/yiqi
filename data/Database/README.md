@@ -24,7 +24,6 @@ data/Database/
 
 ### 2. 数据存储
 - `guild_characters` 表：存储角色基础信息
-- `character_details` 表：存储API获取的详细数据
 - `character_equipment` 表：存储装备信息
 - `character_mounts` 表：存储坐骑信息
 - `character_achievements` 表：存储成就信息
@@ -104,31 +103,7 @@ CREATE TABLE guild_characters (
 );
 ```
 
-#### character_details
-```sql
-CREATE TABLE character_details (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    member_id INTEGER,
-    name TEXT NOT NULL,
-    realm TEXT,
-    guild TEXT,
-    level INTEGER,
-    faction TEXT,
-    race TEXT,
-    class TEXT,
-    spec TEXT,
-    achievement_points INTEGER,
-    average_item_level REAL,
-    equipped_item_level REAL,
-    last_login_timestamp INTEGER,
-    covenant TEXT,
-    renown_level INTEGER,
-    data_source TEXT DEFAULT 'api',
-    crawl_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (member_id) REFERENCES guild_members (id),
-    UNIQUE(name, realm, crawl_timestamp)
-);
-```
+
 
 ### page_data.json 格式
 

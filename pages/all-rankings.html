@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>职业层级排名总览 - 一起公会</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="icon" href="../img/favicon/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+<div class="guild-header-container"></div>
+<nav class="nav-container"></nav>
+
+<main class="main-content">
+  <article class="content-card">
+    <header>
+      <h1>职业专精天梯图</h1>
+      <p>基于Wowhead最新数据的魔兽世界各职业专精天梯图 - 团本与大秘境</p>
+    </header>
+  </article>
+
+  <!-- 快速导航 -->
+  <article class="content-card">
+    <div id="ranking-nav-container"></div>
+  </article>
+
+  <!-- 团本排名区域 -->
+  <article class="content-card">
+    <header>
+      <h2>团本排名</h2>
+      <p>Manaforge Omega Raid - The War Within Season 3</p>
+    </header>
+  </article>
+
+  <!-- 团本DPS排名 -->
+  <article class="content-card">
+    <div id="raid-dps-tier-list-container"></div>
+  </article>
+
+  <!-- 团本治疗排名 -->
+  <article class="content-card">
+    <div id="raid-healer-tier-list-container"></div>
+  </article>
+
+  <!-- 团本坦克排名 -->
+  <article class="content-card">
+    <div id="raid-tank-tier-list-container"></div>
+  </article>
+
+  <!-- 大秘境排名区域 -->
+  <article class="content-card">
+    <header>
+      <h2>⚡ 大秘境排名</h2>
+      <p>大秘境Dungeons - The War Within Season 3</p>
+    </header>
+  </article>
+
+  <!-- 大秘境DPS排名 -->
+  <article class="content-card">
+    <div id="mplus-dps-tier-list-container"></div>
+  </article>
+
+  <!-- 大秘境治疗排名 -->
+  <article class="content-card">
+    <div id="mplus-healer-tier-list-container"></div>
+  </article>
+
+  <!-- 大秘境坦克排名 -->
+  <article class="content-card">
+    <div id="mplus-tank-tier-list-container"></div>
+  </article>
+</main>
+
+<script type="module">
+  // 导入所有排名数据
+  import dpsTierList from '../js/data/dps-tier-list.js';
+  import healerTierList from '../js/data/healer-tier-list.js';
+  import tankTierList from '../js/data/tank-tier-list.js';
+  import mplusDpsTierList from '../js/data/mplus-dps-tier-list.js';
+  import mplusHealerTierList from '../js/data/mplus-healer-tier-list.js';
+  import mplusTankTierList from '../js/data/mplus-tank-tier-list.js';
+  import { TierList } from '../js/modules/TierList.js';
+  import { RankingNav } from '../js/components/ranking-nav.js';
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // 初始化快速导航
+    new RankingNav('ranking-nav-container');
+    
+    // 初始化团本排名
+    new TierList('raid-dps-tier-list-container', dpsTierList, 'dps');
+    new TierList('raid-healer-tier-list-container', healerTierList, 'healer');
+    new TierList('raid-tank-tier-list-container', tankTierList, 'tank');
+    
+    // 初始化大秘境排名
+    new TierList('mplus-dps-tier-list-container', mplusDpsTierList, 'dps');
+    new TierList('mplus-healer-tier-list-container', mplusHealerTierList, 'healer');
+    new TierList('mplus-tank-tier-list-container', mplusTankTierList, 'tank');
+  });
+</script>
+<script type="module" src="../js/main.js"></script>
+</body>
+</html>

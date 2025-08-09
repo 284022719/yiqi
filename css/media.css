@@ -32,7 +32,8 @@
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;
-  transition: color var(--transition-time);
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: color;
 }
 
 .modal-close:hover {
@@ -55,7 +56,7 @@
   font-size: 50px;
   cursor: pointer;
   opacity: 0.7;
-  transition: opacity var(--transition-time);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   user-select: none;
   background: rgba(0,0,0,0.5);
   border-radius: 50%;
@@ -64,6 +65,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: opacity;
 }
 
 .modal-nav-arrow:hover {
@@ -73,11 +75,12 @@
 /* ====== 图片相关 ====== */
 .zoomable {
   cursor: zoom-in;
-  transition: transform var(--transition-time);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .zoomable:hover {
-  transform: scale(1.02);
+  transform: scale(1.02) translateZ(0);
 }
 
 .zoom-hint {
