@@ -19,14 +19,14 @@ const tankTierList = {
           name: "防护 圣骑士",
           class: "圣骑士",
           spec: "防护",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/ability_paladin_shieldofthetemplar.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/2adb8940a6fd426f82e59ef86cfa9cd0_2adb89.jpg",
           color: "var(--class-paladin)"
         },
         {
           name: "鲜血 死亡骑士",
           class: "死亡骑士",
           spec: "鲜血",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_deathknight_bloodpresence.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/93e14423336ce899f03b6ad329348d51_93e144.jpg",
           color: "var(--class-deathknight)"
         }
       ]
@@ -40,21 +40,21 @@ const tankTierList = {
           name: "防护 战士",
           class: "战士",
           spec: "防护",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/ability_warrior_defensivestance.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/54f0768bd97c00a19c73a54f42776847_54f076.jpg",
           color: "var(--class-warrior)"
         },
         {
           name: "守护 德鲁伊",
           class: "德鲁伊",
           spec: "守护",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/ability_racial_bearform.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/940397278c923f5696831ec901cd6c55_940397.jpg",
           color: "var(--class-druid)"
         },
         {
           name: "复仇 恶魔猎手",
           class: "恶魔猎手",
           spec: "复仇",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/ability_demonhunter_spectank.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/c6157abd97efa41fd2ede909018b0775_c6157a.jpg",
           color: "var(--class-demonhunter)"
         }
       ]
@@ -65,10 +65,10 @@ const tankTierList = {
       color: "#4ECDC4", // 青色
       specs: [
         {
-          name: "酿酒 武僧",
+          name: "酒仙 武僧",
           class: "武僧",
-          spec: "酿酒",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/monk_stance_drunkenox.jpg",
+          spec: "酒仙",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/be57b0a6c08c2f766bd0044b9e9b4990_be57b0.jpg",
           color: "var(--class-monk)"
         }
       ]

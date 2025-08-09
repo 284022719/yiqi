@@ -19,14 +19,14 @@ const healerTierList = {
           name: "神圣 牧师",
           class: "牧师",
           spec: "神圣",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_guardianspirit.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/7276c129e44efe8bc92cfaa0e82c81e2_7276c1.jpg",
           color: "var(--class-priest)"
         },
         {
           name: "恢复 德鲁伊",
           class: "德鲁伊",
           spec: "恢复",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_healingtouch.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/486ecac9f985afd0f038c245fb763518_486eca.jpg",
           color: "var(--class-druid)"
         }
       ]
@@ -40,21 +40,21 @@ const healerTierList = {
           name: "恢复 萨满",
           class: "萨满祭司",
           spec: "恢复",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_healingwavegreater.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/c465705579a55fdc55de4f284753ddb6_c46570.jpg",
           color: "var(--class-shaman)"
         },
         {
           name: "神圣 圣骑士",
           class: "圣骑士",
           spec: "神圣",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_holybolt.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/4464e254ce933c0f255d00bc804f7689_4464e2.jpg",
           color: "var(--class-paladin)"
         },
         {
           name: "织雾 武僧",
           class: "武僧",
           spec: "织雾",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_monk_renewingmist.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/3208b3c8e3a04278fa124e51f86cf875_3208b3.jpg",
           color: "var(--class-monk)"
         }
       ]
@@ -68,14 +68,14 @@ const healerTierList = {
           name: "戒律 牧师",
           class: "牧师",
           spec: "戒律",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_powerwordshield.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/9f798b42d0666c11589442707d9ed300_9f798b.jpg",
           color: "var(--class-priest)"
         },
         {
-          name: "生命 唤魔师",
+          name: "恩护 唤魔师",
           class: "唤魔师",
-          spec: "生命",
-          specIcon: "https://wow.zamimg.com/images/wow/icons/large/ability_evoker_echo.jpg",
+          spec: "恩护",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/0fdbe22a0709fb3a50947a72e3313223_0fdbe2.jpg",
           color: "var(--class-evoker)"
         }
       ]
