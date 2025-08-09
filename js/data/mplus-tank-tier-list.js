@@ -68,7 +68,7 @@ const mplusTankTierList = {
           name: "酒仙 武僧",
           class: "武僧",
           spec: "酒仙",
-          specIcon: "https://wow.res.netease.com/xt/manage/20241217/be57b0a6c08c2f766bd0044b9e9b4990_be57b0.jpg",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/99a850159416c0fea5490c4c549e207e_99a850.jpg",
           color: "var(--class-monk)"
         }
       ]

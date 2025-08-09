@@ -149,10 +149,10 @@ const mplusDpsTierList = {
           color: "var(--class-shaman)"
         },
         {
-          name: "野性战斗 德鲁伊",
+          name: "野性 德鲁伊",
           class: "德鲁伊",
-          spec: "野性战斗",
-          specIcon: "https://wow.res.netease.com/xt/manage/20241217/940397278c923f5696831ec901cd6c55_940397.jpg",
+          spec: "野性",
+          specIcon: "https://wow.res.netease.com/xt/manage/20241217/7f7356ac953aa62def91e30380b73b30_7f7356.jpg",
           color: "var(--class-druid)"
         }
       ]
