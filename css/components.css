@@ -742,7 +742,7 @@
 
 .table-empty-note {
   font-size: 12px;
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .class-icon-img {

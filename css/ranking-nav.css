@@ -7,14 +7,28 @@
   padding: 1.5rem;
   margin: 1rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-large);
 }
 
 .ranking-nav .nav-section {
-  margin-bottom: 1.5rem;
+  flex: 1 1 260px;
+  margin-bottom: 0;
 }
 
 .ranking-nav .nav-section:last-child {
   margin-bottom: 0;
+}
+
+/* 分组标题：替代原先"一张空卡片放一个标题"的写法 */
+.ranking-section-title {
+  max-width: 1200px;
+  margin: var(--spacing-large) auto var(--spacing-small);
+  padding: 0 var(--spacing-large);
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
 }
 
 .ranking-nav h3 {

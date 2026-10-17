@@ -145,11 +145,12 @@
 }
 
 .iframe-container iframe {
-  width: 90%;
-  aspect-ratio: 16/9;
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   border: none;
+  border-radius: var(--border-radius);
   background: var(--color-bg-dark);
   transition: all 0.3s ease;
 }
@@ -229,14 +230,12 @@
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .iframe-container iframe,
   .iframe-fallback {
     height: 300px;
   }
 }
 
 @media (max-width: 480px) {
-  .iframe-container iframe,
   .iframe-fallback {
     height: 250px;
   }
