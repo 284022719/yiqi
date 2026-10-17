@@ -92,9 +92,36 @@ Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
 | `page_data.json` 随仓库分发 | 无需运行时后端，首屏快 | 数据新鲜度依赖手动重跑管道 |
 | 静态 HTML 无模板引擎 | 页面少、改动少 | 重复的 `<head>` 需要手工保持一致 |
 
-## 6. 后续可做
+## 6. 测试与安全策略
 
-1. **CSP**：目前未启用。页面含内联 module script 与 B 站 iframe，需先梳理白名单，并考虑给内联脚本加 nonce 或外链化。
-2. **图片优化**：`img/` 共 21 MB，两个 GIF 各 3.8 MB；可转 WebM/WebP 并按需加载。
-3. **数据自动化**：把 `tools/build_page_data.py` 放进 CI（定时任务），配合 `validate.py --strict` 防止数据长期停滞。
-4. **视觉回归**：页面无自动化测试，改动 CSS 后依赖人工核对。
+### 6.1 测试
+
+零依赖：JS 用 `node:test`，Python 用 `unittest`，`npm test` 一条命令跑完。
+测试文件在 `tests/`，CI 配置在 `.github/workflows/ci.yml`。详见 [../README.md](../README.md#测试)。
+
+设计上的两个刻意选择：
+
+- **不引入测试框架**（Jest/Vitest）：站点没有构建链，引入框架等于为了测试再造一套构建。
+- **图表函数可测**：`Chart.js` 只写 `container.innerHTML`，因此测试用 `{ innerHTML: '' }` 假容器即可断言输出，不需要 jsdom。
+
+### 6.2 CSP
+
+`netlify.toml` 已启用 CSP，本地验证方式：用带同样响应头的静态服务器加载全部页面，
+通过 `report-uri` 收集违规（反向测试确认过上报链路有效），实测 7 个页面零违规。
+
+| 指令 | 值 | 说明 |
+|---|---|---|
+| `script-src` | `'self'` | 页面内联 `<script>` 已全部外链化（`js/pages/*.js`） |
+| `style-src` | `'self' 'unsafe-inline'` + cdnjs | **有意放宽**：天梯/图表用数据驱动的内联 style 属性，去掉需要重构渲染方式 |
+| `img-src` | `'self' data:` + 5 个图床域 | netease 职业图标、Cloudinary、raiderio、YY、战网 |
+| `frame-src` | bilibili 两个域 | 直播播放器与视频播放器 |
+| 其他 | `object-src 'none'`、`base-uri 'self'`、`form-action 'self'` | |
+
+> 改渲染方式（把内联 style 换成 CSS 变量类）之后，`style-src` 才能去掉 `'unsafe-inline'`——这是后续可做的收敛项。
+
+## 7. 后续可做
+
+1. **`style-src` 去 `unsafe-inline`**：需要把数据驱动的内联 style 改为预定义 class（天梯 6×39 种组合，可用 CSS 变量 + 少量类实现）。
+2. **数据自动化**：把 `tools/build_page_data.py` 放进 CI（定时任务），配合 `validate.py --strict` 防止数据长期停滞。
+3. **视觉回归**：目前改动 CSS 后仍依赖人工核对，可引入截图对比（本项目已用无头 Edge 做过一次性对比）。
+4. **lint 进 CI**：需要先同步 `package-lock.json`（当前 devDependencies 未入锁）。

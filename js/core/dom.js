@@ -16,7 +16,12 @@ export function escapeHtml(value) {
 /** 属性值转义（与文本转义规则一致） */
 export const escapeAttr = escapeHtml;
 
-/** 按 id 取元素，找不到时返回 null（不抛异常） */
+/**
+ * 按 id 取元素：
+ * - 找不到返回 null（不抛异常）
+ * - 没有 document 的环境（Node 测试、将来的 SSR）安全降级为 null
+ */
 export function byId(id) {
+  if (typeof document === 'undefined') return null;
   return document.getElementById(id);
 }

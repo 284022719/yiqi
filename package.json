@@ -4,6 +4,10 @@
   "private": true,
   "description": "一起公会（魔兽世界）静态站点 + Netlify Functions + Python 数据管道",
   "scripts": {
+    "test": "npm run test:js && npm run test:py",
+    "test:js": "node --test",
+    "test:py": "python -m unittest discover -s tests/py -p \"test_*.py\"",
+    "check": "npm run test && npm run data:validate",
     "lint": "eslint js netlify/functions",
     "lint:fix": "eslint js netlify/functions --fix",
     "format": "prettier --write \"js/**/*.js\" \"css/**/*.css\" \"*.html\" \"pages/**/*.html\"",

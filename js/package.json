@@ -1,0 +1,5 @@
+{
+  "//": "js/ 下的文件全部是 ES Module；netlify/functions 仍是 CommonJS，因此不能在根 package.json 设 type。",
+  "type": "module",
+  "private": true
+}

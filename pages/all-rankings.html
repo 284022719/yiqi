@@ -62,32 +62,7 @@
   </article>
 </main>
 
-<script type="module">
-  // 导入所有排名数据
-  import dpsTierList from '../js/data/dps-tier-list.js';
-  import healerTierList from '../js/data/healer-tier-list.js';
-  import tankTierList from '../js/data/tank-tier-list.js';
-  import mplusDpsTierList from '../js/data/mplus-dps-tier-list.js';
-  import mplusHealerTierList from '../js/data/mplus-healer-tier-list.js';
-  import mplusTankTierList from '../js/data/mplus-tank-tier-list.js';
-  import { TierList } from '../js/components/TierList.js';
-  import { RankingNav } from '../js/components/ranking-nav.js';
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    // 初始化快速导航
-    new RankingNav('ranking-nav-container');
-    
-    // 初始化团本排名
-    new TierList('raid-dps-tier-list-container', dpsTierList, 'dps');
-    new TierList('raid-healer-tier-list-container', healerTierList, 'healer');
-    new TierList('raid-tank-tier-list-container', tankTierList, 'tank');
-    
-    // 初始化大秘境排名
-    new TierList('mplus-dps-tier-list-container', mplusDpsTierList, 'dps');
-    new TierList('mplus-healer-tier-list-container', mplusHealerTierList, 'healer');
-    new TierList('mplus-tank-tier-list-container', mplusTankTierList, 'tank');
-  });
-</script>
+<script type="module" src="../js/pages/all-rankings.js"></script>
 <script type="module" src="../js/main.js"></script>
 </body>
 </html>

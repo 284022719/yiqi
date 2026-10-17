@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 测试只用标准库（node:test / unittest），不需要 npm install，
+      # 所以这一步不依赖 package-lock.json 是否最新。
+      - name: JS 单元测试
+        run: node --test
+
+      - name: Python 单元测试
+        run: python -m unittest discover -s tests/py -p "test_*.py"
+
+      - name: 页面数据校验
+        run: python tools/validate.py

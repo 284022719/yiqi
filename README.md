@@ -81,6 +81,38 @@ ACTIVE_DAYS=14 python tools/build_page_data.py
 5. **天梯数据只改 `js/data/specs.js`**（专精图标）与 `js/data/*-tier-list.js`（排名 id 列表）。
 6. **不要手改 `data/page_data.json`**，它由 `tools/build_page_data.py` 生成。
 
+## 测试
+
+测试**只用标准库**（Node 的 `node:test` + Python 的 `unittest`），不需要 `npm install` 就能跑：
+
+```bash
+npm test          # JS + Python 全部
+npm run test:js   # node --test（自动发现 tests/js/*.test.mjs）
+npm run test:py   # python -m unittest discover -s tests/py
+npm run check     # 测试 + 页面数据校验
+```
+
+没有 Node/npm 时的等价命令：
+
+```bash
+node --test
+python -m unittest discover -s tests/py -p "test_*.py"
+```
+
+覆盖范围：
+
+| 文件 | 覆盖内容 |
+|---|---|
+| `tests/js/dom.test.mjs` | HTML 转义（防注入）、`byId` 的安全降级 |
+| `tests/js/icons.test.mjs` | 图标集生成、不再混入 emoji |
+| `tests/js/chart.test.mjs` | 条形图/饼图的空状态、百分比、角度累计、转义 |
+| `tests/js/data.test.mjs` | 职业表查询、专精注册表、**6 份天梯的专精 id 全部可解析** |
+| `tests/py/test_timeutil.py` | 毫秒/秒归一化（历史 bug 的回归保护） |
+| `tests/py/test_paths.py` | 路径解析不依赖 cwd |
+| `tests/py/test_stats.py` | 去重规则、活跃口径、完整率、排行榜排序 |
+
+CI 见 `.github/workflows/ci.yml`：推送到 `main` 或开 PR 时跑上述测试 + `tools/validate.py`。
+
 ## 代码检查
 
 ```bash
@@ -95,4 +127,4 @@ npm run format:check  # Prettier 检查
 
 ## 部署
 
-推送到 `main` 分支后由 Netlify 自动构建；`netlify.toml` 已声明发布目录、函数目录、Node 版本、安全响应头与缓存策略。
+推送到 `main` 分支后由 Netlify 自动构建；`netlify.toml` 已声明发布目录、函数目录、Node 版本、安全响应头（含 CSP）与缓存策略。

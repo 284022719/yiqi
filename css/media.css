@@ -199,6 +199,12 @@
   font-size: 1.2rem;
 }
 
+.iframe-fallback-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: var(--color-primary);
+}
+
 .iframe-fallback p {
   margin: 0 0 20px 0;
   color: var(--color-text-secondary);

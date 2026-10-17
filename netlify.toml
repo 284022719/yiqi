@@ -6,8 +6,13 @@
   NODE_VERSION = "20"
 
 # 安全响应头
-# 注意：暂未启用 CSP。页面内存在内联 module script 与第三方 iframe（B 站），
-# 需要先梳理白名单再启用，见 docs/ARCHITECTURE.md「后续可做」。
+#
+# CSP 说明（为什么 style-src 需要 'unsafe-inline'）：
+#   页面里有大量「数据驱动」的内联 style 属性 —— 天梯的 --class-color/--spec-index、
+#   图表的条形宽度、以及若干静态元素的尺寸。要彻底去掉 needs 重构渲染方式，
+#   当前取舍是：脚本严格禁止内联（script-src 'self'），样式允许内联。
+#   script-src 能收紧的前提是：页面的内联 <script> 已全部外链化（js/pages/*.js），
+#   且 IframeErrorHandler 不再输出内联事件处理器。
 [[headers]]
   for = "/*"
   [headers.values]
@@ -15,6 +20,7 @@
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://wow.res.netease.com https://res.cloudinary.com https://cdn.raiderio.net https://web.yystatic.com https://contentstack-images.blzstatic.cn; font-src 'self' data: https://cdnjs.cloudflare.com; frame-src https://www.bilibili.com https://player.bilibili.com; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 # 静态资源缓存
 # 文件名未做内容哈希，因此 CSS/JS 只给 1 小时，图片给 7 天。

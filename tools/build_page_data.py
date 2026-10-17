@@ -193,14 +193,15 @@ class PageDataGenerator:
         return [
             {
                 "rank": index,
-                "name": character.get("name", ""),
-                "realm": character.get("realm", ""),
-                "class": character.get("class", ""),
-                "spec": character.get("spec", ""),
-                "achievement_points": character.get("achievement_points", 0),
-                "average_item_level": character.get("average_item_level", 0),
-                "mythic_score": character.get("mythic_score", 0),
-                "mounts_now": character.get("mounts_now", 0),
+                "name": character.get("name") or "",
+                "realm": character.get("realm") or "",
+                "class": character.get("class") or "",
+                "spec": character.get("spec") or "",
+                # 注意用 `or 0`：字段存在但值为 None 时，dict.get 的默认值不生效
+                "achievement_points": character.get("achievement_points") or 0,
+                "average_item_level": character.get("average_item_level") or 0,
+                "mythic_score": character.get("mythic_score") or 0,
+                "mounts_now": character.get("mounts_now") or 0,
             }
             for index, character in enumerate(ordered[:limit], 1)
         ]
