@@ -2,12 +2,13 @@ import sqlite3
 import json
 from datetime import datetime
 from database_manager import GuildDatabaseManager
+from paths import resolve_db_path
 
 class DatabaseQueryTool:
-    def __init__(self, db_path: str = "data/guild_database.db"):
+    def __init__(self, db_path: str = None):
         """初始化数据库查询工具"""
-        self.db_path = db_path
-        self.db_manager = GuildDatabaseManager(db_path)
+        self.db_path = str(resolve_db_path(db_path))
+        self.db_manager = GuildDatabaseManager(self.db_path)
     
     def show_database_info(self):
         """显示数据库基本信息"""

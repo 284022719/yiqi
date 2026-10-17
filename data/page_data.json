@@ -1,147 +1,158 @@
 {
-  "lastUpdated": "2025-08-06 22:32:58",
+  "lastUpdated": "2026-10-18 02:21:36",
+  "dataAsOf": "2025-08-04",
   "stats": {
-    "totalMembers": 703,
-    "activeMembers": 703,
+    "totalMembers": 965,
+    "activeMembers": 356,
+    "activeWindow": {
+      "days": 30,
+      "since": "2025-07-05",
+      "latest": "2025-08-04",
+      "basis": "dataset_latest"
+    },
     "dataCompleteness": {
-      "total": 703,
-      "complete": 703,
-      "incomplete": 0,
-      "percentage": 100.0
+      "total": 965,
+      "complete": 702,
+      "incomplete": 263,
+      "percentage": 72.7
     }
   },
   "charts": {
     "classDistribution": [
       {
         "name": "圣骑士",
-        "value": 96
-      },
-      {
-        "name": "恶魔猎手",
-        "value": 75
+        "value": 120
       },
       {
         "name": "猎人",
-        "value": 73
-      },
-      {
-        "name": "战士",
-        "value": 65
+        "value": 102
       },
       {
         "name": "法师",
-        "value": 65
+        "value": 95
+      },
+      {
+        "name": "恶魔猎手",
+        "value": 94
+      },
+      {
+        "name": "战士",
+        "value": 91
       },
       {
         "name": "死亡骑士",
-        "value": 60
+        "value": 83
       },
       {
         "name": "德鲁伊",
-        "value": 52
+        "value": 71
       },
       {
         "name": "萨满祭司",
-        "value": 45
-      },
-      {
-        "name": "武僧",
-        "value": 40
+        "value": 62
       },
       {
         "name": "潜行者",
-        "value": 38
-      },
-      {
-        "name": "术士",
-        "value": 38
+        "value": 56
       },
       {
         "name": "牧师",
-        "value": 34
+        "value": 55
+      },
+      {
+        "name": "术士",
+        "value": 53
+      },
+      {
+        "name": "武僧",
+        "value": 53
       },
       {
         "name": "唤魔师",
-        "value": 22
+        "value": 30
       }
     ],
     "factionDistribution": [
       {
         "name": "Horde",
-        "value": 618
+        "value": 860
       },
       {
         "name": "Alliance",
-        "value": 85
+        "value": 105
       }
     ],
     "raceDistribution": [
       {
         "name": "血精灵",
-        "value": 233
+        "value": 325
       },
       {
         "name": "牛头人",
-        "value": 74
+        "value": 99
       },
       {
         "name": "兽人",
-        "value": 48
+        "value": 79
       },
       {
         "name": "亡灵",
-        "value": 40
-      },
-      {
-        "name": "龙希尔",
-        "value": 35
-      },
-      {
-        "name": "玛格汉兽人",
-        "value": 33
+        "value": 54
       },
       {
         "name": "熊猫人",
-        "value": 33
+        "value": 50
       },
       {
         "name": "巨魔",
-        "value": 30
+        "value": 45
+      },
+      {
+        "name": "龙希尔",
+        "value": 43
       },
       {
         "name": "狐人",
-        "value": 30
+        "value": 41
       },
       {
-        "name": "夜之子",
-        "value": 20
+        "name": "玛格汉兽人",
+        "value": 40
       },
       {
         "name": "赞达拉巨魔",
-        "value": 18
-      },
-      {
-        "name": "暗夜精灵",
-        "value": 18
+        "value": 27
       },
       {
         "name": "至高岭牛头人",
-        "value": 17
+        "value": 25
       },
       {
-        "name": "虚空精灵",
-        "value": 12
+        "name": "夜之子",
+        "value": 23
       },
       {
-        "name": "人类",
-        "value": 10
+        "name": "暗夜精灵",
+        "value": 23
       },
       {
         "name": "地精",
-        "value": 9
+        "value": 14
+      },
+      {
+        "name": "人类",
+        "value": 13
+      },
+      {
+        "name": "虚空精灵",
+        "value": 13
       },
       {
         "name": "矮人",
+        "value": 9
+      },
+      {
+        "name": "光铸德莱尼",
         "value": 8
       },
       {
@@ -149,81 +160,89 @@
         "value": 7
       },
       {
-        "name": "光铸德莱尼",
-        "value": 7
-      },
-      {
         "name": "侏儒",
-        "value": 5
+        "value": 6
       },
       {
         "name": "黑铁矮人",
-        "value": 5
+        "value": 6
       },
       {
         "name": "库尔提拉斯人",
         "value": 4
       },
       {
-        "name": "狼人",
-        "value": 3
+        "name": "德莱尼",
+        "value": 4
       },
       {
         "name": "机械侏儒",
-        "value": 2
+        "value": 4
       },
       {
-        "name": "德莱尼",
-        "value": 2
+        "name": "狼人",
+        "value": 3
       }
     ],
     "realmDistribution": [
       {
         "name": "阿尔萨斯",
-        "value": 528
-      },
-      {
-        "name": "白银之手",
-        "value": 24
+        "value": 719
       },
       {
         "name": "死亡之翼",
-        "value": 23
+        "value": 33
+      },
+      {
+        "name": "白银之手",
+        "value": 33
       },
       {
         "name": "罗宁",
-        "value": 15
+        "value": 18
       },
       {
         "name": "燃烧之刃",
-        "value": 12
-      },
-      {
-        "name": "冬泉谷",
-        "value": 10
+        "value": 14
       },
       {
         "name": "祖达克",
-        "value": 7
+        "value": 14
       },
       {
-        "name": "国王之谷",
-        "value": 6
+        "name": "冬泉谷",
+        "value": 13
       },
       {
         "name": "凤凰之神",
-        "value": 6
+        "value": 8
       },
       {
         "name": "阿克蒙德",
-        "value": 6
+        "value": 8
+      },
+      {
+        "name": "国王之谷",
+        "value": 7
+      },
+      {
+        "name": "金色平原",
+        "value": 7
+      },
+      {
+        "name": "影之哀伤",
+        "value": 5
+      },
+      {
+        "name": "斯克提斯",
+        "value": 5
       },
       {
         "name": "阿古斯",
         "value": 5
       },
       {
-        "name": "影之哀伤",
+        "name": "丽丽（四川）",
         "value": 4
       },
       {
@@ -231,15 +250,23 @@
         "value": 4
       },
       {
-        "name": "斯克提斯",
+        "name": "巴瑟拉斯",
         "value": 4
       },
       {
-        "name": "金色平原",
+        "name": "无尽之海",
+        "value": 4
+      },
+      {
+        "name": "主宰之剑",
         "value": 3
       },
       {
-        "name": "无尽之海",
+        "name": "伊利丹",
+        "value": 3
+      },
+      {
+        "name": "伊森利恩",
         "value": 3
       },
       {
@@ -247,8 +274,20 @@
         "value": 3
       },
       {
-        "name": "巴瑟拉斯",
+        "name": "苏拉玛",
         "value": 3
+      },
+      {
+        "name": "霜狼",
+        "value": 3
+      },
+      {
+        "name": "冰风岗",
+        "value": 2
+      },
+      {
+        "name": "埃德萨拉",
+        "value": 2
       },
       {
         "name": "塞拉摩",
@@ -259,11 +298,23 @@
         "value": 2
       },
       {
-        "name": "苏拉玛",
+        "name": "暴风祭坛",
         "value": 2
       },
       {
-        "name": "伊利丹",
+        "name": "梅尔加尼",
+        "value": 2
+      },
+      {
+        "name": "熊猫酒仙",
+        "value": 2
+      },
+      {
+        "name": "瓦拉纳",
+        "value": 2
+      },
+      {
+        "name": "瓦里安",
         "value": 2
       },
       {
@@ -271,71 +322,7 @@
         "value": 2
       },
       {
-        "name": "暴风祭坛",
-        "value": 2
-      },
-      {
-        "name": "梅尔加尼",
-        "value": 1
-      },
-      {
-        "name": "熊猫酒仙",
-        "value": 1
-      },
-      {
-        "name": "瓦里安",
-        "value": 1
-      },
-      {
-        "name": "布兰卡德",
-        "value": 1
-      },
-      {
-        "name": "符文图腾",
-        "value": 1
-      },
-      {
-        "name": "伊森利恩",
-        "value": 1
-      },
-      {
-        "name": "埃德萨拉",
-        "value": 1
-      },
-      {
-        "name": "海克泰尔",
-        "value": 1
-      },
-      {
-        "name": "贫瘠之地",
-        "value": 1
-      },
-      {
-        "name": "冰风岗",
-        "value": 1
-      },
-      {
-        "name": "丽丽（四川）",
-        "value": 1
-      },
-      {
-        "name": "瓦拉纳",
-        "value": 1
-      },
-      {
-        "name": "霜之哀伤",
-        "value": 1
-      },
-      {
-        "name": "回音山",
-        "value": 1
-      },
-      {
-        "name": "烈焰荆棘",
-        "value": 1
-      },
-      {
-        "name": "风暴峭壁",
+        "name": "亚雷戈斯",
         "value": 1
       },
       {
@@ -343,27 +330,27 @@
         "value": 1
       },
       {
-        "name": "黑铁",
+        "name": "回音山",
         "value": 1
       },
       {
-        "name": "主宰之剑",
+        "name": "地狱之石",
         "value": 1
       },
       {
-        "name": "诺莫瑞根",
+        "name": "奥特兰克",
         "value": 1
       },
       {
-        "name": "玛里苟斯",
+        "name": "布兰卡德",
         "value": 1
       },
       {
-        "name": "莱索恩",
+        "name": "恶魔之翼",
         "value": 1
       },
       {
-        "name": "霜狼",
+        "name": "月神殿",
         "value": 1
       },
       {
@@ -371,18 +358,66 @@
         "value": 1
       },
       {
-        "name": "地狱之石",
+        "name": "洛萨",
+        "value": 1
+      },
+      {
+        "name": "海克泰尔",
+        "value": 1
+      },
+      {
+        "name": "烈焰荆棘",
+        "value": 1
+      },
+      {
+        "name": "玛里苟斯",
+        "value": 1
+      },
+      {
+        "name": "甜水绿洲",
+        "value": 1
+      },
+      {
+        "name": "符文图腾",
+        "value": 1
+      },
+      {
+        "name": "莱索恩",
+        "value": 1
+      },
+      {
+        "name": "诺莫瑞根",
+        "value": 1
+      },
+      {
+        "name": "贫瘠之地",
+        "value": 1
+      },
+      {
+        "name": "霜之哀伤",
+        "value": 1
+      },
+      {
+        "name": "风暴峭壁",
+        "value": 1
+      },
+      {
+        "name": "黑暗魅影",
+        "value": 1
+      },
+      {
+        "name": "黑铁",
         "value": 1
       }
     ],
     "genderDistribution": [
       {
         "name": "男",
-        "value": 327
+        "value": 448
       },
       {
         "name": "女",
-        "value": 376
+        "value": 517
       }
     ]
   },
@@ -396,7 +431,8 @@
         "spec": "野兽控制",
         "achievement_points": 43950,
         "average_item_level": 680.0,
-        "mythic_score": 3031
+        "mythic_score": 3031,
+        "mounts_now": 0
       },
       {
         "rank": 2,
@@ -406,7 +442,8 @@
         "spec": "浩劫",
         "achievement_points": 42380,
         "average_item_level": 667.0,
-        "mythic_score": 2614
+        "mythic_score": 2614,
+        "mounts_now": 369
       },
       {
         "rank": 3,
@@ -416,7 +453,8 @@
         "spec": "暗影",
         "achievement_points": 42060,
         "average_item_level": 202.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 369
       },
       {
         "rank": 4,
@@ -426,7 +464,8 @@
         "spec": "邪恶",
         "achievement_points": 41680,
         "average_item_level": 664.0,
-        "mythic_score": 2035
+        "mythic_score": 2035,
+        "mounts_now": 0
       },
       {
         "rank": 5,
@@ -436,7 +475,8 @@
         "spec": "野兽控制",
         "achievement_points": 41680,
         "average_item_level": 641.0,
-        "mythic_score": 161
+        "mythic_score": 161,
+        "mounts_now": 0
       },
       {
         "rank": 6,
@@ -446,7 +486,8 @@
         "spec": "惩戒",
         "achievement_points": 41680,
         "average_item_level": 651.0,
-        "mythic_score": 347
+        "mythic_score": 347,
+        "mounts_now": 0
       },
       {
         "rank": 7,
@@ -456,7 +497,8 @@
         "spec": "防护",
         "achievement_points": 39680,
         "average_item_level": 292.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 8,
@@ -466,7 +508,8 @@
         "spec": "武器",
         "achievement_points": 38390,
         "average_item_level": 669.0,
-        "mythic_score": 166
+        "mythic_score": 166,
+        "mounts_now": 0
       },
       {
         "rank": 9,
@@ -476,7 +519,8 @@
         "spec": "惩戒",
         "achievement_points": 38160,
         "average_item_level": 684.0,
-        "mythic_score": 3005
+        "mythic_score": 3005,
+        "mounts_now": 369
       },
       {
         "rank": 10,
@@ -486,7 +530,8 @@
         "spec": "湮灭",
         "achievement_points": 37070,
         "average_item_level": 643.0,
-        "mythic_score": 853
+        "mythic_score": 853,
+        "mounts_now": 0
       },
       {
         "rank": 11,
@@ -496,7 +541,8 @@
         "spec": "敏锐",
         "achievement_points": 37070,
         "average_item_level": 635.0,
-        "mythic_score": 331
+        "mythic_score": 331,
+        "mounts_now": 0
       },
       {
         "rank": 12,
@@ -506,7 +552,8 @@
         "spec": "浩劫",
         "achievement_points": 36810,
         "average_item_level": 618.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 369
       },
       {
         "rank": 13,
@@ -516,7 +563,8 @@
         "spec": "毁灭",
         "achievement_points": 36760,
         "average_item_level": 455.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 14,
@@ -526,7 +574,8 @@
         "spec": "戒律",
         "achievement_points": 36665,
         "average_item_level": 682.0,
-        "mythic_score": 3567
+        "mythic_score": 3567,
+        "mounts_now": 0
       },
       {
         "rank": 15,
@@ -536,7 +585,8 @@
         "spec": "武器",
         "achievement_points": 36570,
         "average_item_level": 679.0,
-        "mythic_score": 3137
+        "mythic_score": 3137,
+        "mounts_now": 0
       },
       {
         "rank": 16,
@@ -546,7 +596,8 @@
         "spec": "鲜血",
         "achievement_points": 36060,
         "average_item_level": 181.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 369
       },
       {
         "rank": 17,
@@ -556,7 +607,8 @@
         "spec": "神圣",
         "achievement_points": 36060,
         "average_item_level": 276.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 18,
@@ -566,7 +618,8 @@
         "spec": "神圣",
         "achievement_points": 36060,
         "average_item_level": 276.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 19,
@@ -576,7 +629,8 @@
         "spec": "神圣",
         "achievement_points": 35535,
         "average_item_level": 283.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 20,
@@ -586,7 +640,8 @@
         "spec": "踏风",
         "achievement_points": 35485,
         "average_item_level": 630.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 369
       }
     ],
     "itemLevelRanking": [
@@ -598,7 +653,8 @@
         "spec": "野兽控制",
         "achievement_points": 27895,
         "average_item_level": 685.0,
-        "mythic_score": 2881
+        "mythic_score": 2881,
+        "mounts_now": 369
       },
       {
         "rank": 2,
@@ -608,7 +664,8 @@
         "spec": "冰霜",
         "achievement_points": 19340,
         "average_item_level": 685.0,
-        "mythic_score": 0
+        "mythic_score": 0,
+        "mounts_now": 0
       },
       {
         "rank": 3,
@@ -618,7 +675,8 @@
         "spec": "奥术",
         "achievement_points": 18595,
         "average_item_level": 685.0,
-        "mythic_score": 3196
+        "mythic_score": 3196,
+        "mounts_now": 0
       },
       {
         "rank": 4,
@@ -628,7 +686,8 @@
         "spec": "恢复",
         "achievement_points": 13585,
         "average_item_level": 685.0,
-        "mythic_score": 3175
+        "mythic_score": 3175,
+        "mounts_now": 0
       },
       {
         "rank": 5,
@@ -638,7 +697,8 @@
         "spec": "防护",
         "achievement_points": 9295,
         "average_item_level": 685.0,
-        "mythic_score": 3544
+        "mythic_score": 3544,
+        "mounts_now": 369
       },
       {
         "rank": 6,
@@ -648,7 +708,8 @@
         "spec": "惩戒",
         "achievement_points": 38160,
         "average_item_level": 684.0,
-        "mythic_score": 3005
+        "mythic_score": 3005,
+        "mounts_now": 369
       },
       {
         "rank": 7,
@@ -658,7 +719,8 @@
         "spec": "野兽控制",
         "achievement_points": 35485,
         "average_item_level": 684.0,
-        "mythic_score": 2613
+        "mythic_score": 2613,
+        "mounts_now": 0
       },
       {
         "rank": 8,
@@ -668,7 +730,8 @@
         "spec": "惩戒",
         "achievement_points": 32160,
         "average_item_level": 684.0,
-        "mythic_score": 3322
+        "mythic_score": 3322,
+        "mounts_now": 0
       },
       {
         "rank": 9,
@@ -678,7 +741,8 @@
         "spec": "冰霜",
         "achievement_points": 32160,
         "average_item_level": 684.0,
-        "mythic_score": 3535
+        "mythic_score": 3535,
+        "mounts_now": 0
       },
       {
         "rank": 10,
@@ -688,7 +752,8 @@
         "spec": "守护",
         "achievement_points": 29410,
         "average_item_level": 684.0,
-        "mythic_score": 3029
+        "mythic_score": 3029,
+        "mounts_now": 0
       },
       {
         "rank": 11,
@@ -698,7 +763,8 @@
         "spec": "复仇",
         "achievement_points": 29045,
         "average_item_level": 684.0,
-        "mythic_score": 3108
+        "mythic_score": 3108,
+        "mounts_now": 0
       },
       {
         "rank": 12,
@@ -708,7 +774,8 @@
         "spec": "野性",
         "achievement_points": 28970,
         "average_item_level": 684.0,
-        "mythic_score": 3012
+        "mythic_score": 3012,
+        "mounts_now": 0
       },
       {
         "rank": 13,
@@ -718,7 +785,8 @@
         "spec": "狂徒",
         "achievement_points": 23865,
         "average_item_level": 684.0,
-        "mythic_score": 3532
+        "mythic_score": 3532,
+        "mounts_now": 369
       },
       {
         "rank": 14,
@@ -728,7 +796,8 @@
         "spec": "惩戒",
         "achievement_points": 23515,
         "average_item_level": 684.0,
-        "mythic_score": 3012
+        "mythic_score": 3012,
+        "mounts_now": 369
       },
       {
         "rank": 15,
@@ -738,7 +807,8 @@
         "spec": "冰霜",
         "achievement_points": 23515,
         "average_item_level": 684.0,
-        "mythic_score": 3577
+        "mythic_score": 3577,
+        "mounts_now": 369
       },
       {
         "rank": 16,
@@ -748,7 +818,8 @@
         "spec": "惩戒",
         "achievement_points": 22845,
         "average_item_level": 684.0,
-        "mythic_score": 3088
+        "mythic_score": 3088,
+        "mounts_now": 0
       },
       {
         "rank": 17,
@@ -758,7 +829,8 @@
         "spec": "奥术",
         "achievement_points": 21855,
         "average_item_level": 684.0,
-        "mythic_score": 3801
+        "mythic_score": 3801,
+        "mounts_now": 369
       },
       {
         "rank": 18,
@@ -768,7 +840,8 @@
         "spec": "射击",
         "achievement_points": 18700,
         "average_item_level": 684.0,
-        "mythic_score": 3065
+        "mythic_score": 3065,
+        "mounts_now": 369
       },
       {
         "rank": 19,
@@ -778,7 +851,8 @@
         "spec": "射击",
         "achievement_points": 17185,
         "average_item_level": 684.0,
-        "mythic_score": 3014
+        "mythic_score": 3014,
+        "mounts_now": 369
       },
       {
         "rank": 20,
@@ -788,7 +862,8 @@
         "spec": "射击",
         "achievement_points": 17045,
         "average_item_level": 684.0,
-        "mythic_score": 3593
+        "mythic_score": 3593,
+        "mounts_now": 0
       }
     ],
     "mythicScoreRanking": [
@@ -800,7 +875,8 @@
         "spec": "奥术",
         "achievement_points": 21855,
         "average_item_level": 684.0,
-        "mythic_score": 3801
+        "mythic_score": 3801,
+        "mounts_now": 369
       },
       {
         "rank": 2,
@@ -810,7 +886,8 @@
         "spec": "平衡",
         "achievement_points": 24570,
         "average_item_level": 683.0,
-        "mythic_score": 3647
+        "mythic_score": 3647,
+        "mounts_now": 0
       },
       {
         "rank": 3,
@@ -820,7 +897,8 @@
         "spec": "射击",
         "achievement_points": 17045,
         "average_item_level": 684.0,
-        "mythic_score": 3593
+        "mythic_score": 3593,
+        "mounts_now": 0
       },
       {
         "rank": 4,
@@ -830,7 +908,8 @@
         "spec": "冰霜",
         "achievement_points": 23515,
         "average_item_level": 684.0,
-        "mythic_score": 3577
+        "mythic_score": 3577,
+        "mounts_now": 369
       },
       {
         "rank": 5,
@@ -840,7 +919,8 @@
         "spec": "戒律",
         "achievement_points": 36665,
         "average_item_level": 682.0,
-        "mythic_score": 3567
+        "mythic_score": 3567,
+        "mounts_now": 0
       },
       {
         "rank": 6,
@@ -850,7 +930,8 @@
         "spec": "奥术",
         "achievement_points": 14300,
         "average_item_level": 684.0,
-        "mythic_score": 3552
+        "mythic_score": 3552,
+        "mounts_now": 369
       },
       {
         "rank": 7,
@@ -860,7 +941,8 @@
         "spec": "防护",
         "achievement_points": 9295,
         "average_item_level": 685.0,
-        "mythic_score": 3544
+        "mythic_score": 3544,
+        "mounts_now": 369
       },
       {
         "rank": 8,
@@ -870,7 +952,8 @@
         "spec": "冰霜",
         "achievement_points": 32160,
         "average_item_level": 684.0,
-        "mythic_score": 3535
+        "mythic_score": 3535,
+        "mounts_now": 0
       },
       {
         "rank": 9,
@@ -880,7 +963,8 @@
         "spec": "狂徒",
         "achievement_points": 23865,
         "average_item_level": 684.0,
-        "mythic_score": 3532
+        "mythic_score": 3532,
+        "mounts_now": 369
       },
       {
         "rank": 10,
@@ -890,7 +974,8 @@
         "spec": "戒律",
         "achievement_points": 13105,
         "average_item_level": 684.0,
-        "mythic_score": 3493
+        "mythic_score": 3493,
+        "mounts_now": 0
       },
       {
         "rank": 11,
@@ -900,7 +985,8 @@
         "spec": "惩戒",
         "achievement_points": 6395,
         "average_item_level": 684.0,
-        "mythic_score": 3348
+        "mythic_score": 3348,
+        "mounts_now": 0
       },
       {
         "rank": 12,
@@ -910,7 +996,8 @@
         "spec": "惩戒",
         "achievement_points": 32160,
         "average_item_level": 684.0,
-        "mythic_score": 3322
+        "mythic_score": 3322,
+        "mounts_now": 0
       },
       {
         "rank": 13,
@@ -920,7 +1007,8 @@
         "spec": "邪恶",
         "achievement_points": 20580,
         "average_item_level": 681.0,
-        "mythic_score": 3315
+        "mythic_score": 3315,
+        "mounts_now": 0
       },
       {
         "rank": 14,
@@ -930,7 +1018,8 @@
         "spec": "复仇",
         "achievement_points": 23515,
         "average_item_level": 683.0,
-        "mythic_score": 3312
+        "mythic_score": 3312,
+        "mounts_now": 0
       },
       {
         "rank": 15,
@@ -940,7 +1029,8 @@
         "spec": "奇袭",
         "achievement_points": 4285,
         "average_item_level": 682.0,
-        "mythic_score": 3305
+        "mythic_score": 3305,
+        "mounts_now": 369
       },
       {
         "rank": 16,
@@ -950,7 +1040,8 @@
         "spec": "防护",
         "achievement_points": 12895,
         "average_item_level": 636.0,
-        "mythic_score": 3216
+        "mythic_score": 3216,
+        "mounts_now": 0
       },
       {
         "rank": 17,
@@ -960,7 +1051,8 @@
         "spec": "恢复",
         "achievement_points": 20550,
         "average_item_level": 680.0,
-        "mythic_score": 3200
+        "mythic_score": 3200,
+        "mounts_now": 0
       },
       {
         "rank": 18,
@@ -970,7 +1062,8 @@
         "spec": "奥术",
         "achievement_points": 18595,
         "average_item_level": 685.0,
-        "mythic_score": 3196
+        "mythic_score": 3196,
+        "mounts_now": 0
       },
       {
         "rank": 19,
@@ -980,7 +1073,8 @@
         "spec": "奥术",
         "achievement_points": 9265,
         "average_item_level": 682.0,
-        "mythic_score": 3191
+        "mythic_score": 3191,
+        "mounts_now": 0
       },
       {
         "rank": 20,
@@ -990,8 +1084,16 @@
         "spec": "平衡",
         "achievement_points": 16710,
         "average_item_level": 680.0,
-        "mythic_score": 3184
+        "mythic_score": 3184,
+        "mounts_now": 0
       }
     ]
+  },
+  "meta": {
+    "sourceRows": 967,
+    "uniqueCharacters": 965,
+    "duplicatesRemoved": 2,
+    "rowsWithoutLoginTime": 264,
+    "generator": "tools/build_page_data.py"
   }
 }

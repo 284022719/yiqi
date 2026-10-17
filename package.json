@@ -1,10 +1,28 @@
 {
-    "name": "yiqi-guild",
-    "version": "1.0.0",
-    "dependencies": {
-      "cloudinary": "^1.37.0",
-      "dotenv": "^16.0.3",
-      "lambda-multipart-parser": "^1.0.1",
-      "node-fetch": "^2.6.7"
-    }
+  "name": "yiqi-guild",
+  "version": "1.0.0",
+  "private": true,
+  "description": "一起公会（魔兽世界）静态站点 + Netlify Functions + Python 数据管道",
+  "scripts": {
+    "lint": "eslint js netlify/functions",
+    "lint:fix": "eslint js netlify/functions --fix",
+    "format": "prettier --write \"js/**/*.js\" \"css/**/*.css\" \"*.html\" \"pages/**/*.html\"",
+    "format:check": "prettier --check \"js/**/*.js\" \"css/**/*.css\" \"*.html\" \"pages/**/*.html\"",
+    "data:build": "python tools/build_page_data.py",
+    "data:validate": "python tools/validate.py"
+  },
+  "dependencies": {
+    "cloudinary": "^1.37.0",
+    "dotenv": "^16.0.3",
+    "lambda-multipart-parser": "^1.0.1",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
+}

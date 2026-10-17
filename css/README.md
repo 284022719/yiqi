@@ -1,136 +1,32 @@
-# CSS 文件结构说明
+# CSS 结构
 
-本项目已将原来的单一 `style.css` 文件拆分为多个模块化的 CSS 文件，以提高代码的可维护性和可读性。
-
-## 文件结构
+`main.css` 只做 `@import` 组合，其余文件按职责拆分：
 
 ```
 css/
-├── main.css              # 主样式文件，导入所有模块
-├── variables.css         # CSS 变量定义
-├── base.css             # 基础样式和重置
-├── layout.css           # 布局组件（头部、导航、内容卡片、底部）
-├── navigation.css       # 下拉菜单导航
-├── components.css       # UI 组件（表格、按钮、表单、状态提示）
-├── media.css           # 媒体组件（模态框、画廊、图片、iframe）
-├── footer.css          # 底部样式和联系信息
-├── stats.css           # 统计数据和图表样式
-├── strategy.css        # 攻略页面特定样式
-├── animations.css      # 动画和关键帧
-└── README.md           # 本说明文件
+├── main.css          入口，按顺序 @import 下列模块
+├── variables.css     CSS 变量（颜色、职业色、间距、圆角）
+├── base.css          重置与基础排版
+├── layout.css        页面骨架、内容卡片
+├── components.css    UI 组件（表格、按钮、表单、状态提示、空状态）
+├── navigation.css    顶部下拉导航
+├── stats.css         统计卡片、条形图、饼图、图例
+├── tier-list.css     职业天梯（TierList 组件）
+├── ranking-nav.css   排名页快捷导航
+├── utilities.css     工具类与配色预览
+├── media.css         模态框、画廊、图片、iframe
+├── animations.css    关键帧动画
+└── README.md         本说明
 ```
 
-## 导入顺序
+导入顺序（见 `main.css`）：变量 → 基础 → 布局/组件 → 工具类 → 响应式 → 动画。
 
-`main.css` 文件按照以下顺序导入各个模块：
+## 约定
 
-1. **variables.css** - CSS 变量定义（必须最先导入）
-2. **base.css** - 基础样式和重置
-3. **layout.css** - 布局组件
-4. **navigation.css** - 导航组件
-5. **components.css** - UI 组件
-6. **media.css** - 媒体组件
-7. **footer.css** - 底部样式
-8. **stats.css** - 统计数据样式
-9. **strategy.css** - 攻略页面样式
-10. **animations.css** - 动画（最后导入）
+1. **职业颜色的唯一来源**是 `variables.css` 的 `--class-*`；JS 通过 `resolveClassColor()` 读取，不要在两处各写一份。
+2. 组件样式跟组件走：`TierList` → `tier-list.css`，`RankingNav` → `ranking-nav.css`。
+3. 新增页面级样式优先复用已有变量（`--spacing-*`、`--border-radius`、`--color-*`）。
+4. 响应式断点统一为 `768px` 与 `480px`。
+5. 动画需在 `prefers-reduced-motion: reduce` 下退化（见 `tier-list.css` 末尾）。
 
-## 各模块说明
-
-### variables.css
-包含所有 CSS 自定义属性（变量），包括：
-- 颜色变量
-- 尺寸变量
-- 动画变量
-
-### base.css
-包含基础样式：
-- CSS 重置
-- 基础元素样式（body, a 等）
-- 工具类
-- 主内容区域样式
-
-### layout.css
-包含布局相关组件：
-- 头部区域样式
-- 导航栏样式
-- 内容卡片样式
-- 网站底部基础样式
-- 响应式布局调整
-
-### navigation.css
-专门处理下拉菜单导航：
-- 下拉菜单容器
-- 下拉菜单项样式
-- 图标和文本样式
-- 悬停效果
-
-### components.css
-包含各种 UI 组件：
-- 表格样式
-- 按钮样式
-- 标签页样式
-- 表单样式
-- 状态提示样式
-- 特殊区块样式
-
-### media.css
-处理媒体相关组件：
-- 模态框样式
-- 图片缩放效果
-- 画廊样式
-- iframe 容器样式
-- 媒体元素响应式设计
-
-### footer.css
-专门处理底部相关样式：
-- 底部标题样式
-- 联系信息样式
-- 公会信息样式
-- 快速链接样式
-- 版权区域样式
-
-### stats.css
-处理统计数据和图表：
-- 统计网格布局
-- 统计卡片样式
-- 图表容器样式
-- 柱状图和饼图样式
-- 响应式图表设计
-
-### strategy.css
-攻略页面特定样式：
-- 攻略区块样式
-- 策略说明样式
-- 角色说明样式
-- 列表样式
-
-### animations.css
-包含所有动画定义：
-- glow 发光效果
-- pulse 脉冲效果
-- fadeIn 淡入效果
-- spin 旋转效果
-
-## 使用方法
-
-在 HTML 文件中，只需要引入 `main.css` 文件：
-
-```html
-<link rel="stylesheet" href="css/main.css">
-```
-
-## 维护建议
-
-1. **添加新样式时**：根据功能将样式添加到相应的模块文件中
-2. **修改现有样式**：在对应的模块文件中进行修改
-3. **添加新模块**：创建新的 CSS 文件并在 `main.css` 中导入
-4. **变量修改**：统一在 `variables.css` 中修改 CSS 变量
-
-## 优势
-
-- **模块化**：每个文件负责特定的功能区域
-- **可维护性**：更容易找到和修改特定样式
-- **可扩展性**：可以轻松添加新的样式模块
-- **团队协作**：不同开发者可以同时处理不同的样式模块
-- **性能优化**：可以根据需要选择性加载特定模块 
+整体设计说明见 [../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)。

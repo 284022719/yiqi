@@ -71,9 +71,13 @@ export class ImageModal {
   }
   
   openModal(index = 0) {
+    if (this.images.length === 0) {
+      this.refreshImageList();
+    }
     if (this.images.length === 0) return;
-    
-    this.currentIndex = index;
+
+    // 防御：索引可能来自过期集合
+    this.currentIndex = (index >= 0 && index < this.images.length) ? index : 0;
     this.updateImage();
     this.modal.style.display = "block";
     document.body.style.overflow = "hidden";
@@ -85,26 +89,47 @@ export class ImageModal {
   }
   
   showPrevImage() {
+    if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
     this.updateImage();
   }
   
   showNextImage() {
+    if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.updateImage();
   }
   
   updateImage() {
-    this.modalImg.src = this.images[this.currentIndex].src;
-    this.modalImg.alt = this.images[this.currentIndex].alt || '';
+    const image = this.images[this.currentIndex];
+    if (!image) return;
+    this.modalImg.src = image.src;
+    this.modalImg.alt = image.alt || '';
+  }
+
+  /**
+   * 从 DOM 重新收集可放大的图片。
+   * 上传后画廊会新增节点，索引必须实时重算，否则旧图片会指向越界下标。
+   */
+  refreshImageList() {
+    this.images = Array.from(document.querySelectorAll('img.zoomable'))
+      .filter(img => img.tagName === 'IMG');
   }
   
   registerImages(images) {
-    this.images = Array.from(images).filter(img => img.tagName === 'IMG');
-    
-    this.images.forEach((img, index) => {
-      img.style.cursor = 'zoom-in';
-      img.addEventListener('click', () => this.openModal(index));
-    });
+    Array.from(images)
+      .filter(img => img.tagName === 'IMG')
+      .forEach(img => {
+        if (img.dataset.modalBound) return;  // 防止重复绑定
+        img.dataset.modalBound = '1';
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => {
+          this.refreshImageList();
+          const index = this.images.indexOf(img);
+          if (index >= 0) {
+            this.openModal(index);
+          }
+        });
+      });
   }
 } 

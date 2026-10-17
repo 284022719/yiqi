@@ -134,26 +134,32 @@ export function getClassColor(className) {
 }
 
 /**
- * 获取职业的实际颜色值（十六进制）
+ * 把职业颜色解析为可直接使用的十六进制值。
+ *
+ * 颜色值的唯一权威来源是 css/variables.css 中的 --class-* 变量，
+ * JS 侧不再维护第二份色表；解析结果做缓存，避免反复读取计算样式。
  */
-export function getClassColorHex(className) {
-  const colorMap = {
-    '战士': '#C69B6D',
-    '圣骑士': '#F48CBA',
-    '猎人': '#AAD372',
-    '潜行者': '#FFF468',
-    '牧师': '#FFFFFF',
-    '术士': '#8788EE',
-    '法师': '#3FC7EB',
-    '武僧': '#00FF98',
-    '死亡骑士': '#C41E3A',
-    '德鲁伊': '#FF7C0A',
-    '萨满祭司': '#0070DD',
-    '恶魔猎手': '#A330C9',
-    '唤魔师': '#33937F'
-  };
-  
-  return colorMap[className] || '#FF6B35';
+const classColorCache = new Map();
+
+export function resolveClassColor(className) {
+  if (classColorCache.has(className)) {
+    return classColorCache.get(className);
+  }
+
+  const classInfo = getClassInfo(className);
+  const fallback = '#FF6B35';
+  if (!classInfo) {
+    return fallback;
+  }
+
+  const variable = classInfo.color.replace('var(', '').replace(')', '').trim();
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(variable)
+    .trim();
+
+  const resolved = value || fallback;
+  classColorCache.set(className, resolved);
+  return resolved;
 }
 
 /**
@@ -189,20 +195,24 @@ export function getClassEmoji(className) {
 }
 
 /**
- * 获取职业的文本颜色（根据背景色自动选择）
+ * 获取职业的文本颜色（根据背景亮度自动选择）
  */
 export function getTextColor(backgroundColor) {
-  const color = backgroundColor.replace('var(', '').replace(')', '');
+  const variable = String(backgroundColor).replace('var(', '').replace(')', '').trim();
   const hex = getComputedStyle(document.documentElement)
-    .getPropertyValue(color).trim();
-  
-  // 计算亮度 (0-255)
+    .getPropertyValue(variable)
+    .trim();
+
+  if (!/^#[0-9a-fA-F]{6}$/.test(hex)) {
+    return 'var(--class-text-light)';
+  }
+
   const r = parseInt(hex.substr(1, 2), 16);
   const g = parseInt(hex.substr(3, 2), 16);
   const b = parseInt(hex.substr(5, 2), 16);
   const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-  
-  return brightness > 125 ? "var(--class-text-dark)" : "var(--class-text-light)";
+
+  return brightness > 125 ? 'var(--class-text-dark)' : 'var(--class-text-light)';
 }
 
 /**

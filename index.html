@@ -21,16 +21,27 @@
     <article class="content-card">
       <header>
         <h2>公会统计</h2>
-        <p class="stats-update-time">最后更新: <span id="lastUpdated"></span></p>
+        <p class="stats-update-time">
+          数据更新: <span id="lastUpdated">-</span>
+          <span id="activeWindowHint" class="stats-window-hint"></span>
+        </p>
       </header>
       
       <div class="stats-grid">
-        <!-- 活跃会员 -->
+        <div class="stat-card">
+          <div class="stat-number" id="totalMembers">-</div>
+          <div class="stat-label">总成员</div>
+        </div>
+
         <div class="stat-card">
           <div class="stat-number" id="activeMembers">-</div>
-          <div class="stat-label">11.1活跃玩家</div>
+          <div class="stat-label" id="activeMembersLabel">近期活跃</div>
         </div>
-        
+
+        <div class="stat-card">
+          <div class="stat-number" id="dataCompleteness">-</div>
+          <div class="stat-label">数据完整率</div>
+        </div>
       </div>
       
       <div class="stats-charts">

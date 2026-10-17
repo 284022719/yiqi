@@ -228,4 +228,46 @@
   .chart-bar-fill {
     height: 5px;
   }
-} 
+}
+/* ====== 图表补充：空状态 / 图例 / 统计窗口 ====== */
+.chart-empty {
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: var(--spacing-large) 0;
+  margin: 0;
+}
+
+.chart-legend {
+  list-style: none;
+  margin: var(--spacing-medium) 0 0;
+  padding: 0;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.chart-legend-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+.chart-legend-name {
+  font-weight: bold;
+}
+
+.chart-legend-value {
+  color: var(--color-text-secondary);
+}
+
+.stats-window-hint {
+  color: var(--color-text-secondary);
+}

@@ -4,15 +4,18 @@ import logging
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 
+from paths import ensure_logs_dir, resolve_db_path
+
 class GuildDatabaseManager:
-    def __init__(self, db_path: str = "../guild_database.db"):
+    def __init__(self, db_path: str = None):
         """初始化数据库管理器"""
-        self.db_path = db_path
+        self.db_path = str(resolve_db_path(db_path))
         self.setup_logging()
         self.init_database()
     
     def setup_logging(self):
         """设置日志记录"""
+        ensure_logs_dir()  # 全新克隆时 logs/ 不存在，必须先创建
         logging.basicConfig(
             level=logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',

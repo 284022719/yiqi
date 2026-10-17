@@ -7,12 +7,34 @@
 
 import os
 import json
+from pathlib import Path
 from typing import Dict, Any
 
+from paths import REPO_ROOT
+
+
+def default_config_path() -> str:
+    """按优先级定位配置文件，不依赖调用时的 cwd。
+
+    注意：令牌外置尚未完成，配置文件仍留在旧位置 data/Database/config.json，
+    迁移到 tools/config.json 后本函数的候选顺序会自动命中新位置。
+    """
+    candidates = [
+        REPO_ROOT / "data" / "Database" / "config.json",
+        REPO_ROOT / "tools" / "config.json",
+        REPO_ROOT / "config.json",
+        Path.cwd() / "config.json",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return str(candidate)
+    return str(REPO_ROOT / "data" / "Database" / "config.json")
+
+
 class Config:
-    def __init__(self, config_file: str = "config.json"):
+    def __init__(self, config_file: str = None):
         """初始化配置"""
-        self.config_file = config_file
+        self.config_file = config_file or default_config_path()
         self.config = self.load_config()
     
     def load_config(self) -> Dict[str, Any]:

@@ -1,90 +1,78 @@
 /**
- * 一起公会网站 - 主JavaScript文件
- * 简化版本 - 基于KISS原则
+ * 一起公会网站 - 主入口
+ * 负责组件加载与按页面条件初始化各功能模块。
  */
 
-// 导入配置和错误处理
 import { initGlobalErrorHandling } from './config.js';
 
-// 导入核心功能模块
 import { ImageModal } from './modules/ImageModal.js';
 import { ParticleSystem } from './modules/ParticleSystem.js';
 import { GuildStatsLoader } from './modules/GuildStatsLoader.js';
 import { IframeErrorHandler } from './modules/IframeErrorHandler.js';
 import { WCLDataLoader } from './modules/WCLDataLoader.js';
 import { ImageUploader } from './modules/ImageUploader.js';
-import { DPSTierList } from './modules/DPSTierList.js';
 
-// 导入组件
 import { loadHeader } from './components/header.js';
 import { loadFooter } from './components/footer.js';
 
-/*************************
- * 页面初始化
- *************************/
+/** 出现这些元素时页面以数据展示为主，跳过背景粒子动画（省电、省 CPU） */
+const DATA_HEAVY_ELEMENTS = ['wcl-table', 'ranking-nav-container'];
 
-// 动态导入导航组件
 async function loadNavigation() {
   const { loadNavigation } = await import('./components/nav.js');
   loadNavigation();
 }
 
+function shouldStartParticles() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return false;
+  }
+  return !DATA_HEAVY_ELEMENTS.some((id) => document.getElementById(id));
+}
+
 async function init() {
-  // 初始化全局错误处理
   initGlobalErrorHandling();
-  
-  // 加载页面组件
+
   loadHeader();
   await loadNavigation();
   loadFooter();
-  
-  // 初始化核心功能
-  new ParticleSystem();
+
+  if (shouldStartParticles()) {
+    new ParticleSystem();
+  }
+
   window.imageModal = new ImageModal();
   new IframeErrorHandler();
-  
-  // 条件初始化
-  if (document.querySelector('.zoomable')) {
-    window.imageModal.registerImages(document.querySelectorAll('.zoomable'));
+
+  const zoomables = document.querySelectorAll('.zoomable');
+  if (zoomables.length > 0) {
+    window.imageModal.registerImages(zoomables);
   }
-  
-  if (document.getElementById('activeMembers')) {
-    const statsLoader = new GuildStatsLoader();
-    await statsLoader.init();
+
+  if (document.getElementById('totalMembers') || document.getElementById('activeMembers')) {
+    await new GuildStatsLoader().init();
   }
-  
-  // 初始化WCL数据加载器（如果存在相关元素）
+
   if (document.getElementById('wcl-table')) {
     new WCLDataLoader();
   }
-  
-  // 初始化图片上传器（如果存在相关元素）
+
   if (document.getElementById('upload-form')) {
     new ImageUploader();
   }
-  
-  // 初始化DPS Tier List（如果存在相关元素）
-  if (document.getElementById('dps-tier-list-container')) {
-    new DPSTierList('dps-tier-list-container');
-  }
 }
 
-/*************************
- * 全局API暴露
- *************************/
-
-// 只暴露核心功能到全局
+// 供浏览器控制台调试使用
 window.GuildApp = {
   ImageModal,
   ParticleSystem,
   GuildStatsLoader,
   WCLDataLoader,
-  ImageUploader,
-  DPSTierList
+  ImageUploader
 };
 
-/*************************
- * 事件监听器
- *************************/
-
-document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}

@@ -1,0 +1,214 @@
+/* ====== 职业天梯（Tier List） ====== */
+/* 由原 TierList.js 内联注入的样式迁出，避免每个实例重复插入 <style> */
+
+.tier-list {
+  background: var(--color-bg-secondary);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tier-list-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tier-list-header h2 {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.tier-list-meta {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.tier-list-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.tier-list-source a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.tier-list-source a:hover {
+  text-decoration: underline;
+}
+
+.tier-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: tierFadeInUp 0.6s ease forwards;
+  animation-delay: calc(var(--tier-index, 0) * 0.1s);
+}
+
+.tier-header {
+  min-width: 200px;
+  margin-right: 2rem;
+}
+
+.tier-label {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.tier-s { background: #FFD700; color: #000; }
+.tier-a { background: #FF6B6B; color: #fff; }
+.tier-b { background: #4ECDC4; color: #fff; }
+.tier-c { background: #A8E6CF; color: #000; }
+.tier-d { background: #FFB6C1; color: #000; }
+.tier-f { background: #D3D3D3; color: #000; }
+
+.tier-description {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.tier-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 1;
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  border-left: 4px solid var(--class-color, #FF6B35);
+  /* 不支持 color-mix 的浏览器回退到纯色半透明背景 */
+  background: rgba(255, 255, 255, 0.04);
+  background: color-mix(in srgb, var(--class-color, #FF6B35) 12%, transparent);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: tierFadeInScale 0.4s ease forwards;
+  animation-delay: calc(var(--spec-index, 0) * 0.05s);
+  width: 200px;
+  min-width: 200px;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+}
+
+.spec-item:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.spec-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.75rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-bg);
+  flex: 0 0 auto;
+}
+
+.spec-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.spec-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.spec-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  color: var(--class-color, inherit);
+}
+
+.spec-class {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+@keyframes tierFadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tierFadeInScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .tier-list {
+    padding: 1rem;
+  }
+
+  .tier-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tier-header {
+    min-width: auto;
+    margin-right: 0;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .tier-specs {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .spec-item {
+    width: 180px;
+    min-width: 180px;
+    margin: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .spec-item {
+    width: 160px;
+    min-width: 160px;
+  }
+
+  .tier-specs {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier-row,
+  .spec-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

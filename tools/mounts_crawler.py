@@ -18,11 +18,12 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from database_manager import GuildDatabaseManager
 from config import config
+from paths import resolve_db_path
 
 class MountsCrawler:
     def __init__(self, db_path: str = None):
         """初始化坐骑爬虫"""
-        self.db_path = db_path or config.get("database.path", "guild_database.db")
+        self.db_path = str(resolve_db_path(db_path or config.get("database.path")))
         self.db_manager = GuildDatabaseManager(self.db_path)
         self.setup_logging()
         
@@ -297,14 +298,14 @@ def main():
     print("=== 魔兽世界坐骑数据爬虫 ===")
     
     # 检查数据库文件
-    db_path = "guild_database.db"
-    if not os.path.exists(db_path):
+    db_path = resolve_db_path()
+    if not db_path.exists():
         print(f"❌ 数据库文件不存在: {db_path}")
         print("请先运行其他爬虫脚本获取角色数据")
         return False
     
     # 创建爬虫实例
-    crawler = MountsCrawler(db_path)
+    crawler = MountsCrawler(str(db_path))
     
     # 开始爬取
     success = crawler.crawl_all_characters()

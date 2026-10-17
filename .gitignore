@@ -47,8 +47,16 @@ ehthumbs.db
 Thumbs.db
 
 # 日志文件
+logs/
 logs/*.log
 *.log
+
+# 本地数据与配置（成员数据、令牌均不应入库）
+data/guild_database.db
+data/guildmember.csv
+data/config.json
+data/Database/config.json
+tools/config.json
 
 # 敏感数据
 .env

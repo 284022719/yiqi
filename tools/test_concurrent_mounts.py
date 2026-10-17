@@ -16,8 +16,8 @@ def test_concurrent_crawling():
     config.set("crawler.max_concurrent", 12)
     config.set("crawler.delay_between_requests", 1)  # 减少延迟以加快测试
     
-    # 创建爬虫实例
-    crawler = MountsCrawler("../guild_database.db")
+    # 创建爬虫实例（数据库路径由 paths.py 解析）
+    crawler = MountsCrawler()
     
     # 获取前10个角色进行测试
     characters = crawler.db_manager.get_all_characters()[:10]
