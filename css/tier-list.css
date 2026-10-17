@@ -1,23 +1,21 @@
 /* ====== 职业天梯（Tier List） ====== */
 /* 由原 TierList.js 内联注入的样式迁出，避免每个实例重复插入 <style> */
 
+/* 天梯本身不再套一层卡片：外层 .content-card 已经是容器，
+   这里去掉背景/内边距/阴影，避免"卡片套卡片"的视觉噪音 */
 .tier-list {
-  background: var(--color-bg-secondary);
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 2rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 0;
 }
 
 .tier-list-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-lg);
 }
 
 .tier-list-header h2 {
   color: var(--color-primary);
   margin-bottom: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .tier-list-meta {
@@ -67,12 +65,12 @@
   text-align: center;
 }
 
-.tier-s { background: #FFD700; color: #000; }
-.tier-a { background: #FF6B6B; color: #fff; }
-.tier-b { background: #4ECDC4; color: #fff; }
-.tier-c { background: #A8E6CF; color: #000; }
-.tier-d { background: #FFB6C1; color: #000; }
-.tier-f { background: #D3D3D3; color: #000; }
+.tier-s { background: var(--tier-s); color: #000; }
+.tier-a { background: var(--tier-a); color: #fff; }
+.tier-b { background: var(--tier-b); color: #fff; }
+.tier-c { background: var(--tier-c); color: #000; }
+.tier-d { background: var(--tier-d); color: #000; }
+.tier-f { background: var(--tier-f); color: #000; }
 
 .tier-description {
   font-size: 0.9rem;
@@ -93,10 +91,10 @@
   padding: 0.75rem;
   border-radius: 8px;
   border: 2px solid transparent;
-  border-left: 4px solid var(--class-color, #FF6B35);
+  border-left: 4px solid var(--class-color, var(--class-color-fallback));
   /* 不支持 color-mix 的浏览器回退到纯色半透明背景 */
   background: rgba(255, 255, 255, 0.04);
-  background: color-mix(in srgb, var(--class-color, #FF6B35) 12%, transparent);
+  background: color-mix(in srgb, var(--class-color, var(--class-color-fallback)) 12%, transparent);
   transition: all 0.3s ease;
   cursor: pointer;
   opacity: 0;

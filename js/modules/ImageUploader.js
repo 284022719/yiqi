@@ -8,6 +8,8 @@
 const UPLOAD_ENDPOINT = '/.netlify/functions/handle-upload';
 const GALLERY_ENDPOINT = '/.netlify/functions/get-images';
 const TOKEN_STORAGE_KEY = 'uploadToken';
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const MAX_SIZE = 10 * 1024 * 1024;
 
 export class ImageUploader {
   constructor() {
@@ -18,6 +20,7 @@ export class ImageUploader {
     this.imageDescription = document.getElementById('image-description');
     this.uploadStatus = document.getElementById('upload-status');
     this.gallery = document.getElementById('gallery');
+    this.dropZone = document.getElementById('drop-zone');
 
     if (this.uploadForm) {
       this.init();
@@ -26,6 +29,7 @@ export class ImageUploader {
 
   init() {
     this.setupEventListeners();
+    this.setupDropZone();
     this.loadGallery();
   }
 
@@ -34,12 +38,53 @@ export class ImageUploader {
     this.uploadForm.addEventListener('submit', (e) => this.handleFormSubmit(e));
   }
 
+  /** 拖拽上传：拖入预览区即可，点击预览区也能唤起选择框 */
+  setupDropZone() {
+    if (!this.dropZone) return;
+
+    const stop = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    ['dragenter', 'dragover'].forEach((type) => {
+      this.dropZone.addEventListener(type, (event) => {
+        stop(event);
+        this.dropZone.classList.add('is-dragover');
+      });
+    });
+
+    ['dragleave', 'dragend', 'drop'].forEach((type) => {
+      this.dropZone.addEventListener(type, (event) => {
+        stop(event);
+        this.dropZone.classList.remove('is-dragover');
+      });
+    });
+
+    this.dropZone.addEventListener('drop', (event) => {
+      const files = event.dataTransfer?.files;
+      if (!files || files.length === 0) return;
+
+      this.imageUpload.files = files;
+      this.handleFileSelect({ target: { files } });
+    });
+
+    this.dropZone.addEventListener('click', () => {
+      this.imageUpload.click();
+    });
+  }
+
   handleFileSelect(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (!file.type.match('image.*')) {
-      this.showStatus('请选择有效的图片文件', 'error');
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      this.showStatus('仅支持 JPEG / PNG / WEBP 格式', 'error');
+      return;
+    }
+
+    if (file.size > MAX_SIZE) {
+      this.showStatus('图片大小不能超过 10MB', 'error');
       return;
     }
 

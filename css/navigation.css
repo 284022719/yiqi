@@ -169,7 +169,7 @@
 }
 
 .dropdown-item:hover .dropdown-desc {
-  color: #d0d0d0;
+  color: var(--color-text);
 }
 
 .dropdown:hover .dropdown-content {
@@ -281,5 +281,34 @@
   .dropdown-item {
     margin: 0;
     border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+  }
+}
+
+/* 当前页面高亮 */
+.nav-container a.is-active,
+.nav-container .dropbtn.is-active {
+  color: var(--color-text);
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.35);
+}
+
+.nav-container a.is-active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  margin-top: 4px;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+
+/* 移动端改用左侧竖线，避免 flex 布局把 ::after 推到行尾 */
+@media (max-width: 768px) {
+  .nav-container a.is-active::after {
+    display: none;
+  }
+
+  .nav-container a.is-active {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 0.75rem;
+    box-sizing: border-box;
   }
 }

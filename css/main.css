@@ -12,6 +12,7 @@
 @import url('./stats.css');
 @import url('./tier-list.css');
 @import url('./ranking-nav.css');
+@import url('./strategy.css');
 
 /* 3. 工具类和响应式 */
 @import url('./utilities.css');

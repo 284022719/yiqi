@@ -1,0 +1,115 @@
+/* ====== 攻略页（H6 / H7） ====== */
+
+.strategy-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 顶部操作按钮（如"查看战术图"），不占一整块卡片 */
+.strategy-actions {
+  margin: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* 章节：替代原先"卡片里再套卡片"的写法 */
+.strategy-section {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  background: rgba(40, 40, 40, 0.55);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-secondary);
+}
+
+.strategy-section:last-child {
+  margin-bottom: 0;
+}
+
+.strategy-section h2 {
+  color: var(--color-primary);
+  margin-top: 0;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  font-size: 1.35rem;
+}
+
+.strategy-section h3 {
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.strategy-section ol,
+.strategy-section ul {
+  padding-left: 1.5rem;
+}
+
+.strategy-section li {
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+
+/* 机制说明块 */
+.strategy-note {
+  background: rgba(30, 30, 30, 0.75);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  border-radius: var(--radius-sm);
+  border-left: 2px solid var(--color-warning);
+}
+
+.strategy-note h3,
+.strategy-note h2 {
+  margin-top: 0;
+}
+
+/* 灭团警报 */
+.strategy-section--danger {
+  border-left-color: var(--color-danger);
+}
+
+.strategy-section--danger h2 {
+  color: var(--color-danger-text);
+  border-bottom-color: rgba(201, 42, 42, 0.4);
+}
+
+.wipe-list {
+  column-count: 2;
+  column-gap: var(--space-xl);
+  margin: 0;
+}
+
+.wipe-list li {
+  font-weight: 600;
+}
+
+/* 职责标注 */
+.role-note {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  background: var(--color-secondary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.role-notes {
+  margin-top: var(--space-md);
+}
+
+@media (max-width: 768px) {
+  .strategy-section {
+    padding: var(--space-md);
+  }
+
+  .strategy-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wipe-list {
+    column-count: 1;
+  }
+}

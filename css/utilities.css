@@ -135,7 +135,8 @@
   background: rgba(255,255,255,0.3);
 }
 
-/* 职业主题 */
+/* 职业主题：仅用于 class-colors 预览页的色卡，
+   这里的 --secondary / --text 是该职业的展示用强调色，不属于全站 token，故保留字面值 */
 .theme-warrior {
   --primary: var(--class-warrior);
   --secondary: #E0C9AC;

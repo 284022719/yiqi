@@ -100,7 +100,7 @@
 }
 
 .gallery-item {
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-text-secondary);
   border-radius: 4px;
   overflow: hidden;
   transition: transform 0.2s;
@@ -206,7 +206,7 @@
 }
 
 .iframe-fallback a {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #FFA500 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-warning) 100%);
   color: var(--color-dark);
   padding: 10px 20px;
   border-radius: 5px;

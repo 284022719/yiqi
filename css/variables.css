@@ -1,8 +1,9 @@
-/* ====== CSS变量定义 ====== */
+/* ====== CSS 变量（设计 token 唯一来源） ====== */
 :root {
-  /* 颜色变量 */
+  /* 颜色 */
   --color-primary: #FFD700;
   --color-secondary: #785A28;
+  --color-secondary-strong: #92752F;
   --color-dark: #0f0f0f;
   --color-background: #0f0f0f;
   --color-text: #e0e0e0;
@@ -13,34 +14,97 @@
   --color-bg-card: rgba(30, 30, 30, 0.9);
   --color-border: #423714;
   --color-warning: #FFC107;
-  
+
   /* 职业颜色 - 官方标准 */
   --class-deathknight: #C41E3A;    /* 死亡骑士 */
-  --class-demonhunter: #A330C9;   /* 恶魔猎手 */
-  --class-druid: #FF7C0A;         /* 德鲁伊 */
-  --class-evoker: #33937F;        /* 唤魔师 */
-  --class-hunter: #AAD372;        /* 猎人 */
-  --class-mage: #3FC7EB;          /* 法师 */
-  --class-monk: #00FF98;          /* 武僧 */
-  --class-paladin: #F48CBA;       /* 圣骑士 */
-  --class-priest: #FFFFFF;        /* 牧师 */
-  --class-rogue: #FFF468;         /* 潜行者 */
-  --class-shaman: #0070DD;        /* 萨满 */
-  --class-warlock: #8788EE;       /* 术士 */
-  --class-warrior: #C69B6D;       /* 战士 */
-  
+  --class-demonhunter: #A330C9;    /* 恶魔猎手 */
+  --class-druid: #FF7C0A;          /* 德鲁伊 */
+  --class-evoker: #33937F;         /* 唤魔师 */
+  --class-hunter: #AAD372;         /* 猎人 */
+  --class-mage: #3FC7EB;           /* 法师 */
+  --class-monk: #00FF98;           /* 武僧 */
+  --class-paladin: #F48CBA;        /* 圣骑士 */
+  --class-priest: #FFFFFF;         /* 牧师 */
+  --class-rogue: #FFF468;          /* 潜行者 */
+  --class-shaman: #0070DD;         /* 萨满 */
+  --class-warlock: #8788EE;        /* 术士 */
+  --class-warrior: #C69B6D;        /* 战士 */
+  --class-color-fallback: #FF6B35; /* 未匹配职业时的回退色 */
+
   /* 辅助颜色 */
-  --class-text-light: #F0F0F0;    /* 浅色文本 */
-  --class-text-dark: #222222;     /* 深色文本 */
-  
-  /* 尺寸变量 */
+  --class-text-light: #F0F0F0;
+  --class-text-dark: #222222;
+
+  /* 状态色 */
+  --color-danger: #c92a2a;
+  --color-danger-strong: #ff6b6b;
+  --color-danger-text: #ff8a80;
+  --color-danger-bg: #fff5f5;
+  --color-success: #2b8a3e;
+  --color-success-bg: #ebfbee;
+  --color-info: #1864ab;
+  --color-info-bg: #e7f5ff;
+  --color-table-head: #1a1200;
+  --color-silver: #C0C0C0;
+  --color-bronze: #CD7F32;
+
+  /* 天梯层级色 */
+  --tier-s: #FFD700;
+  --tier-a: #FF6B6B;
+  --tier-b: #4ECDC4;
+  --tier-c: #A8E6CF;
+  --tier-d: #FFB6C1;
+  --tier-f: #D3D3D3;
+
+  /* 间距 */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* 字号 */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+
+  /* 尺寸（兼容旧名） */
   --border-radius: 4px;
   --border-width: 2px;
   --spacing-small: 0.5rem;
   --spacing-medium: 1rem;
   --spacing-large: 2rem;
 
-  
-  /* 动画变量 */
+  /* 圆角与阴影 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-gold: 0 0 15px rgba(255, 215, 0, 0.4);
+  --shadow-box: 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+  /* 渐变 */
+  --gradient-primary: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
+  --gradient-hover: linear-gradient(to bottom, var(--color-secondary-strong), var(--color-secondary));
+  --gradient-header: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+
+  /* 过渡 */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-time: 0.3s;
-} 
+
+  /* 背景 */
+  --bg-dark: rgba(40, 40, 40, 0.9);
+  --bg-darker: rgba(40, 40, 40, 0.8);
+  --bg-light: rgba(40, 40, 40, 0.5);
+
+  /* 边框 */
+  --border-gold: 1px solid var(--color-primary);
+  --border-light: 1px solid var(--color-border);
+}

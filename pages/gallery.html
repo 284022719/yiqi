@@ -18,24 +18,30 @@
         <h2>公会画廊</h2>
       </header>
       <form id="upload-form" action="/.netlify/functions/handle-upload" class="upload-form" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="image-upload" class="file-upload-label">
-            <i class="fas fa-cloud-upload-alt"></i> 选择图片
-          </label>
-          <input type="file" id="image-upload" name="image" accept="image/*" required>
-          <div class="preview-container">
-            <img id="image-preview" class="preview-image" alt="图片预览" style="display: none;">
-            <p id="preview-placeholder" style="color: var(--color-text-secondary);">图片预览将显示在这里</p>
+        <div class="upload-grid">
+          <div class="upload-media">
+            <label for="image-upload" class="file-upload-label">
+              <i class="fas fa-cloud-upload-alt"></i> 选择图片
+            </label>
+            <input type="file" id="image-upload" name="image" accept="image/jpeg,image/png,image/webp" required>
+            <div class="preview-container" id="drop-zone">
+              <img id="image-preview" class="preview-image" alt="图片预览" style="display: none;">
+              <p id="preview-placeholder" class="preview-placeholder">点击选择，或把图片拖到这里</p>
+            </div>
+            <p class="upload-hint">支持 JPEG / PNG / WEBP，单张不超过 10MB</p>
+          </div>
+
+          <div class="upload-meta">
+            <div class="form-group">
+              <label for="image-description">图片描述（可选）</label>
+              <input type="text" id="image-description" name="description" maxlength="200" placeholder="例如：2025 年公会合影">
+            </div>
+            <button type="submit" class="button">
+              <i class="fas fa-upload"></i> 上传图片
+            </button>
+            <div id="upload-status" class="upload-status" role="status" aria-live="polite"></div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="image-description">图片描述</label>
-          <input type="text" id="image-description" name="description" placeholder="请输入图片描述(可选)">
-        </div>
-        <button type="submit" class="button">
-          <i class="fas fa-upload"></i> 上传图片
-        </button>
-        <div id="upload-status" class="upload-status"></div>
       </form>
       <div id="gallery" class="gallery">
         <div class="loading-spinner">

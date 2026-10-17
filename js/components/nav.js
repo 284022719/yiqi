@@ -91,7 +91,27 @@ export function loadNavigation() {
   if (!navContainer) return;
 
   navContainer.innerHTML = navHTML;
+  markActiveLink(navContainer);
   initNavigation(navContainer);
+}
+
+/** 给当前页面对应的导航项加高亮与 aria-current */
+function markActiveLink(container) {
+  const current = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+  container.querySelectorAll('#primary-nav a[href]').forEach((link) => {
+    const href = link.getAttribute('href') || '';
+    const target = href.split('/').pop().split('?')[0].toLowerCase();
+    if (!target || target !== current) return;
+
+    link.classList.add('is-active');
+    link.setAttribute('aria-current', 'page');
+
+    const dropdown = link.closest('.dropdown');
+    if (dropdown) {
+      dropdown.querySelector('.dropbtn')?.classList.add('is-active');
+    }
+  });
 }
 
 function initNavigation(container) {

@@ -55,6 +55,7 @@ JS 侧需要十六进制值时调用 `js/data/wow-classes.js#resolveClassColor(c
 | 统计图表 | `stats.css` |
 | 职业天梯 | `tier-list.css` |
 | 排名页快捷导航 | `ranking-nav.css` |
+| 攻略页（H6/H7） | `strategy.css` |
 | 工具类与响应式 | `utilities.css` / `media.css` / `animations.css` |
 
 `main.css` 只做 `@import` 组合。JS 不负责样式注入。
