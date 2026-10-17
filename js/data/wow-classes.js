@@ -171,30 +171,6 @@ export function getClassIcon(className) {
 }
 
 /**
- * 获取职业表情符号图标
- */
-export function getClassEmoji(className) {
-  const emojiMap = {
-    'warrior': '⚔️',
-    'paladin': '🛡️',
-    'hunter': '🏹',
-    'rogue': '🗡️',
-    'priest': '✝️',
-    'death-knight': '💀',
-    'shaman': '⚡',
-    'mage': '🔮',
-    'warlock': '🔥',
-    'monk': '🥋',
-    'druid': '🌿',
-    'demon-hunter': '👁️',
-    'evoker': '🐉'
-  };
-  
-  const classInfo = getClassInfo(className);
-  return classInfo ? emojiMap[classInfo.slug] || '⚔️' : '⚔️';
-}
-
-/**
  * 获取职业的文本颜色（根据背景亮度自动选择）
  */
 export function getTextColor(backgroundColor) {

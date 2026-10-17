@@ -1,6 +1,9 @@
 /**
  * iframe错误处理
  */
+
+import { icon } from '../core/icons.js';
+
 export class IframeErrorHandler {
   constructor() {
     this.init();
@@ -55,7 +58,7 @@ export class IframeErrorHandler {
         padding: 20px;
         border: 2px solid #FFD700;
       ">
-        <div style="font-size: 48px; margin-bottom: 20px;">📺</div>
+        <div style="font-size: 48px; margin-bottom: 20px;">${icon('tv')}</div>
         <h3 style="margin: 0 0 10px 0; color: #FFD700;">视频加载失败</h3>
         <p style="margin: 0 0 20px 0; color: #ccc;">由于网络或权限限制，无法加载视频内容</p>
         <a href="${iframe.src}" target="_blank" style="

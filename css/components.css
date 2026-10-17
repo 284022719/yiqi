@@ -432,17 +432,6 @@
   color: var(--color-danger);
 }
 
-.loading-spinner {
-  padding: 2rem;
-  text-align: center;
-  color: var(--color-primary);
-  font-size: 1.2rem;
-}
-
-.loading-spinner i {
-  margin-right: 0.5rem;
-}
-
 .error {
   padding: 1.5rem;
   text-align: center;
@@ -778,4 +767,82 @@
   border-radius: 50%;
   margin-right: 8px;
   vertical-align: middle;
+}
+
+/* ====== 骨架屏 ====== */
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 37%,
+    rgba(255, 255, 255, 0.05) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeletonShimmer 1.4s ease infinite;
+}
+
+.skeleton-line {
+  height: 1.6rem;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.skeleton-bar {
+  height: 12px;
+}
+
+.chart-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--space-sm) 0;
+}
+
+.chart-skeleton .skeleton-bar:nth-child(2n) {
+  width: 72%;
+}
+
+.chart-skeleton .skeleton-bar:nth-child(3n) {
+  width: 88%;
+}
+
+.skeleton-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+/* 画廊骨架：JS 渲染时整体替换 innerHTML，并移除 gallery-skeleton */
+.gallery-skeleton-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.gallery-skeleton-item .skeleton-media {
+  height: 150px;
+  border-radius: 0;
+}
+
+.gallery-skeleton-item .skeleton-caption {
+  height: 2.2rem;
+  margin: 0.5rem;
+}
+
+@keyframes skeletonShimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
 }

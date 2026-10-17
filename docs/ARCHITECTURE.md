@@ -21,7 +21,7 @@
 js/
   main.js          入口与页面级装配
   config.js        CONFIG（含 debug 开关）、log()、全局错误处理
-  core/            无业务依赖的工具（dom.js: escapeHtml / escapeAttr / byId）
+  core/            无业务依赖的工具（dom.js: escapeHtml / escapeAttr / byId；icons.js: 内联 SVG 图标）
   data/            纯数据：职业表、专精注册表、天梯排名、图表配色
   components/      可复用 UI：TierList、Chart、RankingNav、Header、Footer、Nav
   modules/         页面级控制器：统计、WCL、画廊、灯箱、粒子

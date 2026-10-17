@@ -5,7 +5,8 @@ js/
 ├── main.js          入口：加载 Header/导航/Footer，按页面元素条件初始化模块
 ├── config.js        CONFIG（含 debug 开关）、log()、全局错误处理
 ├── core/
-│   └── dom.js       escapeHtml / escapeAttr / byId
+│   ├── dom.js       escapeHtml / escapeAttr / byId
+│   └── icons.js     内联 SVG 图标集（sword/heart/shield/castle/bolt/trophy/key/tv）
 ├── data/
 │   ├── wow-classes.js      13 个职业的名称、slug、图标；resolveClassColor 解析 CSS 变量
 │   ├── specs.js            专精注册表（class + spec + icon），key 形如 'paladin|防护'

@@ -8,10 +8,11 @@
 import { resolveSpec } from '../data/specs.js';
 import { resolveClassColor } from '../data/wow-classes.js';
 import { escapeAttr, escapeHtml } from '../core/dom.js';
+import { icon } from '../core/icons.js';
 
 const TIER_ORDER = ['S', 'A', 'B', 'C', 'D', 'F'];
 
-const TYPE_ICONS = { dps: '⚔️', healer: '💚', tank: '🛡️' };
+const TYPE_ICONS = { dps: icon('sword'), healer: icon('heart'), tank: icon('shield') };
 const TYPE_NAMES = { dps: 'DPS', healer: '治疗', tank: '坦克' };
 
 export class TierList {

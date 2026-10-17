@@ -1,8 +1,10 @@
 /**
  * 排名导航组件
  * 用于在总览页面中快速跳转到不同排名部分。
- * 样式见 css/ranking-nav.css。
+ * 样式见 css/ranking-nav.css，图标见 js/core/icons.js。
  */
+
+import { icon } from '../core/icons.js';
 
 const TARGET_MAP = {
   'raid-dps': 'raid-dps-tier-list-container',
@@ -29,19 +31,19 @@ export class RankingNav {
     this.container.innerHTML = `
       <div class="ranking-nav">
         <div class="nav-section">
-          <h3>🏰 团本排名</h3>
+          <h3>${icon('castle')} 团本排名</h3>
           <div class="nav-buttons">
-            <button class="nav-btn" data-target="raid-dps">⚔️ DPS</button>
-            <button class="nav-btn" data-target="raid-healer">💚 治疗</button>
-            <button class="nav-btn" data-target="raid-tank">🛡️ 坦克</button>
+            <button class="nav-btn" data-target="raid-dps">${icon('sword')} DPS</button>
+            <button class="nav-btn" data-target="raid-healer">${icon('heart')} 治疗</button>
+            <button class="nav-btn" data-target="raid-tank">${icon('shield')} 坦克</button>
           </div>
         </div>
         <div class="nav-section">
-          <h3>⚡ 大秘境排名</h3>
+          <h3>${icon('bolt')} 大秘境排名</h3>
           <div class="nav-buttons">
-            <button class="nav-btn" data-target="mplus-dps">⚔️ DPS</button>
-            <button class="nav-btn" data-target="mplus-healer">💚 治疗</button>
-            <button class="nav-btn" data-target="mplus-tank">🛡️ 坦克</button>
+            <button class="nav-btn" data-target="mplus-dps">${icon('sword')} DPS</button>
+            <button class="nav-btn" data-target="mplus-healer">${icon('heart')} 治疗</button>
+            <button class="nav-btn" data-target="mplus-tank">${icon('shield')} 坦克</button>
           </div>
         </div>
       </div>

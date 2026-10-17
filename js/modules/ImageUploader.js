@@ -188,12 +188,17 @@ export class ImageUploader {
 
       this.renderGallery(images);
     } catch (error) {
+      this.gallery.classList.remove('gallery-skeleton');
+      this.gallery.setAttribute('aria-busy', 'false');
       this.gallery.innerHTML = '<p>暂无上传的图片</p>';
       console.warn('加载图片库失败:', error.message);
     }
   }
 
   renderGallery(images) {
+    this.gallery.classList.remove('gallery-skeleton');
+    this.gallery.setAttribute('aria-busy', 'false');
+
     if (!Array.isArray(images) || images.length === 0) {
       this.gallery.innerHTML = '<p>暂无上传的图片</p>';
       return;

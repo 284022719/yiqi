@@ -16,6 +16,7 @@ import {
 } from '../data/palettes.js';
 import { renderBarChart, renderPieChart } from '../components/Chart.js';
 import { byId, escapeAttr, escapeHtml } from '../core/dom.js';
+import { icon } from '../core/icons.js';
 import { log } from '../config.js';
 
 const REALM_LIMIT = 25;
@@ -31,11 +32,11 @@ function setText(id, value) {
   }
 }
 
-function emptyRow(colspan, icon, title, note) {
+function emptyRow(colspan, iconName, title, note) {
   return `
     <tr>
       <td colspan="${colspan}" class="table-empty">
-        <div class="table-empty-icon">${icon}</div>
+        <div class="table-empty-icon">${icon(iconName)}</div>
         <div class="table-empty-title">${escapeHtml(title)}</div>
         <div class="table-empty-note">${escapeHtml(note)}</div>
       </td>
@@ -98,6 +99,7 @@ export class GuildStatsLoader {
 
   renderCharts() {
     const charts = this.statsData?.charts || {};
+    document.querySelector('.stats-charts')?.setAttribute('aria-busy', 'false');
 
     renderBarChart(byId('classChart'), charts.classDistribution, {
       colorOf: (name) => resolveClassColor(name),
@@ -140,7 +142,7 @@ export class GuildStatsLoader {
 
     const data = this.statsData?.rankings?.achievementRanking || [];
     if (data.length === 0) {
-      tbody.innerHTML = emptyRow(4, '🏆', '暂无成就点数数据', '请稍后再试');
+      tbody.innerHTML = emptyRow(4, 'trophy', '暂无成就点数数据', '请稍后再试');
       return;
     }
 
@@ -168,7 +170,7 @@ export class GuildStatsLoader {
 
     const data = this.statsData?.rankings?.mythicScoreRanking || [];
     if (data.length === 0) {
-      tbody.innerHTML = emptyRow(5, '🗝️', '暂无史诗钥石评分数据', '当前数据中所有角色的史诗钥石评分均为 0');
+      tbody.innerHTML = emptyRow(5, 'key', '暂无史诗钥石评分数据', '当前数据中所有角色的史诗钥石评分均为 0');
       return;
     }
 

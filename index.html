@@ -29,37 +29,53 @@
       
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number" id="totalMembers">-</div>
+          <div class="stat-number" id="totalMembers"><span class="skeleton skeleton-line"></span></div>
           <div class="stat-label">总成员</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-number" id="activeMembers">-</div>
+          <div class="stat-number" id="activeMembers"><span class="skeleton skeleton-line"></span></div>
           <div class="stat-label" id="activeMembersLabel">近期活跃</div>
         </div>
 
         <div class="stat-card">
-          <div class="stat-number" id="dataCompleteness">-</div>
+          <div class="stat-number" id="dataCompleteness"><span class="skeleton skeleton-line"></span></div>
           <div class="stat-label">数据完整率</div>
         </div>
       </div>
       
-      <div class="stats-charts">
+      <div class="stats-charts" aria-busy="true">
         <!-- 职业分布 - 单行 -->
         <div class="chart-container full-width">
           <h3>职业分布</h3>
-          <div class="chart" id="classChart"></div>
+          <div class="chart" id="classChart">
+            <div class="chart-skeleton">
+              <span class="skeleton skeleton-bar"></span>
+              <span class="skeleton skeleton-bar"></span>
+              <span class="skeleton skeleton-bar"></span>
+              <span class="skeleton skeleton-bar"></span>
+              <span class="skeleton skeleton-bar"></span>
+            </div>
+          </div>
         </div>
         
         <!-- 阵营分布和性别分布 - 一行两列 -->
         <div class="charts-row">
           <div class="chart-container">
             <h3>阵营分布</h3>
-            <div class="chart" id="factionChart"></div>
+            <div class="chart" id="factionChart">
+              <div class="chart-skeleton">
+                <span class="skeleton skeleton-circle"></span>
+              </div>
+            </div>
           </div>
           <div class="chart-container">
             <h3>性别分布</h3>
-            <div class="chart" id="genderChart"></div>
+            <div class="chart" id="genderChart">
+              <div class="chart-skeleton">
+                <span class="skeleton skeleton-circle"></span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -67,11 +83,27 @@
         <div class="charts-row">
           <div class="chart-container">
             <h3>服务器分布（前25个）</h3>
-            <div class="chart" id="realmChart"></div>
+            <div class="chart" id="realmChart">
+              <div class="chart-skeleton">
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+              </div>
+            </div>
           </div>
           <div class="chart-container">
             <h3>种族分布</h3>
-            <div class="chart" id="raceChart"></div>
+            <div class="chart" id="raceChart">
+              <div class="chart-skeleton">
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+                <span class="skeleton skeleton-bar"></span>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -129,7 +161,7 @@
       <header>
         <h2>会员风采</h2>
       </header>
-      <img src="img/mdz.jpg" alt="一起洗脚王" class="mechanism-img zoomable">
+      <img src="img/mdz.webp" alt="一起洗脚王" class="mechanism-img zoomable">
     </article>
 
     <article class="content-card">
