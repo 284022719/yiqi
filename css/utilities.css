@@ -254,7 +254,7 @@
 .usage-examples pre {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
@@ -274,7 +274,7 @@
 
 .example-items span {
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   font-weight: bold;
   border: 1px solid var(--color-border);
 }

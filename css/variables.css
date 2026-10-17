@@ -1,17 +1,35 @@
 /* ====== CSS 变量（设计 token 唯一来源） ====== */
+/*
+ * 命名约定：
+ *   --color-*       颜色（品牌、文字、背景、状态）
+ *   --class-*       职业色与职业文本色
+ *   --tier-*        天梯层级色
+ *   --space-*       间距刻度
+ *   --text-*        字号刻度（注意：颜色用 --color-text-*）
+ *   --radius-*      圆角刻度
+ *   --shadow-*      阴影
+ *   --gradient-*    渐变
+ *   --transition-*  过渡曲线
+ *   --border-*      复合边框
+ *
+ * 同一色值可以对应多个语义 token（如 --color-primary 与 --tier-s 都是金色，
+ * 但“改品牌色”和“改 S 档颜色”是两件事），不要为了去重把它们合并。
+ */
 :root {
   /* 颜色 */
   --color-primary: #FFD700;
   --color-secondary: #785A28;
   --color-secondary-strong: #92752F;
-  --color-dark: #0f0f0f;
   --color-background: #0f0f0f;
+  --color-on-gold: #0f0f0f;         /* 金色底上的文字 */
   --color-text: #e0e0e0;
   --color-text-secondary: #a0a0a0;
   --color-bg: #1a1a1a;
   --color-bg-secondary: #2a2a2a;
-  --color-bg-dark: rgba(15, 15, 15, 0.95);
   --color-bg-card: rgba(30, 30, 30, 0.9);
+  --color-bg-overlay: rgba(15, 15, 15, 0.95);   /* 头部/导航/页脚遮罩层 */
+  --color-surface: rgba(40, 40, 40, 0.9);       /* 表格、面板 */
+  --color-surface-muted: rgba(40, 40, 40, 0.8);
   --color-border: #423714;
   --color-warning: #FFC107;
 
@@ -56,7 +74,7 @@
   --tier-d: #FFB6C1;
   --tier-f: #D3D3D3;
 
-  /* 间距 */
+  /* 间距刻度 */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -64,7 +82,7 @@
   --space-xl: 2rem;
   --space-2xl: 3rem;
 
-  /* 字号 */
+  /* 字号刻度 */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -72,21 +90,17 @@
   --text-xl: 1.5rem;
   --text-2xl: 2rem;
 
-  /* 尺寸（兼容旧名） */
-  --border-radius: 4px;
-  --border-width: 2px;
-  --spacing-small: 0.5rem;
-  --spacing-medium: 1rem;
-  --spacing-large: 2rem;
-
-  /* 圆角与阴影 */
+  /* 圆角与描边 */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --border-width: 2px;
+  --border-gold: 1px solid var(--color-primary);
+  --border-light: 1px solid var(--color-border);
+
+  /* 阴影 */
   --shadow-gold: 0 0 15px rgba(255, 215, 0, 0.4);
   --shadow-box: 0 4px 8px rgba(0, 0, 0, 0.3);
-  --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.6);
-  --shadow-pop: 0 8px 16px rgba(0, 0, 0, 0.3);
 
   /* 渐变 */
   --gradient-primary: linear-gradient(to bottom, var(--color-secondary), var(--color-border));
@@ -97,14 +111,4 @@
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-time: 0.3s;
-
-  /* 背景 */
-  --bg-dark: rgba(40, 40, 40, 0.9);
-  --bg-darker: rgba(40, 40, 40, 0.8);
-  --bg-light: rgba(40, 40, 40, 0.5);
-
-  /* 边框 */
-  --border-gold: 1px solid var(--color-primary);
-  --border-light: 1px solid var(--color-border);
 }

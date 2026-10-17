@@ -9,15 +9,15 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-medium);
-  margin-bottom: var(--spacing-large);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
 }
 
 .stat-card {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(120, 90, 40, 0.1) 100%);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-medium);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
   text-align: center;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
               box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -33,7 +33,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   color: var(--color-primary);
-  margin-bottom: var(--spacing-small);
+  margin-bottom: var(--space-sm);
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
@@ -47,14 +47,14 @@
 .stats-charts {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-large);
-  margin-top: var(--spacing-large);
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
 }
 
 .charts-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-large);
+  gap: var(--space-xl);
 }
 
 .full-width {
@@ -64,14 +64,14 @@
 .chart-container {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-medium);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
   overflow: hidden;
 }
 
 .chart-container h3 {
   color: var(--color-primary);
-  margin: 0 0 var(--spacing-medium) 0;
+  margin: 0 0 var(--space-md) 0;
   text-align: center;
   font-size: 1.1rem;
 }
@@ -89,14 +89,14 @@
 .chart-bar {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-small);
-  padding: var(--spacing-small);
+  margin-bottom: var(--space-sm);
+  padding: var(--space-sm);
   background: rgba(255, 255, 255, 0.05);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  gap: var(--spacing-small);
+  gap: var(--space-sm);
 }
 
 .chart-bar-label {
@@ -172,7 +172,7 @@
   }
   
   .chart-container {
-    padding: var(--spacing-small);
+    padding: var(--space-sm);
   }
   
   .chart-bar {
@@ -233,13 +233,13 @@
 .chart-empty {
   color: var(--color-text-secondary);
   text-align: center;
-  padding: var(--spacing-large) 0;
+  padding: var(--space-xl) 0;
   margin: 0;
 }
 
 .chart-legend {
   list-style: none;
-  margin: var(--spacing-medium) 0 0;
+  margin: var(--space-md) 0 0;
   padding: 0;
 }
 

@@ -10,7 +10,7 @@
   gap: 0.4rem;
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   background: transparent;
   color: var(--color-primary);
   font: inherit;
@@ -73,7 +73,7 @@
   box-shadow: 0 8px 16px rgba(0,0,0,0.3);
   z-index: 1001;
   border: 1px solid var(--color-secondary);
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   left: 0;
   top: 100%;
   margin-top: 5px;
@@ -92,7 +92,7 @@
   overflow: hidden;
   z-index: 1;
   margin: 0 5px;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   will-change: background-color;
 }
 
@@ -109,7 +109,7 @@
     rgba(255, 215, 0, 0) 100%
   );
   z-index: -1;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
 }
 
 .dropdown-item:last-child {
@@ -216,7 +216,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--spacing-small);
+    gap: var(--space-sm);
   }
 
   .nav-toggle {
@@ -228,7 +228,7 @@
     flex-direction: column;
     gap: 0;
     width: 100%;
-    margin-top: var(--spacing-small);
+    margin-top: var(--space-sm);
   }
 
   .nav-container.nav-open ul {
@@ -265,7 +265,7 @@
     display: none;
     height: auto;
     min-width: 100%;
-    margin: 0 0 var(--spacing-small);
+    margin: 0 0 var(--space-sm);
     padding: 0;
     opacity: 1;
     overflow: visible;

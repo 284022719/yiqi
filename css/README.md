@@ -24,11 +24,12 @@ css/
 
 ## 约定
 
-1. **所有设计 token 只在 `variables.css` 定义**：颜色、间距（`--space-*`）、字号（`--text-*`）、圆角（`--radius-*`）、阴影、渐变、状态色与天梯层级色。其他文件不再写裸 hex。
-2. **职业颜色的唯一来源**是 `variables.css` 的 `--class-*`；JS 通过 `resolveClassColor()` 读取，不要在两处各写一份。
-3. 组件样式跟组件走：`TierList` → `tier-list.css`，`RankingNav` → `ranking-nav.css`，攻略页 → `strategy.css`。
-4. 新增样式优先复用 token；确需新色值时先加到 `variables.css`。
-5. 响应式断点统一为 `768px` 与 `480px`。
-6. 动画需在 `prefers-reduced-motion: reduce` 下退化（见 `tier-list.css` 末尾）。
+1. **所有设计 token 只在 `variables.css` 定义**，命名前缀固定为：`--color-*` / `--class-*` / `--tier-*` / `--space-*` / `--text-*` / `--radius-*` / `--shadow-*` / `--gradient-*` / `--transition-*` / `--border-*`。其他文件不再写裸 hex，也不再出现 `--spacing-*`、`--border-radius` 这类旧别名。
+2. **刻度允许有空槽**：`--space-xs`、`--space-2xl`、`--text-*` 等暂时没被引用的槽位是留给后续统一的刻度，不算死代码；新增样式优先从刻度取值，而不是随手写 `1.3rem`。
+3. **职业颜色的唯一来源**是 `variables.css` 的 `--class-*`；JS 通过 `resolveClassColor()` 读取，不要在两处各写一份。
+4. **同值不同义不要合并**：`--color-primary` 与 `--tier-s` 同为金色，但“改品牌色”和“改 S 档颜色”是两件事，各留一个 token。
+5. 组件样式跟组件走：`TierList` → `tier-list.css`，`RankingNav` → `ranking-nav.css`，攻略页 → `strategy.css`。
+6. 响应式断点统一为 `768px` 与 `480px`。
+7. 动画需在 `prefers-reduced-motion: reduce` 下退化（见 `tier-list.css` 末尾）。
 
 整体设计说明见 [../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)。

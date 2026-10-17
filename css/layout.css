@@ -1,8 +1,8 @@
 /* ====== 布局组件 ====== */
 /* 头部区域 */
 .guild-header-container {
-  background: var(--color-bg-dark);
-  padding: var(--spacing-large);
+  background: var(--color-bg-overlay);
+  padding: var(--space-xl);
   border-bottom: 3px solid var(--color-secondary);
   backdrop-filter: blur(8px);
 }
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-large);
+  gap: var(--space-xl);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -23,7 +23,7 @@
 .logo-image {
   height: 60px;
   width: auto;
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -41,15 +41,15 @@
 }
 
 .guild-motto {
-  margin: var(--spacing-small) 0 0;
+  margin: var(--space-sm) 0 0;
   font-size: 1.2rem;
 }
 
 /* 内容卡片 */
 .content-card {
   border-radius: 8px;
-  padding: var(--spacing-large);
-  margin: var(--spacing-large) auto;
+  padding: var(--space-xl);
+  margin: var(--space-xl) auto;
   max-width: 1200px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
@@ -58,7 +58,7 @@
 }
 
 .content-card header {
-  margin-bottom: var(--spacing-medium);
+  margin-bottom: var(--space-md);
 }
 
 /* 导航栏 */
@@ -67,7 +67,7 @@
   padding: 0;
   margin: 0;
   display: flex;
-  gap: var(--spacing-large);
+  gap: var(--space-xl);
 }
 
 .nav-container a {
@@ -86,23 +86,23 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: var(--color-bg-dark);
+  background: var(--color-bg-overlay);
   border-bottom: var(--border-width) solid var(--color-border);
-  padding: var(--spacing-medium) var(--spacing-large);
+  padding: var(--space-md) var(--space-xl);
   backdrop-filter: blur(8px);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 /* 页脚样式 */
 .footer-container {
-  background: var(--color-bg-dark);
+  background: var(--color-bg-overlay);
   border-top: var(--border-width) solid var(--color-border);
-  padding: var(--spacing-medium) var(--spacing-large);
+  padding: var(--space-md) var(--space-xl);
   backdrop-filter: blur(8px);
   margin-top: auto;
   display: flex;
   justify-content: center;
-  gap: var(--spacing-large);
+  gap: var(--space-xl);
   align-items: center;
   flex-wrap: wrap;
 }
@@ -110,12 +110,12 @@
 .footer-container div {
   display: flex;
   align-items: center;
-  gap: var(--spacing-small);
+  gap: var(--space-sm);
   color: var(--color-text);
 }
 
 .footer-container img {
-  border-radius: var(--border-radius);
+  border-radius: var(--radius-sm);
 }
 
 .footer-container span {
@@ -128,7 +128,7 @@
 
   .header-content {
     flex-direction: column;
-    gap: var(--spacing-medium);
+    gap: var(--space-md);
   }
 
   .logo-image {
@@ -136,17 +136,17 @@
   }
 
   .content-card {
-    margin: var(--spacing-medium);
-    padding: var(--spacing-medium);
+    margin: var(--space-md);
+    padding: var(--space-md);
     background: rgba(30, 30, 30, 0.95);
   }
 
   .nav-container {
-    padding: var(--spacing-small) var(--spacing-medium);
+    padding: var(--space-sm) var(--space-md);
   }
   
   .nav-container ul {
-    gap: var(--spacing-medium);
+    gap: var(--space-md);
     flex-wrap: wrap;
   }
 } 
