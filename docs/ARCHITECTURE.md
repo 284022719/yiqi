@@ -106,18 +106,26 @@ Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
 
 ### 6.2 CSP
 
-`netlify.toml` 已启用 CSP，本地验证方式：用带同样响应头的静态服务器加载全部页面，
-通过 `report-uri` 收集违规（反向测试确认过上报链路有效），实测 7 个页面零违规。
+`netlify.toml` 已启用 CSP。style 部分采用**三段式渐进增强**，把「元素级样式」和「属性级样式」分开管：
 
-| 指令 | 值 | 说明 |
+| 指令 | 值 | 作用 |
 |---|---|---|
 | `script-src` | `'self'` | 页面内联 `<script>` 已全部外链化（`js/pages/*.js`） |
-| `style-src` | `'self' 'unsafe-inline'` + cdnjs | **有意放宽**：天梯/图表用数据驱动的内联 style 属性，去掉需要重构渲染方式 |
+| `style-src` | `'self'` + cdnjs + `'unsafe-inline'` | **老浏览器兜底**：不认识下面两条时会 fallback 到这里 |
+| `style-src-elem` | `'self'` + cdnjs | 现代浏览器：内联 `<style>` 块与外部样式表白名单（当前 `<style>` 块为 0） |
+| `style-src-attr` | `'unsafe-inline'` | 现代浏览器：只给 15 处数据驱动的 style 属性开口子 |
 | `img-src` | `'self' data:` + 5 个图床域 | netease 职业图标、Cloudinary、raiderio、YY、战网 |
 | `frame-src` | bilibili 两个域 | 直播播放器与视频播放器 |
 | 其他 | `object-src 'none'`、`base-uri 'self'`、`form-action 'self'` | |
 
-> 改渲染方式（把内联 style 换成 CSS 变量类）之后，`style-src` 才能去掉 `'unsafe-inline'`——这是后续可做的收敛项。
+本地验证方法（比"没报错"更强的证据链）：
+
+1. 用带同样响应头 + `report-uri` 的静态服务器加载全部页面 → 零违规；
+2. 反向测试：故意收紧到 `default-src 'none'` → 收到多条上报，证明上报链路有效（排除假阴性）；
+3. 定向测试：放一个含内联 `<style>` 的探针页 → 只收到 1 条 `style-src-elem` 违规，证明收紧确实生效、且真实页面不受影响。
+
+> 彻底去掉 `'unsafe-inline'` 的路径：把数据驱动的内联 style（天梯 `--class-color`、图表条形宽度）改为
+> 预定义 class 或 SVG 属性绘制，然后删掉 `style-src-attr` 与 `style-src` 里的 `'unsafe-inline'`。
 
 ## 7. 后续可做
 

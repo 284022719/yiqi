@@ -7,12 +7,22 @@
 
 # 安全响应头
 #
-# CSP 说明（为什么 style-src 需要 'unsafe-inline'）：
-#   页面里有大量「数据驱动」的内联 style 属性 —— 天梯的 --class-color/--spec-index、
-#   图表的条形宽度、以及若干静态元素的尺寸。要彻底去掉 needs 重构渲染方式，
-#   当前取舍是：脚本严格禁止内联（script-src 'self'），样式允许内联。
-#   script-src 能收紧的前提是：页面的内联 <script> 已全部外链化（js/pages/*.js），
-#   且 IframeErrorHandler 不再输出内联事件处理器。
+# CSP 的 style 部分为什么这样写（三段式，渐进增强）：
+#
+#   style-src      'self' cdnjs 'unsafe-inline'   ← 老浏览器兜底（不认识下面两条指令时用这条）
+#   style-src-elem 'self' cdnjs                   ← 现代浏览器：内联 <style> 块与外部样式表白名单
+#   style-src-attr 'unsafe-inline'                ← 现代浏览器：只给 style 属性开口子
+#
+# 现状与取舍：
+#   - 全站已无内联 <style> 块（0 处），但仍有 15 处数据驱动的 style 属性
+#     （天梯的 --class-color、图表的条形宽度等），这类值无法用类穷举。
+#   - 于是把「元素级样式」与「属性级样式」拆开：前者严格，后者保留。
+#     将来若把数据驱动样式改为 SVG/类，删掉 style-src-attr 即可彻底去掉 unsafe-inline。
+#   - style-src 里保留 'unsafe-inline' 是为了 Safari < 15.4 等老浏览器：
+#     它们不认 style-src-elem/attr，会 fallback 到 style-src，否则样式会被整片拦掉。
+#
+# 本地验证方式：以同样响应头 + report-uri 起静态服务器，逐个加载页面收集违规；
+# 并反向放一个含内联 <style> 的探针页，确认 style-src-elem 确实会拦截（非假阴性）。
 [[headers]]
   for = "/*"
   [headers.values]
@@ -20,7 +30,7 @@
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https://wow.res.netease.com https://res.cloudinary.com https://cdn.raiderio.net https://web.yystatic.com https://contentstack-images.blzstatic.cn; font-src 'self' data: https://cdnjs.cloudflare.com; frame-src https://www.bilibili.com https://player.bilibili.com; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; style-src-elem 'self' https://cdnjs.cloudflare.com; style-src-attr 'unsafe-inline'; img-src 'self' data: https://wow.res.netease.com https://res.cloudinary.com https://cdn.raiderio.net https://web.yystatic.com https://contentstack-images.blzstatic.cn; font-src 'self' data: https://cdnjs.cloudflare.com; frame-src https://www.bilibili.com https://player.bilibili.com; connect-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 # 静态资源缓存
 # 文件名未做内容哈希，因此 CSS/JS 只给 1 小时，图片给 7 天。
