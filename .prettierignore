@@ -1,0 +1,2 @@
+# 由 tools/fetch_tier_lists.py 生成的唯一格式，重排会导致 --check 永远有差异
+js/data/*-tier-list.js

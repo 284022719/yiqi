@@ -3,62 +3,71 @@
  *
  * 专精图标与职业信息统一见 specs.js，此处只保留层级与元数据。
  * 来源: https://www.wowhead.com/cn/guide/classes/tier-lists/dps-rankings-raids
- * 更新: 2025/08/09
+ * 更新: 2026/10/24
+ *
+ * 由 tools/fetch_tier_lists.py 自动生成，请勿手改。
  */
 
 const dpsTierList = {
-  "title": "法力熔炉：欧米伽团队副本——地心之战第三赛季",
+  "title": "DPS Raid Rankings for Midnight Season 2 - Best Specs",
   "source": "Dratnos",
-  "lastUpdated": "2025/08/09",
+  "lastUpdated": "2026/10/24",
+  "fetchedAt": "2026/10/24",
   "sourceUrl": "https://www.wowhead.com/cn/guide/classes/tier-lists/dps-rankings-raids",
   "tiers": {
     "S": {
       "name": "S",
       "description": "",
-      "specs": [
-        "warlock|恶魔学识",
-        "death-knight|冰霜"
-      ]
+      "specs": []
+    },
+    "A+": {
+      "name": "A+",
+      "description": "",
+      "specs": []
     },
     "A": {
       "name": "A",
       "description": "",
       "specs": [
+        "warrior|武器",
+        "druid|平衡",
         "priest|暗影",
-        "shaman|元素",
-        "evoker|湮灭",
-        "mage|冰霜",
-        "death-knight|邪恶",
-        "warlock|毁灭",
         "mage|奥术",
-        "evoker|增辉"
+        "warlock|恶魔学识",
+        "hunter|射击",
+        "rogue|奇袭",
+        "monk|踏风"
       ]
     },
     "B": {
       "name": "B",
       "description": "",
       "specs": [
-        "monk|踏风",
-        "hunter|野兽控制",
-        "demon-hunter|浩劫",
-        "mage|火焰",
-        "paladin|惩戒",
-        "warrior|狂怒",
-        "shaman|增强",
-        "hunter|生存",
-        "hunter|射击",
-        "rogue|奇袭",
+        "evoker|湮灭",
         "rogue|敏锐",
-        "rogue|狂徒",
-        "druid|野性",
-        "druid|平衡"
+        "warlock|毁灭",
+        "demon-hunter|浩劫",
+        "demon-hunter|噬灭",
+        "death-knight|冰霜",
+        "shaman|元素",
+        "death-knight|邪恶",
+        "mage|冰霜",
+        "warlock|痛苦",
+        "shaman|增强",
+        "evoker|增辉",
+        "paladin|惩戒"
       ]
     },
     "C": {
       "name": "C",
       "description": "",
       "specs": [
-        "warrior|武器"
+        "hunter|野兽控制",
+        "warrior|狂怒",
+        "druid|野性",
+        "rogue|狂徒",
+        "mage|火焰",
+        "hunter|生存"
       ]
     },
     "D": {

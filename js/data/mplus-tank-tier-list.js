@@ -3,29 +3,35 @@
  *
  * 专精图标与职业信息统一见 specs.js，此处只保留层级与元数据。
  * 来源: https://www.wowhead.com/cn/guide/classes/tier-lists/tank-rankings-mythic-plus
- * 更新: 2025/07/29
+ * 更新: 2026/10/24
+ *
+ * 由 tools/fetch_tier_lists.py 自动生成，请勿手改。
  */
 
 const mplusTankTierList = {
-  "title": "大秘境Tank Rankings - Tier List for The War Within Season 3",
-  "source": "YoDaTV",
-  "lastUpdated": "2025/07/29",
+  "title": "Mythic+ Tank Rankings - Tier List for Midnight Season 2",
+  "source": "YoDa",
+  "lastUpdated": "2026/10/24",
+  "fetchedAt": "2026/10/24",
   "sourceUrl": "https://www.wowhead.com/cn/guide/classes/tier-lists/tank-rankings-mythic-plus",
   "tiers": {
     "S": {
       "name": "S",
       "description": "",
       "specs": [
-        "paladin|防护",
-        "druid|守护"
+        "death-knight|鲜血"
       ]
+    },
+    "A+": {
+      "name": "A+",
+      "description": "",
+      "specs": []
     },
     "A": {
       "name": "A",
       "description": "",
       "specs": [
-        "warrior|防护",
-        "death-knight|鲜血",
+        "druid|守护",
         "demon-hunter|复仇"
       ]
     },
@@ -33,7 +39,9 @@ const mplusTankTierList = {
       "name": "B",
       "description": "",
       "specs": [
-        "monk|酒仙"
+        "warrior|防护",
+        "monk|酒仙",
+        "paladin|防护"
       ]
     },
     "C": {

@@ -26,7 +26,7 @@ const TIER_LISTS = {
   'mplus-tank-tier-list': mplusTankTierList
 };
 
-const TIER_ORDER = ['S', 'A', 'B', 'C', 'D', 'F'];
+const TIER_ORDER = ['S', 'A+', 'A', 'B', 'C', 'D', 'F'];
 
 describe('wow-classes', () => {
   test('13 个职业，id/slug/name 唯一', () => {
@@ -61,9 +61,9 @@ describe('wow-classes', () => {
 });
 
 describe('specs 注册表', () => {
-  test('条目数为 39 且 key 形如 className|专精名', () => {
+  test('条目数为 41 且 key 形如 className|专精名', () => {
     const keys = Object.keys(SPECS);
-    assert.equal(keys.length, 39);
+    assert.equal(keys.length, 41);
     for (const key of keys) {
       assert.match(key, /^[a-z-]+\|.+$/, `key 格式异常: ${key}`);
     }
@@ -74,7 +74,7 @@ describe('specs 注册表', () => {
     assert.equal(spec.class, '圣骑士');
     assert.equal(spec.spec, '防护');
     assert.equal(spec.name, '防护 圣骑士');
-    assert.match(spec.icon, /^https?:\/\//);
+    assert.match(spec.icon, /^(https?:\/\/|\/img\/)/);
   });
 
   test('未知 id 抛出明确错误', () => {

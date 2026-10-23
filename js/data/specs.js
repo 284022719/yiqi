@@ -2,7 +2,10 @@
  * 专精注册表（唯一数据源）
  *
  * 6 份天梯数据文件此前各自重复声明了 class / spec / icon，
- * 共 70 处引用但只有 39 个唯一专精。这里统一收敛。
+ * 共 70 处引用但只有 39 个唯一专精；至暗之夜新增噬灭、痛苦后为 41 个。这里统一收敛。
+ *
+ * 图标两种来源：早期条目用网易 CDN 的官方图；至暗之夜新增的
+ * 痛苦术士 / 噬灭恶魔猎手没有现成 CDN 图，改放 img/specs/ 自托管（CSP 只放行白名单域名）。
  *
  * key 规则: '<职业 slug>|<专精中文名>'
  */
@@ -87,6 +90,11 @@ export const SPECS = {
     class: '牧师',
     spec: '神圣',
     icon: 'https://wow.res.netease.com/xt/manage/20241217/7276c129e44efe8bc92cfaa0e82c81e2_7276c1.jpg'
+  },
+  'warlock|痛苦': {
+    class: '术士',
+    spec: '痛苦',
+    icon: '/img/specs/warlock-affliction.jpg'
   },
   'warlock|恶魔学识': {
     class: '术士',
@@ -187,6 +195,11 @@ export const SPECS = {
     class: '恶魔猎手',
     spec: '浩劫',
     icon: 'https://wow.res.netease.com/xt/manage/20241217/edb77caa99e888d3ecb32b5dfc25d966_edb77c.jpg'
+  },
+  'demon-hunter|噬灭': {
+    class: '恶魔猎手',
+    spec: '噬灭',
+    icon: '/img/specs/demon-hunter-devourer.jpg'
   },
   'evoker|恩护': {
     class: '唤魔师',

@@ -10,7 +10,12 @@ import { resolveClassColor } from '../data/wow-classes.js';
 import { escapeAttr, escapeHtml } from '../core/dom.js';
 import { icon } from '../core/icons.js';
 
-const TIER_ORDER = ['S', 'A', 'B', 'C', 'D', 'F'];
+const TIER_ORDER = ['S', 'A+', 'A', 'B', 'C', 'D', 'F'];
+
+/** CSS 类名里不能出现 '+'，A+ 需要映射成 tier-a-plus。 */
+function tierClassName(tierKey) {
+  return `tier-${tierKey.toLowerCase().replace('+', '-plus')}`;
+}
 
 const TYPE_ICONS = { dps: icon('sword'), healer: icon('heart'), tank: icon('shield') };
 const TYPE_NAMES = { dps: 'DPS', healer: '治疗', tank: '坦克' };
@@ -37,7 +42,7 @@ export class TierList {
             <p class="tier-list-title">${escapeHtml(this.tierData.title)}</p>
             <p class="tier-list-source">
               数据来源: <a href="${escapeAttr(this.tierData.sourceUrl)}" target="_blank" rel="noopener">Wowhead</a>
-              (作者: ${escapeHtml(this.tierData.source)}, 更新: ${escapeHtml(this.tierData.lastUpdated)})
+              ${this.renderSourceMeta()}
             </p>
           </div>
         </div>
@@ -46,6 +51,18 @@ export class TierList {
         </div>
       </div>
     `;
+  }
+
+  /**
+   * 来源行尾注：有独立作者就显示「作者 + 更新」，没有（即 Wowhead 官方 guide）只显示更新日期。
+   * 否则会出现「数据来源: Wowhead（作者: Wowhead）」这种自指。
+   */
+  renderSourceMeta() {
+    const updated = escapeHtml(this.tierData.lastUpdated);
+    const author = this.tierData.source;
+    return author && author !== 'Wowhead'
+      ? `(作者: ${escapeHtml(author)}, 更新: ${updated})`
+      : `(更新: ${updated})`;
   }
 
   renderTiers() {
@@ -60,7 +77,7 @@ export class TierList {
       return `
         <div class="tier-row" data-tier="${tierKey}" style="--tier-index:${index};">
           <div class="tier-header">
-            <div class="tier-label tier-${tierKey.toLowerCase()}">${escapeHtml(tier.name)}</div>
+            <div class="tier-label ${tierClassName(tierKey)}">${escapeHtml(tier.name)}</div>
             ${description}
           </div>
           <div class="tier-specs">

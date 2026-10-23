@@ -3,38 +3,46 @@
  *
  * 专精图标与职业信息统一见 specs.js，此处只保留层级与元数据。
  * 来源: https://www.wowhead.com/cn/guide/classes/tier-lists/healer-rankings-raids
- * 更新: 2025/07/29
+ * 更新: 2026/10/24
+ *
+ * 由 tools/fetch_tier_lists.py 自动生成，请勿手改。
  */
 
 const healerTierList = {
-  "title": "法力熔炉：欧米伽团队副本——地心之战第三赛季",
-  "source": "korimae",
-  "lastUpdated": "2025/07/29",
+  "title": "Healer Raid Rankings - Tier List for Midnight Season 2",
+  "source": "Korimae",
+  "lastUpdated": "2026/10/24",
+  "fetchedAt": "2026/10/24",
   "sourceUrl": "https://www.wowhead.com/cn/guide/classes/tier-lists/healer-rankings-raids",
   "tiers": {
     "S": {
       "name": "S",
       "description": "",
       "specs": [
-        "priest|神圣",
-        "druid|恢复"
+        "evoker|恩护"
       ]
+    },
+    "A+": {
+      "name": "A+",
+      "description": "",
+      "specs": []
     },
     "A": {
       "name": "A",
       "description": "",
       "specs": [
-        "shaman|恢复",
-        "paladin|神圣",
-        "monk|织雾"
+        "priest|戒律",
+        "priest|神圣",
+        "shaman|恢复"
       ]
     },
     "B": {
       "name": "B",
       "description": "",
       "specs": [
-        "priest|戒律",
-        "evoker|恩护"
+        "paladin|神圣",
+        "druid|恢复",
+        "monk|织雾"
       ]
     },
     "C": {
