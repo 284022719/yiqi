@@ -12,7 +12,9 @@
     "lint:fix": "eslint js netlify/functions --fix",
     "format": "prettier --write \"js/**/*.js\" \"css/**/*.css\" \"*.html\" \"pages/**/*.html\"",
     "format:check": "prettier --check \"js/**/*.js\" \"css/**/*.css\" \"*.html\" \"pages/**/*.html\"",
-    "data:build": "python tools/build_page_data.py",
+    "data:fetch": "python tools/fetch_guild_roster.py --enrich",
+    "data:build": "python tools/build_page_data_rio.py",
+    "data:build:legacy": "python tools/build_page_data.py",
     "data:validate": "python tools/validate.py"
   },
   "dependencies": {

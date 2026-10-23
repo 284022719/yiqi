@@ -14,8 +14,8 @@
 #   style-src-attr 'unsafe-inline'                ← 现代浏览器：只给 style 属性开口子
 #
 # 现状与取舍：
-#   - 全站已无内联 <style> 块（0 处），但仍有 15 处数据驱动的 style 属性
-#     （天梯的 --class-color、图表的条形宽度等），这类值无法用类穷举。
+#   - 全站已无内联 <style> 块（0 处），但仍有 13 处数据驱动的 style 属性
+#     （天梯的 --class-color、图表的条形宽度等，当前共 13 处），这类值无法用类穷举。
 #   - 于是把「元素级样式」与「属性级样式」拆开：前者严格，后者保留。
 #     将来若把数据驱动样式改为 SVG/类，删掉 style-src-attr 即可彻底去掉 unsafe-inline。
 #   - style-src 里保留 'unsafe-inline' 是为了 Safari < 15.4 等老浏览器：

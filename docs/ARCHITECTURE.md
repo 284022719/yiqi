@@ -7,10 +7,10 @@
 | 页面 | 额外入口 | 初始化的模块 |
 |---|---|---|
 | `index.html` | — | `GuildStatsLoader`、`ImageModal`、`ParticleSystem`、`IframeErrorHandler` |
-| `pages/all-rankings.html` | 内联 module | `TierList` × 6、`RankingNav` + `main.js` 的通用逻辑 |
+| `pages/all-rankings.html` | `js/pages/all-rankings.js` | `TierList` × 6、`RankingNav` + `main.js` 的通用逻辑 |
 | `pages/gallery.html` | — | `ImageUploader`、`ImageModal` |
 | `pages/wcl.html` | — | `WCLDataLoader` |
-| `pages/class-colors.html` | 内联 module | `ClassColorPalette` + `main.js` 的通用逻辑 |
+| `pages/class-colors.html` | `js/pages/class-colors.js` | `ClassColorPalette` + `main.js` 的通用逻辑 |
 | `pages/H6.html` / `H7.html` | — | `ImageModal`（图片放大） |
 
 > 页面里不要再写静态 `<footer class="footer-container">`：footer 由 `components/footer.js` 统一追加，重复会生成两个节点。
@@ -25,6 +25,7 @@ js/
   data/            纯数据：职业表、专精注册表、天梯排名、图表配色
   components/      可复用 UI：TierList、Chart、RankingNav、Header、Footer、Nav
   modules/         页面级控制器：统计、WCL、画廊、灯箱、粒子
+  pages/           子页面入口（all-rankings / class-colors），只做装配
 ```
 
 依赖方向：`modules` → `components` → `data` / `core`；`data` 不得反向依赖其他层。
@@ -66,19 +67,21 @@ JS 侧需要十六进制值时调用 `js/data/wow-classes.js#resolveClassColor(c
 - `js/data/*-tier-list.js`：只保存层级与 id 列表，例如 `S: { specs: ['paladin|防护'] }`
 - `js/components/TierList.js`：渲染，颜色取自 `resolveClassColor`
 
-新增一个专精时只改 `specs.js`，6 份天梯文件共享同一份图标定义。
+新增专精要改三处：`specs.js`（id + 图标）、`tools/wow_terms.py#SPEC_BY_EN`（英文名 → id，天梯抓取与成员统计共用）、`js/components/TierList.js#TIER_ORDER`（只在新增档位时改）。6 份天梯文件共享同一份图标定义，且由脚本生成，不要手改。
 
 ## 4. 数据流
 
 ```
-Blizzard API ──tools/mounts_crawler.py──▶ SQLite(data/guild_database.db)
-                                              │
-                                              └──tools/build_page_data.py──▶ data/page_data.json
-                                                                                    │
-首页 GuildStatsLoader ──fetch──▶ data/page_data.json ◀──────────────────────────────┘
+Raider.IO ──tools/fetch_guild_roster.py──▶ data/guildmember.rio.json ──tools/build_page_data_rio.py──▶ data/page_data.json
+                                                                                                          │
+首页 GuildStatsLoader ──fetch──▶ data/page_data.json ◀────────────────────────────────────────────────────┘
+
+Wowhead guide ──tools/fetch_tier_lists.py──▶ js/data/*-tier-list.js ──import──▶ pages/all-rankings.html
 
 WarcraftLogs ──netlify/functions/wcl-proxy.js──▶ pages/wcl.html
 Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
+
+（旧链路，已暂停：Blizzard 英雄榜 ──mounts_crawler.py──▶ SQLite ──build_page_data.py──▶ page_data.json）
 ```
 
 `page_data.json` 的字段契约见 [DATA_PIPELINE.md](DATA_PIPELINE.md#输出结构)。
@@ -87,16 +90,16 @@ Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
 
 | 决策 | 原因 | 代价 |
 |---|---|---|
-| 不引入框架/构建链 | 站点仅 8 个页面，构建链维护成本高于收益 | 无组件化、无 tree-shaking、依赖靠浏览器原生 ESM |
+| 不引入框架/构建链 | 站点仅 7 个页面，构建链维护成本高于收益 | 无组件化、无 tree-shaking、依赖靠浏览器原生 ESM |
 | Netlify Functions 用 CommonJS | Netlify 默认打包方式，`package.json` 未设 `type: module` | 不能直接复用前端 ESM 模块 |
-| `page_data.json` 随仓库分发 | 无需运行时后端，首屏快 | 数据新鲜度依赖手动重跑管道 |
+| `page_data.json` 随仓库分发 | 无需运行时后端，首屏快 | 新鲜度靠两个定时工作流（每天/每周）刷新，失败时页面保持上一版 |
 | 静态 HTML 无模板引擎 | 页面少、改动少 | 重复的 `<head>` 需要手工保持一致 |
 
 ## 6. 测试与安全策略
 
 ### 6.1 测试
 
-零依赖：JS 用 `node:test`，Python 用 `unittest`，`npm test` 一条命令跑完。
+零测试框架依赖：JS 用 `node:test`（不需要 npm install），Python 用 `unittest`（需要 `requests`，因为会 import 抓取脚本）。
 测试文件在 `tests/`，CI 配置在 `.github/workflows/ci.yml`。详见 [../README.md](../README.md#测试)。
 
 设计上的两个刻意选择：
@@ -113,7 +116,7 @@ Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
 | `script-src` | `'self'` | 页面内联 `<script>` 已全部外链化（`js/pages/*.js`） |
 | `style-src` | `'self'` + cdnjs + `'unsafe-inline'` | **老浏览器兜底**：不认识下面两条时会 fallback 到这里 |
 | `style-src-elem` | `'self'` + cdnjs | 现代浏览器：内联 `<style>` 块与外部样式表白名单（当前 `<style>` 块为 0） |
-| `style-src-attr` | `'unsafe-inline'` | 现代浏览器：只给 15 处数据驱动的 style 属性开口子 |
+| `style-src-attr` | `'unsafe-inline'` | 现代浏览器：只给 13 处数据驱动的 style 属性开口子 |
 | `img-src` | `'self' data:` + 5 个图床域 | netease 职业图标、Cloudinary、raiderio、YY、战网 |
 | `frame-src` | bilibili 两个域 | 直播播放器与视频播放器 |
 | 其他 | `object-src 'none'`、`base-uri 'self'`、`form-action 'self'` | |
@@ -130,6 +133,6 @@ Cloudinary   ──handle-upload.js / get-images.js──▶ pages/gallery.html
 ## 7. 后续可做
 
 1. **`style-src` 去 `unsafe-inline`**：需要把数据驱动的内联 style 改为预定义 class（天梯 6×39 种组合，可用 CSS 变量 + 少量类实现）。
-2. **数据自动化**：把 `tools/build_page_data.py` 放进 CI（定时任务），配合 `validate.py --strict` 防止数据长期停滞。
+2. ~~**数据自动化**~~ ✅ 2026-10-24：`guild-stats-refresh.yml`（每日，Raider.IO）与 `tier-list-refresh.yml`（每周，Wowhead），有变化才提交。
 3. **视觉回归**：目前改动 CSS 后仍依赖人工核对，可引入截图对比（本项目已用无头 Edge 做过一次性对比）。
 4. **lint 进 CI**：需要先同步 `package-lock.json`（当前 devDependencies 未入锁）。

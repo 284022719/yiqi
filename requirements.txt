@@ -1,19 +1,12 @@
-# 一起公会项目 Python 依赖包
-
-# Web自动化
-selenium>=4.0.0
-
-# 数据处理
+# Python dependencies for the yiqi guild site.
+#
+# Only requests is needed by the current pipeline (Raider.IO / Wowhead fetchers
+# and the page_data builder).
+#
+# Removed on 2026-10-24: selenium, colorama, python-dateutil, pathlib2, pickle5.
+# No script imports them anymore (legacy armory pipeline leftovers); restore from
+# git history if an old script ever needs them again.
+#
+# Note: keep this file ASCII-only. pip on Windows decodes it with the system
+# codepage (cp936 here), so non-ASCII comments make `pip install -r` crash.
 requests>=2.25.0
-
-# 日志处理
-colorama>=0.4.4
-
-# 时间处理
-python-dateutil>=2.8.0
-
-# 文件操作
-pathlib2>=2.3.0
-
-# 数据序列化
-pickle5>=0.0.11; python_version < "3.8" 

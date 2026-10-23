@@ -3,6 +3,10 @@
 """
 从数据库生成 data/page_data.json，供前端直接 fetch。
 
+**已不是默认链路**：英雄榜（wow.blizzard.cn）现在要战网登录，这条管线只适合「手里已有登录态导出的
+guild_database.db」的场景。首页当前走 tools/build_page_data_rio.py（Raider.IO，公开接口），
+两套脚本输出的结构一致但统计口径不同，见 docs/DATA_PIPELINE.md §4。
+
 相对旧版的修正：
 1. 不再硬编码 cut-off 时间戳，也不再把毫秒时间戳当秒比较（见 timeutil.py）。
 2. 统计口径拆分为三个独立指标：totalMembers / activeMembers / dataCompleteness。

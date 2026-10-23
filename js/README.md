@@ -15,6 +15,9 @@ js/
 │   ├── healer-tier-list.js 团本治疗
 │   ├── tank-tier-list.js   团本坦克
 │   └── mplus-*.js          大秘境三系
+├── pages/
+│   ├── all-rankings.js  排名总览页装配（6 个 TierList）
+│   └── class-colors.js  配色预览页装配
 ├── components/
 │   ├── TierList.js         天梯渲染（样式见 css/tier-list.css）
 │   ├── Chart.js            renderBarChart / renderPieChart
@@ -35,7 +38,7 @@ js/
 1. 拼接 HTML 必须转义：`import { escapeHtml, escapeAttr } from '../core/dom.js'`。
 2. 调试输出用 `log()`（`js/config.js`），默认静默；不要留 `console.log`。
 3. 职业颜色不要新增色表：用 `resolveClassColor(className)`，颜色定义在 `css/variables.css`。
-4. 天梯专精图标只改 `data/specs.js`；天梯层级只改 `data/*-tier-list.js`。
+4. 天梯专精图标改 `data/specs.js`；天梯层级**不要手改** `data/*-tier-list.js`（由 `tools/fetch_tier_lists.py` 生成）。
 5. 样式属于 `css/`，JS 里不要 `createElement('style')`。
 
 架构与数据流详见 [../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)。

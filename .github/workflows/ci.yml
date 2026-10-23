@@ -22,8 +22,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      # 测试只用标准库（node:test / unittest），不需要 npm install，
+      # Python 测试会 import 抓取脚本（requests）；JS 测试只用标准库，不需要 npm install，
       # 所以这一步不依赖 package-lock.json 是否最新。
+      - name: 安装 Python 依赖
+        run: pip install -r requirements.txt
+
       - name: JS 单元测试
         run: node --test
 

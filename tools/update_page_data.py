@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-自动更新页面数据脚本
+自动更新页面数据脚本（旧链路）
 
-在爬虫完成后运行，重新生成 data/page_data.json。
+在英雄榜爬虫完成后运行，重新生成 data/page_data.json。
+当前默认链路是 tools/fetch_guild_roster.py + tools/build_page_data_rio.py，见 docs/DATA_PIPELINE.md §12。
 路径解析统一走 paths.py，不依赖调用时的 cwd。
 """
 
