@@ -3,6 +3,7 @@
 | 文档 | 内容 |
 |---|---|
 | [../README.md](../README.md) | 项目概览、本地运行、环境变量、开发约定 |
+| [ONBOARDING.md](ONBOARDING.md) | 上手 / 交接：30 分钟跑起来、改哪儿、发布与回滚、已知坑、决策记录 |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 页面与入口、JS 分层、渲染约定、数据流、取舍 |
 | [DATA_PIPELINE.md](DATA_PIPELINE.md) | 成员统计（Raider.IO）与职业天梯（Wowhead）两条管道、统计口径、输出契约、已知问题 |
 | [REFACTOR_PLAN.md](REFACTOR_PLAN.md) | 重构方案与验收清单（历史决策记录） |

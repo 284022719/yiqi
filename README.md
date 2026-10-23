@@ -6,7 +6,7 @@
 - 后端：Netlify Functions（WCL 代理、Cloudinary 图床）
 - 数据：Raider.IO / Wowhead 公开接口离线抓取 → 生成 `data/page_data.json` 与 `js/data/*-tier-list.js`
 
-详细设计见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 与 [docs/DATA_PIPELINE.md](docs/DATA_PIPELINE.md)。
+详细设计见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) 与 [docs/DATA_PIPELINE.md](docs/DATA_PIPELINE.md)；第一次上手 / 交接看 [docs/ONBOARDING.md](docs/ONBOARDING.md)（30 分钟跑起来、改哪儿、发布与回滚、已知坑）。
 
 ## 目录
 
