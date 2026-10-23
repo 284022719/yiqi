@@ -1,7 +1,7 @@
 /**
  * 公会统计数据加载与渲染
  *
- * 数据来源：data/page_data.json（由 tools/build_page_data.py 生成）。
+ * 数据来源：data/page_data.json（由 tools/build_page_data_rio.py 生成，Raider.IO 口径）。
  * 图表渲染统一走 components/Chart.js，本模块只负责取数与映射。
  */
 
@@ -84,14 +84,18 @@ export class GuildStatsLoader {
     setText('activeMembers', stats.activeMembers);
     // 展示「数据本身截至的时间」，避免把生成时间误读成数据新鲜度
     setText('lastUpdated', dataAsOf);
-    setText('activeWindowHint', ` · 页面生成于 ${generatedAt}`);
+    const sourceHint = this.statsData?.meta?.source === 'raider.io' ? ' · 数据来源 Raider.IO' : '';
+    setText('activeWindowHint', ` · 页面生成于 ${generatedAt}${sourceHint}`);
 
     if (stats.dataCompleteness) {
       setText('dataCompleteness', `${stats.dataCompleteness.percentage}%`);
     }
 
     if (activeWindow?.days) {
-      setText('activeMembersLabel', `近 ${activeWindow.days} 天活跃`);
+      setText('activeMembersLabel', activeWindow.label || `近 ${activeWindow.days} 天活跃`);
+      // 活跃口径与英雄榜时代不同（Raider.IO 没有最后在线时间），把定义挂在 label 的 tooltip 上
+      const label = byId('activeMembersLabel');
+      if (label && activeWindow.note) label.title = activeWindow.note;
     }
   }
 

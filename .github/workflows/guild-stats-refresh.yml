@@ -1,0 +1,51 @@
+name: 公会成员数据刷新
+
+# 每天从 Raider.IO 抓一次成员名单（含装备等级与本季大秘境分数），重算 data/page_data.json。
+# 为什么不抓英雄榜：wow.blizzard.cn 的英雄榜要求战网登录，CI 里没有登录态（见 docs/DATA_PIPELINE.md §12）。
+on:
+  schedule:
+    - cron: '0 3 * * *'   # UTC 03:00 = 北京时间 11:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      # 724 个角色逐个补 ilvl/分数，约 5~10 分钟；失败即中断，不写半成品
+      - name: 抓取成员名单
+        run: python tools/fetch_guild_roster.py --enrich --delay 0.25
+
+      - name: 生成页面数据
+        run: python tools/build_page_data_rio.py
+
+      - name: 校验
+        run: python tools/validate.py
+
+      - name: JS 测试
+        run: node --test
+
+      - name: 提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/page_data.json
+          if git diff --cached --quiet; then
+            echo "没有实际改动，跳过提交"
+            exit 0
+          fi
+          git commit -m "data(members): 自动刷新公会成员统计（Raider.IO）"
+          git push
