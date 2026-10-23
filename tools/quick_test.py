@@ -1,16 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+
 import requests
 from config import config
 
 def test_new_token():
-    """测试新令牌"""
-    
-    # 新令牌
-    new_token = "YOUR_TOKEN_HERE"
-    # 旧令牌
-    old_token = "YOUR_TOKEN_HERE"
+    """测试令牌：从环境变量读取，仓库里不存令牌。"""
+
+    # 在 wow.blizzard.cn 登录后取到的 armory 令牌，用环境变量传入：
+    #   WOW_ARMORY_TOKEN=<token> python tools/quick_test.py
+    new_token = os.environ.get("WOW_ARMORY_TOKEN", "").strip()
+    # 需要对比旧令牌时可选设置；不设置就只测一个。
+    old_token = os.environ.get("WOW_ARMORY_TOKEN_OLD", "").strip()
+
+    if not new_token:
+        print("跳过：未设置 WOW_ARMORY_TOKEN（本脚本不内置令牌）")
+        return 1
     
     base_url = "https://webapi.blizzard.cn/wow-armory-server/api/do"
     headers = {
@@ -44,7 +52,11 @@ def test_new_token():
     except Exception as e:
         print(f"❌ 新令牌异常: {e}")
     
-    # 测试旧令牌
+    # 测试旧令牌（可选：未设置 WOW_ARMORY_TOKEN_OLD 就跳过）
+    if not old_token:
+        print("\n跳过旧令牌对比：未设置 WOW_ARMORY_TOKEN_OLD")
+        return 0
+
     print(f"\n测试旧令牌: {old_token[:10]}...")
     params = {"api": "mounts", "token": old_token, "attr": "HORDE"}
     

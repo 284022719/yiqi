@@ -149,12 +149,13 @@ to_unix_seconds(1754329119000)  # -> 1754329119
 |---|---|---|---|
 | 数据停滞 | `dataAsOf = 2025-08-04`，距 2026-10 已 440 天 | 页面数字反映的是一年多前的状态 | 重跑爬虫；长期方案是排定时任务 |
 | 坐骑数全部相同 | 277 个有坐骑数据的角色 `mounts_now` 均为 369 | 坐骑维度无区分度 | 排查令牌复用问题，见 `docs/archive/API_ISSUE_ANALYSIS.md` |
-| 爬虫令牌未外置 | `tools/config.py` 与 `data/Database/config.json` 仍硬编码令牌 | 安全风险 | 见 §10 |
-| 配置文件重复 | `data/config.json` 与 `data/Database/config.json` 两份 | 易改错 | 合并为一份 |
+| 爬虫令牌未外置 | **已解决（2026-10-23）**：令牌移出仓库，改读 `WOW_ARMORY_TOKEN`；历史提交另行清理 | — | 轮换旧令牌即可 |
+| 配置文件重复 | `data/config.json` 与 `data/Database/config.json` 已停止跟踪；统一用 `tools/config.json`（gitignore）+ `tools/config.example.json` | 已收敛 | — |
 
 ## 10. 待办
 
-1. **令牌外置**：改为读取环境变量（如 `BLIZZARD_API_TOKEN`），移除 `config.py` 内置常量与文档中的明文令牌，随后轮换令牌。
-2. **配置合一**：合并两份 `config.json`，迁移到 `tools/config.json`（已被 `.gitignore` 覆盖），仓库只保留 `config.example.json`。
-3. **数据出库**：`data/guild_database.db`、`data/guildmember.csv` 仍在 git 跟踪中，需用 `git rm --cached` 停止跟踪（本地文件保留）。
+1. ~~**令牌外置**~~ ✅ 2026-10-23：`config.py` 不再内置常量，文档中的明文令牌已替换为占位符；
+   仍待做的是**轮换旧令牌**（去 wow.blizzard.cn 重新登录取新令牌）。
+2. ~~**配置合一**~~ ✅ 2026-10-23：候选顺序改为 `tools/config.json` → 旧位置回退；仓库只保留 `tools/config.example.json`。
+3. ~~**数据出库**~~ ✅ 2026-10-23：`data/guild_database.db`、`data/guildmember.csv`、两份 `config.json` 已 `git rm --cached`（本地文件保留）。
 4. **自动化**：定时执行 `build_page_data.py` + `validate.py --strict`，避免再次出现 400 天停滞。

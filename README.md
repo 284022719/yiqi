@@ -69,8 +69,11 @@ ACTIVE_DAYS=14 python tools/build_page_data.py
 | `WCL_CLIENT_ID` / `WCL_CLIENT_SECRET` | WarcraftLogs OAuth | 是（开荒记录页） |
 | `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | 画廊图床 | 是（画廊页） |
 | `UPLOAD_TOKEN` | 上传口令；**设置后**上传接口才要求鉴权 | 否 |
+| `WOW_ARMORY_TOKEN` | 暴雪国服 armory 令牌（Python 数据管道用，不参与建站） | 否（只有跑爬虫/令牌测试时需要） |
 
-> 暴雪 API 令牌外置尚未完成（历史上硬编码在 `data/config.json` 与 `tools/config.py` 中），见 [docs/DATA_PIPELINE.md](docs/DATA_PIPELINE.md#待办)。
+> 暴雪 API 令牌已经外置：仓库里不再有任何令牌，`tools/config.py` 优先读 `WOW_ARMORY_TOKEN`，
+> 其次读 `tools/config.json`（已 gitignore；示例见 `tools/config.example.json`）。
+> 网站本身不依赖这个令牌——静态页面只读 `data/page_data.json`。
 
 ## 开发约定
 

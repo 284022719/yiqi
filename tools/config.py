@@ -16,12 +16,13 @@ from paths import REPO_ROOT
 def default_config_path() -> str:
     """按优先级定位配置文件，不依赖调用时的 cwd。
 
-    注意：令牌外置尚未完成，配置文件仍留在旧位置 data/Database/config.json，
-    迁移到 tools/config.json 后本函数的候选顺序会自动命中新位置。
+    新位置是 tools/config.json（已在 .gitignore 中），示例见 tools/config.example.json；
+    旧位置 data/Database/config.json 只作为兼容回退，仓库里不再跟踪它。
+    令牌优先取环境变量 WOW_ARMORY_TOKEN，其次取配置文件的 tokens.default。
     """
     candidates = [
-        REPO_ROOT / "data" / "Database" / "config.json",
         REPO_ROOT / "tools" / "config.json",
+        REPO_ROOT / "data" / "Database" / "config.json",
         REPO_ROOT / "config.json",
         Path.cwd() / "config.json",
     ]
@@ -71,8 +72,9 @@ class Config:
                 "backup_count": 5
             },
             "tokens": {
-                # 默认令牌
-                "default": "YOUR_TOKEN_HERE",
+                # 默认令牌：**不要写进仓库**。用环境变量 WOW_ARMORY_TOKEN 注入，
+                # 或放在 tools/config.json（已 gitignore）里。
+                "default": "",
                 # 角色特定令牌
                 "characters": {
                     # "角色名-服务器": "令牌"
@@ -81,10 +83,14 @@ class Config:
                 # 服务器级别令牌
                 "realms": {
                     # "服务器名": "令牌"
-                    # "arthas": "YOUR_TOKEN_HERE"
+                    # "arthas": "your_token_here"
                 }
             }
         }
+
+        token_env = os.environ.get("WOW_ARMORY_TOKEN", "").strip()
+        if token_env:
+            default_config["tokens"]["default"] = token_env
         
         if os.path.exists(self.config_file):
             try:
